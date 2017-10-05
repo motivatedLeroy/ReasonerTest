@@ -1,36 +1,24 @@
+package RDFCases;
+
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
 import org.apache.jena.reasoner.rulesys.Rule;
-import org.apache.jena.vocabulary.RDFS;
 
 import java.util.Iterator;
 
-public class RDFReasoner {
+public class RDFReasonerMath {
 
-
-    String NS = "eg:";
-
-    // Build a trivial example data set
-    /*Model rdfsExample = ModelFactory.createDefaultModel();
-    Property A = rdfsExample.createProperty("eg");
-    Property B = rdfsExample.createProperty("concatSecond");
-    Property C = rdfsExample.createProperty("C");
-    Property D = rdfsExample.createProperty("D");
-    Resource emptyNode1 = rdfsExample.createResource("A");
-    Resource emptyNode2 = rdfsExample.createResource("B");*/
 
 
     // create an empty Model
     Model model = ModelFactory.createDefaultModel();
 
     // create the resource
-    Resource r = model.createResource("eg:r");
-    Resource p = model.createResource("eg:p");
-    Resource q = model.createResource("eg:q");
-    Resource A = model.createResource("eg:A");
-    Resource B = model.createResource("eg:B");
-    Resource C = model.createResource("eg:C");
+    Resource numbers = model.createResource("eg:numbers");
+    Property number = model.createProperty("eg:number0");
+    Property number1 = model.createProperty("eg:number1");
+
 
     Resource emptyNode = model.createResource();
 
@@ -45,15 +33,29 @@ public class RDFReasoner {
 
 
     public void setUpExample(){
-        r.addProperty(model.createProperty("eg:", "concatSecond"), q);
-        r.addProperty(model.createProperty("eg:", "concatFirst"), p);
-        A.addProperty(model.createProperty("eg:p"), B);
-        B.addProperty(model.createProperty("eg:q"), C);
+        model.setNsPrefix("x","eg:");
+        numbers.addProperty(number,"0");
+        numbers.addProperty(number1,"1");
+  /*      numbers.addProperty(model.createProperty("eg:","number1"),"1");
+        numbers.addProperty(model.createProperty("eg:","number2"),"2");
+        numbers.addProperty(model.createProperty("eg:","number3"),"3");
+        numbers.addProperty(model.createProperty("eg:","number4"),"4");
+        numbers.addProperty(model.createProperty("eg:","number5"),"5");
+        numbers.addProperty(model.createProperty("eg:","number6"),"6");
+        numbers.addProperty(model.createProperty("eg:","number7"),"7");
+        numbers.addProperty(model.createProperty("eg:","number8"),"8");
+        numbers.addProperty(model.createProperty("eg:","number9"),"9");
+        numbers.addProperty(model.createProperty("eg:","number10"),"10");
+*/
 
 
 
 
-        StmtIterator iterator = model.listStatements();
+
+
+
+
+        /*StmtIterator iterator = model.listStatements();
 
         while (iterator.hasNext()){
             Statement stmt      = iterator.nextStatement();  // get next statement
@@ -72,20 +74,25 @@ public class RDFReasoner {
 
             System.out.println(" .");
 
-        }
+        }*/
 
 
 
         String rules =
-                "[r1: (?c eg:concatFirst ?p), (?c eg:concatSecond ?q) -> " +
-                        "     [r1b: (?x ?c ?y) <- (?x ?p ?z) (?z ?q ?y)] ]";
+                // "[r11: (?r eg:concatFirst ?p), (?r eg:concatSecond ?q) -> " +
+                //"     [r1b: (?x ?r ?y) <- (?x ?p ?z) (?z ?q ?y)] ]";
+
+            "     [r1: (?A ?T ?B) (?A ?R ?C) addOne(?B ?C) -> print(?B)]";
         Reasoner reasoner = new GenericRuleReasoner(Rule.parseRules(rules));
         InfModel inf = ModelFactory.createInfModel(reasoner, model);
+        model.write(System.out);
+
         System.out.println("A *  =>");
-        Iterator list = inf.listStatements(A, null, (RDFNode)null);
+        Iterator list = inf.listStatements(numbers, null, (RDFNode)null);
         while (list.hasNext()) {
             System.out.println(" - " + list.next());
         }
+
 
 
 
@@ -94,7 +101,8 @@ public class RDFReasoner {
 
     public static void main(String []args){
 
-        RDFReasoner reasoner = new RDFReasoner();
+        RDFReasonerMath reasoner = new RDFReasonerMath();
+
         reasoner.setUpExample();
     }
 

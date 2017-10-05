@@ -1,0 +1,1 @@
+[transitiveRule: (?A demo:p ?B), (?B demo:p ?C) -> (?A demo:p ?C) ]
