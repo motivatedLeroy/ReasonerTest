@@ -2,12 +2,16 @@ package GUI;
 
 import Controller.RuleButtonListener;
 import Controller.RuleExecutionButton;
+import org.apache.jena.rdf.model.RDFWriter;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.Writer;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -160,6 +164,7 @@ public class Main {
         rdfPreviewArea.setBorder(new CompoundBorder(new EmptyBorder(10,10,10,10),new EtchedBorder(Color.GRAY, Color.DARK_GRAY)));
         rdfPreviewArea.setFont(new Font(ruleTextArea.getFont().getName(), 0, 20));
         rdfPreviewArea.setEditable(false);
+
         rdfPreviewArea.setText("<rdf:RDF\n" +
                 "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
                 "    xmlns:eg=\"urn:x-hp:eg/\" > \n" +
@@ -187,7 +192,12 @@ public class Main {
         bottomMidPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.33), (int)(screenSize.height*0.5)));
         bottomMidPanel.setLayout(bottomMidLayout);
         executeRule.setMaximumSize(new Dimension((int)(screenSize.width*0.2), (int)(screenSize.height*4)));
-        executeRule.addActionListener(new RuleExecutionButton(ruleTextArea));
+        RuleExecutionButton listener = new RuleExecutionButton(ruleTextArea);
+        executeRule.addActionListener(listener);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        listener.getData().write(outputStream);
+        String rdfInput = new String(outputStream.toByteArray());
+        rdfPreviewArea.setText(rdfInput);
 
         Component glue1 = Box.createVerticalGlue();
         glue1.setMaximumSize(new Dimension(0, 1000));
