@@ -12,6 +12,8 @@ import org.apache.jena.util.PrintUtil;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class RDFReasonerEx2 {
@@ -25,22 +27,26 @@ public class RDFReasonerEx2 {
       /*  PrintUtil.registerPrefix("demo", demoURI);
         // Create an (RDF) specification of a hybrid reasoner which
 // loads its data from an external file.
-        Model m = ModelFactory.createDefaultModel();
+         */Model m = ModelFactory.createDefaultModel();
         Resource configuration =  m.createResource();
         configuration.addProperty(ReasonerVocabulary.PROPruleMode, "hybrid");
         configuration.addProperty(ReasonerVocabulary.PROPruleSet,  "demo.rules");
 
 
-        // Create an instance of such a reasoner
-        Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(configuration);
+       // Create an instance of such a reasoner
+        Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(null);
 
 
         // Load test data
-        Model model = FileManager.get().loadModel("demoData.rdf");
+        Model model = FileManager.get().loadModel("musicRDF.rdf");
+
         InfModel infmodel = ModelFactory.createInfModel(reasoner, model);
 
 
         StmtIterator iterator = model.listStatements();
+        ArrayList<String[]> statements = new ArrayList<>();
+        HashSet<String> tempSub0 = new HashSet<>();
+        HashSet<String> tempPred = new HashSet<>();
 
         while (iterator.hasNext()){
             Statement stmt      = iterator.nextStatement();  // get next statement
@@ -48,7 +54,33 @@ public class RDFReasonerEx2 {
             Property  predicate = stmt.getPredicate();   // get the predicate
             RDFNode   object    = stmt.getObject();      // get the object
 
-            System.out.print(subject.toString());
+            String[] statement = new String[]{subject.toString(), predicate.toString()};
+
+            String[] sub = statement[0].split("/");
+            String tempSub1 = "";
+            for(int i = 0; i < sub.length; i++){
+                if(i < sub.length-1){
+                    tempSub1+= sub[i];
+                }
+            }
+
+            statement[0] = tempSub1;
+            String [] pred = statement[1].split("/");
+
+            if(tempSub0.contains(tempSub1) && tempPred.contains(pred[pred.length-1])){
+                continue;
+            }
+            if(tempSub0.contains(tempSub1)){
+                System.out.println("\t --> "+ pred[pred.length-1]);
+            }else {
+                System.out.println(tempSub1+" --> "+pred[pred.length-1]);
+            }
+            tempSub0.add(tempSub1);
+            tempPred.add(pred[pred.length-1]);
+            //System.out.println(sub.length);
+
+
+           System.out.print(subject.toString());
             System.out.print("\t\t\t " + predicate.toString() + "\t\t\t ");
             if (object instanceof Resource) {
                 System.out.print(object.toString());
@@ -88,13 +120,13 @@ public class RDFReasonerEx2 {
         StmtIterator i3 = infmodel.listStatements(d, p, (RDFNode)null);
         while (i3.hasNext()) {
             System.out.println(" - " + PrintUtil.print(i3.nextStatement()));
-        }*/
+        }
     }
 
 
     private static String NS = "urn:x-hp:eg/";
-    public static void main(String args[]) {
-        Model data = ModelFactory.createDefaultModel();
+    //public static void main(String args[]) {
+        /*Model data = ModelFactory.createDefaultModel();
 
         // create the resource
         data.setNsPrefix("eg","urn:x-hp:eg/");
@@ -123,14 +155,14 @@ public class RDFReasonerEx2 {
                 deriv.printTrace(out, true);
             }
         }
-        out.flush(); 	}
+        out.flush(); 	}*/
 
 
-    /*public static void main(String []args){
+    public static void main(String []args){
 
         RDFCases.RDFReasonerEx2 reasoner = new RDFCases.RDFReasonerEx2();
         reasoner.setUp();
-    }*/
+    }
 
 
 }

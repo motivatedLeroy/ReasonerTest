@@ -16,13 +16,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class RuleExecutionButton implements ActionListener {
+public class RuleExecutionButtonListener implements ActionListener {
 
     private Model data;
     private JTextArea ruleTextArea;
     private static String NS = "urn:x-hp:eg/";
 
-    public RuleExecutionButton(JTextArea ruleTextArea){
+    public RuleExecutionButtonListener(JTextArea ruleTextArea){
         this.ruleTextArea = ruleTextArea;
         this.data = FileManager.get().loadModel("musicRDF.rdf");
     }

@@ -51,7 +51,7 @@
         <cd:artist>Bob Dylan</cd:artist>
         <!--<cd:country>USA</cd:country>-->
         <cd:company>Columbia</cd:company>
-        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#long">10.90</cd:price>
+        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#double">10.90</cd:price>
         <cd:year>1985</cd:year>
         <cd:genre>Rock</cd:genre>
     </rdf:Description>
@@ -61,7 +61,7 @@
         <cd:artist>Bob Dylan</cd:artist>
         <!--<cd:country>USA</cd:country>-->
         <cd:company>Columbia</cd:company>
-        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#long">8.94</cd:price>
+        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#double">8.94</cd:price>
         <cd:year>1986</cd:year>
         <cd:genre>Rock</cd:genre>
     </rdf:Description>
@@ -71,7 +71,7 @@
         <cd:artist>Bob Dylan</cd:artist>
         <!--<cd:country>USA</cd:country>-->
         <cd:company>Columbia</cd:company>
-        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6.79</cd:price>
+        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#double">6.79</cd:price>
         <cd:year>2006</cd:year>
         <cd:genre>Folk</cd:genre>
     </rdf:Description>
@@ -81,7 +81,7 @@
         <cd:artist>Die Toten Hosen</cd:artist>
         <!--<cd:country>UK</cd:country>-->
         <cd:company>JKP</cd:company>
-        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#long">6.99</cd:price>
+        <cd:price rdf:datatype="http://www.w3.org/2001/XMLSchema#double">6.99</cd:price>
         <cd:year>2002</cd:year>
         <cd:genre>Punk</cd:genre>
     </rdf:Description>
