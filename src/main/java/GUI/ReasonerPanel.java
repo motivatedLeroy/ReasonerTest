@@ -115,7 +115,7 @@ public class ReasonerPanel extends JPanel{
         midRightSubPanel1.add(add_object);
 
         midRightSubPanel2.setLayout(midRightSubPanel2Layout);
-        midRightSubPanel2.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.001)));
+        midRightSubPanel2.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.08)));
         midRightSubPanel2.setBorder(new EmptyBorder(40,150,0,150));
         subjectComboBox.setPreferredSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
         midRightSubPanel2.add(subjectComboBox);

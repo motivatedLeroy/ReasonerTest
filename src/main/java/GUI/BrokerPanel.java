@@ -36,8 +36,6 @@ public class BrokerPanel extends JPanel {
     private JPanel topRightPanel = new JPanel();
     public JTable rdfInformationTable = new JTable();
     private JScrollPane brokerMidLine = new JScrollPane(rdfInformationTable);
-    private JPanel bottomLeftPanel = new JPanel();
-    private JPanel bottomMidPanel = new JPanel();
     private JPanel bottomRightPanel = new JPanel();
     private JPanel filterPanel = new JPanel();
     private final String[] filters = new String[]{"Filename","Tags","Rating","Date of Upload", "Number of Entries", "Provider","Type"};
@@ -71,7 +69,6 @@ public class BrokerPanel extends JPanel {
     private BorderLayout topLeftLayout = new BorderLayout();
     private BorderLayout topRightLayout = new BorderLayout();
     private BorderLayout bottomLeftLayout = new BorderLayout();
-    private BoxLayout bottomMidLayout = new BoxLayout(bottomMidPanel, BoxLayout.Y_AXIS);
     private BoxLayout filterPanelLayout = new BoxLayout(filterPanel, BoxLayout.X_AXIS);
 
     //private BoxLayout midRightLayout = new BoxLayout(midRightPanel, BoxLayout.Y_AXIS);
@@ -143,19 +140,12 @@ public class BrokerPanel extends JPanel {
         * Komponenten für die BottomLine werden zusammengefügt. 2 JPanels, die jeweils eine Tabelle
         * und ein Label enthalten sowie ein Panel, dass 1 Label und 2 Buttons enthält
         */
-        bottomLeftPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.33), (int)(screenSize.height*0.4)));
-        bottomLeftPanel.setLayout(bottomLeftLayout);
-
-        bottomLeftPanel.setBorder(new EmptyBorder(0,10,10,10));
-
-        bottomMidPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.33), (int)(screenSize.height*0.5)));
-        bottomMidPanel.setLayout(bottomMidLayout);
 
 
-        bottomMidPanel.setBorder(new EmptyBorder(0,10,10,10));
 
 
-        bottomRightPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.2)));
+        bottomRightPanel.setMaximumSize(new Dimension((int)(screenSize.width), (int)(screenSize.height*0.2)));
+        bottomRightPanel.setBorder(new EmptyBorder(0,0,40,0));
         newDatasetButton.addActionListener(new AddDatasetListener(this));
         bottomRightPanel.add(newDatasetButton);
 
@@ -170,12 +160,8 @@ public class BrokerPanel extends JPanel {
 
 
 
-
-        brokerBottomLine.add(bottomLeftPanel);
-        brokerBottomLine.add(bottomMidPanel);
         brokerBottomLine.add(bottomRightPanel);
 
-        brokerBottomLine.setPreferredSize(new Dimension((int)(screenSize.width*0.66), (int)(screenSize.height*0.5)));
 
 
        /*

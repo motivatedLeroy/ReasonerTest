@@ -6,8 +6,10 @@ import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
 import org.apache.jena.reasoner.rulesys.Rule;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Iterator;
+import java.util.List;
 
 public class RDFReasoner {
 
@@ -82,9 +84,13 @@ public class RDFReasoner {
 
 
 
-        String rules =  "[rule0: (?a eg:x ?b) (?a eg:y ?c)  addOne(?b, ?c)-> print(?a)]";
+        //String rules =  "[rule0: (?a eg:x ?b) (?a eg:y ?c)  addOne(?b, ?c)-> print(?a)]";
                         //"     [rule1: (?a eg:p ?b) (?b eg:p ?c) -> (?a eg:p ?c)]";
-        Reasoner reasoner = new GenericRuleReasoner(Rule.parseRules(rules));
+        //List rules = Rule.rulesFromURL("file:demo.rules");
+        File rules = new File("src/main/resources/demo.rules");
+
+        Reasoner reasoner = new GenericRuleReasoner(Rule.rulesFromURL(rules.getAbsolutePath()));
+
         reasoner.setDerivationLogging(true);
         InfModel inf = ModelFactory.createInfModel(reasoner, model);
         model.write(System.out);
