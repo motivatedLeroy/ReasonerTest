@@ -1,5 +1,8 @@
 package GUI;
 
+import Controller.AddRuleButtonListener;
+import Controller.StartReasoningButtonListener;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -7,10 +10,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ReasonerPanel extends JPanel{
 
-    private JTextArea ruleTextArea = new JTextArea();
+    public JTextArea ruleTextArea = new JTextArea();
     private JPanel reasonerMidLine = new JPanel();
     private JLabel vocabulary = new JLabel("Vocabulary");
 
@@ -31,6 +35,8 @@ public class ReasonerPanel extends JPanel{
     public JComboBox<String> predicateComboBox = new JComboBox<>();
     public JComboBox<String> objectComboBox = new JComboBox<>();
 
+    public ArrayList<String> ruleSet = new ArrayList<>();
+    public ArrayList<String> fileNames = new ArrayList<>();
 
     public DefaultTableModel dtm = new DefaultTableModel();
 
@@ -138,8 +144,10 @@ public class ReasonerPanel extends JPanel{
         midRightSubPanel4.setBorder(new EmptyBorder(10,40,10,40));
 
         midRightSubPanel5.setBorder(new EmptyBorder(40,40,40,40));
+        addToRuleSet.addActionListener(new AddRuleButtonListener(this));
         midRightSubPanel5.add(addToRuleSet);
         midRightSubPanel5.add(Box.createRigidArea(new Dimension(50, 0)));
+        start_reasoning.addActionListener(new StartReasoningButtonListener(this));
         midRightSubPanel5.add(start_reasoning);
 
 

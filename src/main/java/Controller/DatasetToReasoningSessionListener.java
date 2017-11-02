@@ -146,6 +146,7 @@ public class DatasetToReasoningSessionListener implements ActionListener {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            reasonerPanel.fileNames.add(rdfFile.fileName+"."+rdfFile.type);
         }else{
             JOptionPane.showMessageDialog(null, "Please select a row first.");
 
