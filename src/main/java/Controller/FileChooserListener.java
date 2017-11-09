@@ -3,7 +3,6 @@ package Controller;
 import GUI.AddDatasetJDialog;
 import GUI.BrokerPanel;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.RdfFile;
 import javafx.stage.FileChooser;
 import org.apache.http.HttpEntity;

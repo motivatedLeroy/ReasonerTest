@@ -3,7 +3,6 @@ package Controller;
 import GUI.BrokerPanel;
 import GUI.ReasonerPanel;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.RdfFile;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -16,24 +15,33 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.jena.base.Sys;
+import org.apache.jena.propertytable.graph.GraphCSV;
+import org.apache.jena.propertytable.lang.CSV2RDF;
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.util.FileManager;
+import org.visualdataweb.vowl.protege.VOWLControlViewComponent;
+import org.visualdataweb.vowl.protege.VOWLSideBarComponent;
+import org.visualdataweb.vowl.protege.VOWLViewComponent;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class DatasetToReasoningSessionListener implements ActionListener {
     private BrokerPanel brokerPanel;
     private ReasonerPanel reasonerPanel;
+    private HashMap<String, String> base = new HashMap<>();
 
     public DatasetToReasoningSessionListener(BrokerPanel brokerPanel, ReasonerPanel reasonerPanel){
+        CSV2RDF.init();
+
+        base.put("rdf", "RDF/XML");
+        base.put("csv,", "text/csv");
+        base.put("ttl", "TTL");
         this.brokerPanel = brokerPanel;
         this.reasonerPanel = reasonerPanel;
     }
@@ -56,14 +64,29 @@ public class DatasetToReasoningSessionListener implements ActionListener {
 
                 HttpEntity resEntity = response.getEntity();
 
-                System.out.println(response.getStatusLine());
+                System.out.println("Status Line: "+response.getStatusLine());
                 if (resEntity != null) {
                     String result = EntityUtils.toString(resEntity);
                     System.out.println(result);
+                    StringReader reader = new StringReader(result);
+
+                    File receivedFile = new File("src/main/resources/received/"+rdfFile.fileName+"."+rdfFile.type);
+                    FileOutputStream fileOutputStream = new FileOutputStream(receivedFile);
+                    fileOutputStream.write(result.getBytes());
+                    fileOutputStream.close();
+
+                    reasonerPanel.vowlViewComponent.setFileName(rdfFile.fileName+"."+rdfFile.type);
+                    reasonerPanel.vowlViewComponent.initialiseOWLView();
+                    reasonerPanel.vowlControlViewComponent.initialiseOWLView();
+                    reasonerPanel.vowlSideBarComponent.initialiseOWLView();
+
 
                     final Model model = ModelFactory.createDefaultModel();
-                    model.read(new ByteArrayInputStream(result.getBytes()), null);
-                    model.write(System.out, "TTL");
+                    model.read(reader, null, "RDF/XML");
+
+
+
+                    //model.write(System.out, "TTL");
                     StmtIterator iterator = model.listStatements();
 
                     ComboBoxModel subjectComboBoxModel = reasonerPanel.subjectComboBox.getModel();
@@ -127,13 +150,8 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                     reasonerPanel.predicateComboBox.setModel(predicateComboBoxModel);
                     objectComboBoxModel = new DefaultComboBoxModel(objectComboBoxItems);
                     reasonerPanel.objectComboBox.setModel(objectComboBoxModel);
-                    /*try {
-                        ObjectMapper mapper = new ObjectMapper();
-                        rdfFile = mapper.readValue(result, RdfFile.class);
-                        reasonerPanel.rdfFiles.add(rdfFile);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }*/
+
+
                 }
                 if (resEntity != null) {
                     EntityUtils.consume(resEntity);
@@ -145,6 +163,8 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                 ex.printStackTrace();
             } catch (IOException ex) {
                 ex.printStackTrace();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
             reasonerPanel.fileNames.add(rdfFile.fileName+"."+rdfFile.type);
         }else{

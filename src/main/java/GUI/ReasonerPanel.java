@@ -2,6 +2,9 @@ package GUI;
 
 import Controller.AddRuleButtonListener;
 import Controller.StartReasoningButtonListener;
+import org.visualdataweb.vowl.protege.VOWLControlViewComponent;
+import org.visualdataweb.vowl.protege.VOWLSideBarComponent;
+import org.visualdataweb.vowl.protege.VOWLViewComponent;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -14,22 +17,31 @@ import java.util.ArrayList;
 
 public class ReasonerPanel extends JPanel{
 
+    private JTabbedPane jTabbedPane = new JTabbedPane();
+
     public JTextArea ruleTextArea = new JTextArea();
-    private JPanel reasonerMidLine = new JPanel();
+    private JPanel schemaReasoningPanel = new JPanel();
+    private JPanel instanceReasoningPanel = new JPanel();
     private JLabel vocabulary = new JLabel("Vocabulary");
 
     public JTable rdfTable = new JTable();
-    private JScrollPane midLeftPanel = new JScrollPane(rdfTable);
-    //private JScrollPane midCenterPanel = new JScrollPane(ruleTextArea);
-    private JPanel midRightPanel = new JPanel();
-    private JPanel midRightSubPanel0 = new JPanel();
-    private JPanel midRightSubPanel0Helper = new JPanel();
-    private JPanel midRightSubPanel0Helper1 = new JPanel();
-    private JPanel midRightSubPanel1 = new JPanel();
-    private JPanel midRightSubPanel2 = new JPanel();
-    private JPanel midRightSubPanel3 = new JPanel();
-    private JScrollPane midRightSubPanel4 = new JScrollPane(ruleTextArea);
-    private JPanel midRightSubPanel5 = new JPanel();
+    private JScrollPane leftInstanceReasoningPanel = new JScrollPane(rdfTable);
+    private JPanel rightInstanceReasoningPanel = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel0 = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel0Helper = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel1Helper = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel1 = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel2 = new JPanel();
+    private JPanel rightInstanceReasoningSubPanel3 = new JPanel();
+    private JScrollPane rightInstanceReasoningSubPanel4 = new JScrollPane(ruleTextArea);
+    private JPanel rightInstanceReasoningSubPanel5 = new JPanel();
+
+    private JPanel leftSchemaReasoningPanel = new JPanel();
+    private JPanel rightSchemaReasoningPanel = new JPanel();
+
+    public VOWLViewComponent vowlViewComponent = new VOWLViewComponent();
+    public VOWLSideBarComponent vowlSideBarComponent = new VOWLSideBarComponent();
+    public VOWLControlViewComponent vowlControlViewComponent = new VOWLControlViewComponent();
 
     public JComboBox<String> subjectComboBox = new JComboBox<>();
     public JComboBox<String> predicateComboBox = new JComboBox<>();
@@ -46,12 +58,17 @@ public class ReasonerPanel extends JPanel{
      */
     private BoxLayout reasonerPanelLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 
-    private BoxLayout midLineLayout = new BoxLayout(reasonerMidLine, BoxLayout.X_AXIS);
-    private BoxLayout midRightLayout = new BoxLayout(midRightPanel, BoxLayout.Y_AXIS);
-    private BoxLayout midRightSubPanel0Layout = new BoxLayout(midRightSubPanel0, BoxLayout.X_AXIS);
-    private BoxLayout midRightSubPanel1Layout = new BoxLayout(midRightSubPanel1, BoxLayout.X_AXIS);
-    private BoxLayout midRightSubPanel2Layout = new BoxLayout(midRightSubPanel2, BoxLayout.X_AXIS);
-    private BoxLayout midRightSubPanel3Layout = new BoxLayout(midRightSubPanel3, BoxLayout.X_AXIS);
+    private BoxLayout instanceReasoningPanelLayout = new BoxLayout(instanceReasoningPanel, BoxLayout.X_AXIS);
+    private BoxLayout rightInstanceReasoningPanelLayout = new BoxLayout(rightInstanceReasoningPanel, BoxLayout.Y_AXIS);
+    private BoxLayout rightInstanceReasoningSubPanel0Layout = new BoxLayout(rightInstanceReasoningSubPanel0, BoxLayout.X_AXIS);
+    private BoxLayout rightInstanceReasoningSubPanel1Layout = new BoxLayout(rightInstanceReasoningSubPanel1, BoxLayout.X_AXIS);
+    private BoxLayout rightInstanceReasoningSubPanel2Layout = new BoxLayout(rightInstanceReasoningSubPanel2, BoxLayout.X_AXIS);
+    private BoxLayout rightInstanceReasoningSubPanel3Layout = new BoxLayout(rightInstanceReasoningSubPanel3, BoxLayout.X_AXIS);
+
+    private BoxLayout schemaReasoningPanelLayout = new BoxLayout(schemaReasoningPanel, BoxLayout.X_AXIS);
+    private BoxLayout rightSchemaReasoningPanelLayout = new BoxLayout(rightSchemaReasoningPanel, BoxLayout.Y_AXIS);
+    private BoxLayout leftSchemaReasoningPanelLayout = new BoxLayout(leftSchemaReasoningPanel, BoxLayout.Y_AXIS);
+
 
     /*
      * Im Fenster sichtbare Komponenten und verwendete Listen zum Füllen der Elemente
@@ -70,21 +87,10 @@ public class ReasonerPanel extends JPanel{
 
 
 
+
     public ReasonerPanel(){
+
         executeRule.setEnabled(true);
-
-       /*
-        * Komponenten der TopLine werden zusammengefügt, ein Label, eine Combobox, sowie der Button für die Bonusaufgabe
-        */
-
-
-
-
-
-
-       /*
-        * Komponenten der MidLine werden zusammengefügt (Tabelle in JScrollPane + Modell für die Tabelle
-        */
 
 
         dtm.addColumn("Subject");
@@ -94,81 +100,103 @@ public class ReasonerPanel extends JPanel{
 
 
         //midCenterPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.33), (int)(screenSize.height*0.75)));
-        midLeftPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.75)));
-        midLeftPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
+        leftInstanceReasoningPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.7), (int)(screenSize.height*0.75)));
+        leftInstanceReasoningPanel.setMinimumSize(new Dimension((int)(screenSize.width*0.7), (int)(screenSize.height*0.75)));
+        leftInstanceReasoningPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.7), (int)(screenSize.height*0.75)));
+        leftInstanceReasoningPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
         //midCenterPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
-        midRightPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.75)));
-        midRightPanel.setLayout(midRightLayout);
-        midRightPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
-        midRightPanel.add(midRightSubPanel0);
-        midRightPanel.add(midRightSubPanel1);
-        midRightPanel.add(midRightSubPanel2);
-        midRightPanel.add(midRightSubPanel3);
-        midRightPanel.add(midRightSubPanel4);
-        midRightPanel.add(midRightSubPanel5);
+        rightInstanceReasoningPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.2), (int)(screenSize.height*0.75)));
+        rightInstanceReasoningPanel.setMaximumSize(new Dimension((int)(screenSize.width*0.3), (int)(screenSize.height*0.75)));
+        rightInstanceReasoningPanel.setLayout(rightInstanceReasoningPanelLayout);
+        rightInstanceReasoningPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel0);
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel1);
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel2);
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel3);
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel4);
+        rightInstanceReasoningPanel.add(rightInstanceReasoningSubPanel5);
 
-        midRightSubPanel0.setLayout(midRightSubPanel0Layout);
-        midRightSubPanel0.add(midRightSubPanel0Helper);
+        rightInstanceReasoningSubPanel0.setLayout(rightInstanceReasoningSubPanel0Layout);
+        rightInstanceReasoningSubPanel0.add(rightInstanceReasoningSubPanel0Helper);
         vocabulary.setFont(new Font(vocabulary.getFont().getName(),vocabulary.getFont().getStyle(),20));
-        midRightSubPanel0.add(vocabulary);
-        midRightSubPanel0.add(midRightSubPanel0Helper1);
+        rightInstanceReasoningSubPanel0.add(vocabulary);
+        rightInstanceReasoningSubPanel0.add(rightInstanceReasoningSubPanel1Helper);
 
-        midRightSubPanel1.setLayout(midRightSubPanel1Layout);
-        midRightSubPanel1.add(add_subject);
-        midRightSubPanel1.add(Box.createRigidArea(new Dimension(50, 0)));
-        midRightSubPanel1.add(add_predicate);
-        midRightSubPanel1.add(Box.createRigidArea(new Dimension(50, 0)));
-        midRightSubPanel1.add(add_object);
+        rightInstanceReasoningSubPanel1.setLayout(rightInstanceReasoningSubPanel1Layout);
+        rightInstanceReasoningSubPanel1.add(add_subject);
+        rightInstanceReasoningSubPanel1.add(Box.createRigidArea(new Dimension(50, 0)));
+        rightInstanceReasoningSubPanel1.add(add_predicate);
+        rightInstanceReasoningSubPanel1.add(Box.createRigidArea(new Dimension(50, 0)));
+        rightInstanceReasoningSubPanel1.add(add_object);
 
-        midRightSubPanel2.setLayout(midRightSubPanel2Layout);
-        midRightSubPanel2.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.08)));
-        midRightSubPanel2.setBorder(new EmptyBorder(40,150,0,150));
+        rightInstanceReasoningSubPanel2.setLayout(rightInstanceReasoningSubPanel2Layout);
+        rightInstanceReasoningSubPanel2.setPreferredSize(new Dimension((int)(screenSize.width*0.5), (int)(screenSize.height*0.08)));
+        rightInstanceReasoningSubPanel2.setBorder(new EmptyBorder(40,150,0,150));
         subjectComboBox.setPreferredSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
-        midRightSubPanel2.add(subjectComboBox);
-        midRightSubPanel2.add(Box.createRigidArea(new Dimension(65, 0)));
+        subjectComboBox.setMaximumSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
+        rightInstanceReasoningSubPanel2.add(subjectComboBox);
+        rightInstanceReasoningSubPanel2.add(Box.createRigidArea(new Dimension(65, 0)));
         predicateComboBox.setPreferredSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
-        midRightSubPanel2.add(predicateComboBox);
-        midRightSubPanel2.add(Box.createRigidArea(new Dimension(50, 0)));
+        predicateComboBox.setMaximumSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
+        rightInstanceReasoningSubPanel2.add(predicateComboBox);
+        rightInstanceReasoningSubPanel2.add(Box.createRigidArea(new Dimension(50, 0)));
         objectComboBox.setPreferredSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
-        midRightSubPanel2.add(objectComboBox);
+        objectComboBox.setMaximumSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.1)));
+        rightInstanceReasoningSubPanel2.add(objectComboBox);
 
-        midRightSubPanel3.setLayout(midRightSubPanel3Layout);
-        midRightSubPanel3.setBorder(new EmptyBorder(40,40,40,40));
-        midRightSubPanel3.add(add_condition);
-        midRightSubPanel3.add(Box.createRigidArea(new Dimension(50, 0)));
-        midRightSubPanel3.add(add_conclusion);
-        midRightSubPanel3.add(Box.createRigidArea(new Dimension(50, 0)));
-        midRightSubPanel3.add(open_mathematical_operators);
+        rightInstanceReasoningSubPanel3.setLayout(rightInstanceReasoningSubPanel3Layout);
+        rightInstanceReasoningSubPanel3.setBorder(new EmptyBorder(40,0,40,0));
+        rightInstanceReasoningSubPanel3.add(add_condition);
+        rightInstanceReasoningSubPanel3.add(Box.createRigidArea(new Dimension(50, 0)));
+        rightInstanceReasoningSubPanel3.add(add_conclusion);
+        rightInstanceReasoningSubPanel3.add(Box.createRigidArea(new Dimension(50, 0)));
+        rightInstanceReasoningSubPanel3.add(open_mathematical_operators);
 
-        midRightSubPanel4.setPreferredSize(new Dimension((int)(screenSize.width*0.05), (int)(screenSize.height*0.15)));
-        midRightSubPanel4.setBorder(new EmptyBorder(10,40,10,40));
+        rightInstanceReasoningSubPanel4.setBorder(new EmptyBorder(10,0,10,0));
 
-        midRightSubPanel5.setBorder(new EmptyBorder(40,40,40,40));
+        rightInstanceReasoningSubPanel5.setBorder(new EmptyBorder(40,0,40,0));
         addToRuleSet.addActionListener(new AddRuleButtonListener(this));
-        midRightSubPanel5.add(addToRuleSet);
-        midRightSubPanel5.add(Box.createRigidArea(new Dimension(50, 0)));
+        rightInstanceReasoningSubPanel5.add(addToRuleSet);
+        rightInstanceReasoningSubPanel5.add(Box.createRigidArea(new Dimension(50, 0)));
         start_reasoning.addActionListener(new StartReasoningButtonListener(this));
-        midRightSubPanel5.add(start_reasoning);
+        rightInstanceReasoningSubPanel5.add(start_reasoning);
 
 
-
-
-        reasonerMidLine.setLayout(midLineLayout);
-        reasonerMidLine.add(midLeftPanel);
-        //reasonerMidLine.add(midCenterPanel);
-        reasonerMidLine.add(midRightPanel);
-        reasonerMidLine.setPreferredSize(new Dimension((int)(screenSize.width*0.66), (int)(screenSize.height)));
+        instanceReasoningPanel.setLayout(instanceReasoningPanelLayout);
+        instanceReasoningPanel.add(leftInstanceReasoningPanel);
+        instanceReasoningPanel.add(rightInstanceReasoningPanel);
+        instanceReasoningPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.66), (int)(screenSize.height)));
         ruleTextArea.setFont(new Font(ruleTextArea.getFont().getName(), 0, 20));
         ruleTextArea.setBorder(new CompoundBorder(new EtchedBorder(Color.GRAY, Color.DARK_GRAY),new EmptyBorder(10,10,10,10)));
 
+/*
+        rightInstanceReasoningSubPanel0.setBackground(Color.RED);
+        rightInstanceReasoningSubPanel1.setBackground(Color.GRAY);
+        rightInstanceReasoningSubPanel2.setBackground(Color.GREEN);
+        rightInstanceReasoningSubPanel3.setBackground(Color.DARK_GRAY);
+        rightInstanceReasoningSubPanel4.setBackground(Color.blue);
+        rightInstanceReasoningSubPanel5.setBackground(Color.BLACK);*/
 
 
-       /*
-        * Die 3 Lines werden zunächst auf dem MainPanel (JPanel) und dann zusammen mit dem JMenu auf dem MainWindow (JFrame) verankert
-        */
+        leftSchemaReasoningPanel.setLayout(leftSchemaReasoningPanelLayout);
+        leftSchemaReasoningPanel.add(vowlViewComponent);
+        leftSchemaReasoningPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.6), (int)(screenSize.height)));
+
+        rightSchemaReasoningPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.4), (int)(screenSize.height)));
+        rightSchemaReasoningPanel.setLayout(rightSchemaReasoningPanelLayout);
+        rightSchemaReasoningPanel.add(vowlSideBarComponent);
+        rightSchemaReasoningPanel.add(vowlControlViewComponent);
+        schemaReasoningPanel.setLayout(schemaReasoningPanelLayout);
+        schemaReasoningPanel.add(leftSchemaReasoningPanel);
+        schemaReasoningPanel.add(rightSchemaReasoningPanel);
+
         this.setLayout(reasonerPanelLayout);
 
-        this.add(reasonerMidLine);
+
+        jTabbedPane.add(instanceReasoningPanel,"Instance - Reasoning");
+        jTabbedPane.add(schemaReasoningPanel, "OWL - Schema - Reasoning");
+
+        this.add(jTabbedPane);
     }
 
 

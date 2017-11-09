@@ -31,7 +31,7 @@ public class AddDatasetJDialog extends JDialog{
         JLabel provider = new JLabel("Provider: ");
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addActionListener(new FileChooserListener(this, (BrokerPanel) parent));
-        fileChooser.setFileFilter(new FileNameExtensionFilter("RDF Dateien","rdf"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("RDF / TTL / OWL Dateien","rdf", "ttl", "owl"));
 
         Component verticalGlue0 = Box.createVerticalGlue();
         verticalGlue0.setPreferredSize(new Dimension(0, 10));

@@ -17,12 +17,34 @@
             <version>3.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-csv</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
             <version>4.5.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.protege.editor.owl -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.protege.editor.owl</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
 
 
 

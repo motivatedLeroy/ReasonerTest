@@ -38,7 +38,8 @@ public class Main {
         tabbedPane.add("Broker", brokerPanel);
         tabbedPane.add("Reasoning Service", reasonerPanel);
         mainWindow.add(tabbedPane);
-        mainWindow.setBounds(0,0,(int)(screenSize.width*0.9), (int)(screenSize.height*0.9));
+        mainWindow.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        //mainWindow.setBounds(0,0,(int)(screenSize.width*0.9), (int)(screenSize.height*0.9));
         mainWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 

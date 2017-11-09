@@ -1,20 +1,15 @@
 package RDFCases;
 
-import org.apache.jena.base.Sys;
 import org.apache.jena.rdf.model.*;
-import org.apache.jena.reasoner.Derivation;
 import org.apache.jena.reasoner.Reasoner;
-import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
-import org.apache.jena.reasoner.rulesys.Rule;
 import org.apache.jena.util.FileManager;
 import org.apache.jena.util.PrintUtil;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class RDFReasonerEx2 {
 
@@ -37,8 +32,9 @@ public class RDFReasonerEx2 {
         Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(null);
 
 
-        // Load test data
-        Model model = FileManager.get().loadModel("musicRDF.rdf");
+        // Load vowlViewComponent data
+        //Model model = FileManager.get().loadModel("musicRDF.rdf");
+        Model model = FileManager.get().loadModel("music.owl");
 
         InfModel infmodel = ModelFactory.createInfModel(reasoner, model);
 
@@ -48,7 +44,7 @@ public class RDFReasonerEx2 {
         HashSet<String> tempSub0 = new HashSet<>();
         HashSet<String> tempPred = new HashSet<>();
 
-        while (iterator.hasNext()){
+        /*while (iterator.hasNext()){
             Statement stmt      = iterator.nextStatement();  // get next statement
             Resource  subject   = stmt.getSubject();     // get the subject
             Property  predicate = stmt.getPredicate();   // get the predicate
@@ -91,7 +87,36 @@ public class RDFReasonerEx2 {
 
             System.out.println(" .");
 
+        }*/
+
+
+        while (iterator.hasNext()){
+            Statement stmt      = iterator.nextStatement();  // get next statement
+            Resource  subject   = stmt.getSubject();     // get the subject
+            Property  predicate = stmt.getPredicate();   // get the predicate
+            RDFNode   object    = stmt.getObject();      // get the object
+
+            //if(subject.toString().contains("gps_point")){
+                System.out.print(subject.toString());
+                System.out.print(" " + predicate.toString() + " ");
+                if (object instanceof Resource) {
+                    System.out.print(object.toString());
+                } else {
+                    // object is a literal
+                    System.out.print(" \"" + object.toString() + "\"");
+                }
+
+                System.out.println(" .");
+            //}
+
+
         }
+
+
+
+
+
+
         System.out.println("REASONINGS about A: ");
         // Query for all things related to "a" by "p"
         Property p = model.getProperty(demoURI, "p");

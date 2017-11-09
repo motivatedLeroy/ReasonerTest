@@ -1,0 +1,3602 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql:///postgis_23_sample";
+	d2rq:username "postgres";
+	d2rq:password "ines";
+	.
+
+# Table app_user
+map:app_user a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "app_user/@@app_user.id@@";
+	d2rq:class vocab:app_user;
+	d2rq:classDefinitionLabel "app_user";
+	.
+map:app_user__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:app_user;
+	d2rq:property rdfs:label;
+	d2rq:pattern "app_user #@@app_user.id@@";
+	.
+map:app_user_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:app_user;
+	d2rq:property vocab:app_user_id;
+	d2rq:propertyDefinitionLabel "app_user id";
+	d2rq:column "app_user.id";
+	d2rq:datatype xsd:integer;
+	.
+map:app_user_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:app_user;
+	d2rq:property vocab:app_user_name;
+	d2rq:propertyDefinitionLabel "app_user name";
+	d2rq:column "app_user.name";
+	.
+map:app_user_realid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:app_user;
+	d2rq:property vocab:app_user_realid;
+	d2rq:propertyDefinitionLabel "app_user realid";
+	d2rq:column "app_user.realid";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table gps_point
+map:gps_point a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "gps_point/@@gps_point.id@@";
+	d2rq:class vocab:gps_point;
+	d2rq:classDefinitionLabel "gps_point";
+	.
+map:gps_point__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property rdfs:label;
+	d2rq:pattern "gps_point #@@gps_point.id@@";
+	.
+map:gps_point_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_id;
+	d2rq:propertyDefinitionLabel "gps_point id";
+	d2rq:column "gps_point.id";
+	d2rq:datatype xsd:integer;
+	.
+map:gps_point_acceleration a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_acceleration;
+	d2rq:propertyDefinitionLabel "gps_point acceleration";
+	d2rq:column "gps_point.acceleration";
+	d2rq:datatype xsd:double;
+	.
+map:gps_point_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_date;
+	d2rq:propertyDefinitionLabel "gps_point date";
+	d2rq:column "gps_point.date";
+	d2rq:datatype xsd:integer;
+	.
+map:gps_point_heading a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_heading;
+	d2rq:propertyDefinitionLabel "gps_point heading";
+	d2rq:column "gps_point.heading";
+	d2rq:datatype xsd:double;
+	.
+map:gps_point_latitude a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_latitude;
+	d2rq:propertyDefinitionLabel "gps_point latitude";
+	d2rq:column "gps_point.latitude";
+	d2rq:datatype xsd:double;
+	.
+map:gps_point_location a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_location;
+	d2rq:propertyDefinitionLabel "gps_point location";
+	d2rq:column "gps_point.location";
+	.
+map:gps_point_longitude a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_longitude;
+	d2rq:propertyDefinitionLabel "gps_point longitude";
+	d2rq:column "gps_point.longitude";
+	d2rq:datatype xsd:double;
+	.
+map:gps_point_realid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_realid;
+	d2rq:propertyDefinitionLabel "gps_point realid";
+	d2rq:column "gps_point.realid";
+	d2rq:datatype xsd:integer;
+	.
+map:gps_point_speed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_speed;
+	d2rq:propertyDefinitionLabel "gps_point speed";
+	d2rq:column "gps_point.speed";
+	d2rq:datatype xsd:double;
+	.
+map:gps_point_route_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:gps_point;
+	d2rq:property vocab:gps_point_route_id;
+	d2rq:refersToClassMap map:route;
+	d2rq:join "gps_point.route_id => route.id";
+	.
+
+# Table pointcloud_formats
+map:pointcloud_formats a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "pointcloud_formats/@@pointcloud_formats.pcid@@";
+	d2rq:class vocab:pointcloud_formats;
+	d2rq:classDefinitionLabel "pointcloud_formats";
+	.
+map:pointcloud_formats__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_formats;
+	d2rq:property rdfs:label;
+	d2rq:pattern "pointcloud_formats #@@pointcloud_formats.pcid@@";
+	.
+map:pointcloud_formats_pcid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_formats;
+	d2rq:property vocab:pointcloud_formats_pcid;
+	d2rq:propertyDefinitionLabel "pointcloud_formats pcid";
+	d2rq:column "pointcloud_formats.pcid";
+	d2rq:datatype xsd:integer;
+	.
+map:pointcloud_formats_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_formats;
+	d2rq:property vocab:pointcloud_formats_srid;
+	d2rq:propertyDefinitionLabel "pointcloud_formats srid";
+	d2rq:column "pointcloud_formats.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:pointcloud_formats_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_formats;
+	d2rq:property vocab:pointcloud_formats_schema;
+	d2rq:propertyDefinitionLabel "pointcloud_formats schema";
+	d2rq:column "pointcloud_formats.schema";
+	.
+
+# Table route
+map:route a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "route/@@route.id@@";
+	d2rq:class vocab:route;
+	d2rq:classDefinitionLabel "route";
+	.
+map:route__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:route;
+	d2rq:property rdfs:label;
+	d2rq:pattern "route #@@route.id@@";
+	.
+map:route_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:route;
+	d2rq:property vocab:route_id;
+	d2rq:propertyDefinitionLabel "route id";
+	d2rq:column "route.id";
+	d2rq:datatype xsd:integer;
+	.
+map:route_realid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:route;
+	d2rq:property vocab:route_realid;
+	d2rq:propertyDefinitionLabel "route realid";
+	d2rq:column "route.realid";
+	d2rq:datatype xsd:integer;
+	.
+map:route_user_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:route;
+	d2rq:property vocab:route_user_id;
+	d2rq:refersToClassMap map:app_user;
+	d2rq:join "route.user_id => app_user.id";
+	.
+
+# Table spatial_ref_sys
+map:spatial_ref_sys a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "spatial_ref_sys/@@spatial_ref_sys.srid@@";
+	d2rq:class vocab:spatial_ref_sys;
+	d2rq:classDefinitionLabel "spatial_ref_sys";
+	.
+map:spatial_ref_sys__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property rdfs:label;
+	d2rq:pattern "spatial_ref_sys #@@spatial_ref_sys.srid@@";
+	.
+map:spatial_ref_sys_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_srid;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys srid";
+	d2rq:column "spatial_ref_sys.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:spatial_ref_sys_auth_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_auth_name;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys auth_name";
+	d2rq:column "spatial_ref_sys.auth_name";
+	.
+map:spatial_ref_sys_auth_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_auth_srid;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys auth_srid";
+	d2rq:column "spatial_ref_sys.auth_srid";
+	d2rq:datatype xsd:integer;
+	.
+map:spatial_ref_sys_srtext a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_srtext;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys srtext";
+	d2rq:column "spatial_ref_sys.srtext";
+	.
+map:spatial_ref_sys_proj4text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:spatial_ref_sys;
+	d2rq:property vocab:spatial_ref_sys_proj4text;
+	d2rq:propertyDefinitionLabel "spatial_ref_sys proj4text";
+	d2rq:column "spatial_ref_sys.proj4text";
+	.
+
+# Table tiger.addr
+map:tiger_addr a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/addr/@@tiger.addr.gid@@";
+	d2rq:class vocab:tiger_addr;
+	d2rq:classDefinitionLabel "tiger.addr";
+	.
+map:tiger_addr__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property rdfs:label;
+	d2rq:pattern "addr #@@tiger.addr.gid@@";
+	.
+map:tiger_addr_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_gid;
+	d2rq:propertyDefinitionLabel "addr gid";
+	d2rq:column "tiger.addr.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addr_tlid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_tlid;
+	d2rq:propertyDefinitionLabel "addr tlid";
+	d2rq:column "tiger.addr.tlid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addr_fromhn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_fromhn;
+	d2rq:propertyDefinitionLabel "addr fromhn";
+	d2rq:column "tiger.addr.fromhn";
+	.
+map:tiger_addr_tohn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_tohn;
+	d2rq:propertyDefinitionLabel "addr tohn";
+	d2rq:column "tiger.addr.tohn";
+	.
+map:tiger_addr_side a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_side;
+	d2rq:propertyDefinitionLabel "addr side";
+	d2rq:column "tiger.addr.side";
+	.
+map:tiger_addr_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_zip;
+	d2rq:propertyDefinitionLabel "addr zip";
+	d2rq:column "tiger.addr.zip";
+	.
+map:tiger_addr_plus4 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_plus4;
+	d2rq:propertyDefinitionLabel "addr plus4";
+	d2rq:column "tiger.addr.plus4";
+	.
+map:tiger_addr_fromtyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_fromtyp;
+	d2rq:propertyDefinitionLabel "addr fromtyp";
+	d2rq:column "tiger.addr.fromtyp";
+	.
+map:tiger_addr_totyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_totyp;
+	d2rq:propertyDefinitionLabel "addr totyp";
+	d2rq:column "tiger.addr.totyp";
+	.
+map:tiger_addr_fromarmid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_fromarmid;
+	d2rq:propertyDefinitionLabel "addr fromarmid";
+	d2rq:column "tiger.addr.fromarmid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addr_toarmid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_toarmid;
+	d2rq:propertyDefinitionLabel "addr toarmid";
+	d2rq:column "tiger.addr.toarmid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addr_arid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_arid;
+	d2rq:propertyDefinitionLabel "addr arid";
+	d2rq:column "tiger.addr.arid";
+	.
+map:tiger_addr_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_mtfcc;
+	d2rq:propertyDefinitionLabel "addr mtfcc";
+	d2rq:column "tiger.addr.mtfcc";
+	.
+map:tiger_addr_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addr;
+	d2rq:property vocab:tiger_addr_statefp;
+	d2rq:propertyDefinitionLabel "addr statefp";
+	d2rq:column "tiger.addr.statefp";
+	.
+
+# Table tiger.addrfeat
+map:tiger_addrfeat a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/addrfeat/@@tiger.addrfeat.gid@@";
+	d2rq:class vocab:tiger_addrfeat;
+	d2rq:classDefinitionLabel "tiger.addrfeat";
+	.
+map:tiger_addrfeat__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property rdfs:label;
+	d2rq:pattern "addrfeat #@@tiger.addrfeat.gid@@";
+	.
+map:tiger_addrfeat_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_gid;
+	d2rq:propertyDefinitionLabel "addrfeat gid";
+	d2rq:column "tiger.addrfeat.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addrfeat_tlid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_tlid;
+	d2rq:propertyDefinitionLabel "addrfeat tlid";
+	d2rq:column "tiger.addrfeat.tlid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_addrfeat_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_statefp;
+	d2rq:propertyDefinitionLabel "addrfeat statefp";
+	d2rq:column "tiger.addrfeat.statefp";
+	.
+map:tiger_addrfeat_aridl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_aridl;
+	d2rq:propertyDefinitionLabel "addrfeat aridl";
+	d2rq:column "tiger.addrfeat.aridl";
+	.
+map:tiger_addrfeat_aridr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_aridr;
+	d2rq:propertyDefinitionLabel "addrfeat aridr";
+	d2rq:column "tiger.addrfeat.aridr";
+	.
+map:tiger_addrfeat_linearid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_linearid;
+	d2rq:propertyDefinitionLabel "addrfeat linearid";
+	d2rq:column "tiger.addrfeat.linearid";
+	.
+map:tiger_addrfeat_fullname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_fullname;
+	d2rq:propertyDefinitionLabel "addrfeat fullname";
+	d2rq:column "tiger.addrfeat.fullname";
+	.
+map:tiger_addrfeat_lfromhn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_lfromhn;
+	d2rq:propertyDefinitionLabel "addrfeat lfromhn";
+	d2rq:column "tiger.addrfeat.lfromhn";
+	.
+map:tiger_addrfeat_ltohn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_ltohn;
+	d2rq:propertyDefinitionLabel "addrfeat ltohn";
+	d2rq:column "tiger.addrfeat.ltohn";
+	.
+map:tiger_addrfeat_rfromhn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_rfromhn;
+	d2rq:propertyDefinitionLabel "addrfeat rfromhn";
+	d2rq:column "tiger.addrfeat.rfromhn";
+	.
+map:tiger_addrfeat_rtohn a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_rtohn;
+	d2rq:propertyDefinitionLabel "addrfeat rtohn";
+	d2rq:column "tiger.addrfeat.rtohn";
+	.
+map:tiger_addrfeat_zipl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_zipl;
+	d2rq:propertyDefinitionLabel "addrfeat zipl";
+	d2rq:column "tiger.addrfeat.zipl";
+	.
+map:tiger_addrfeat_zipr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_zipr;
+	d2rq:propertyDefinitionLabel "addrfeat zipr";
+	d2rq:column "tiger.addrfeat.zipr";
+	.
+map:tiger_addrfeat_edge_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_edge_mtfcc;
+	d2rq:propertyDefinitionLabel "addrfeat edge_mtfcc";
+	d2rq:column "tiger.addrfeat.edge_mtfcc";
+	.
+map:tiger_addrfeat_parityl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_parityl;
+	d2rq:propertyDefinitionLabel "addrfeat parityl";
+	d2rq:column "tiger.addrfeat.parityl";
+	.
+map:tiger_addrfeat_parityr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_parityr;
+	d2rq:propertyDefinitionLabel "addrfeat parityr";
+	d2rq:column "tiger.addrfeat.parityr";
+	.
+map:tiger_addrfeat_plus4l a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_plus4l;
+	d2rq:propertyDefinitionLabel "addrfeat plus4l";
+	d2rq:column "tiger.addrfeat.plus4l";
+	.
+map:tiger_addrfeat_plus4r a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_plus4r;
+	d2rq:propertyDefinitionLabel "addrfeat plus4r";
+	d2rq:column "tiger.addrfeat.plus4r";
+	.
+map:tiger_addrfeat_lfromtyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_lfromtyp;
+	d2rq:propertyDefinitionLabel "addrfeat lfromtyp";
+	d2rq:column "tiger.addrfeat.lfromtyp";
+	.
+map:tiger_addrfeat_ltotyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_ltotyp;
+	d2rq:propertyDefinitionLabel "addrfeat ltotyp";
+	d2rq:column "tiger.addrfeat.ltotyp";
+	.
+map:tiger_addrfeat_rfromtyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_rfromtyp;
+	d2rq:propertyDefinitionLabel "addrfeat rfromtyp";
+	d2rq:column "tiger.addrfeat.rfromtyp";
+	.
+map:tiger_addrfeat_rtotyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_rtotyp;
+	d2rq:propertyDefinitionLabel "addrfeat rtotyp";
+	d2rq:column "tiger.addrfeat.rtotyp";
+	.
+map:tiger_addrfeat_offsetl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_offsetl;
+	d2rq:propertyDefinitionLabel "addrfeat offsetl";
+	d2rq:column "tiger.addrfeat.offsetl";
+	.
+map:tiger_addrfeat_offsetr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_offsetr;
+	d2rq:propertyDefinitionLabel "addrfeat offsetr";
+	d2rq:column "tiger.addrfeat.offsetr";
+	.
+map:tiger_addrfeat_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_addrfeat;
+	d2rq:property vocab:tiger_addrfeat_the_geom;
+	d2rq:propertyDefinitionLabel "addrfeat the_geom";
+	d2rq:column "tiger.addrfeat.the_geom";
+	.
+
+# Table tiger.bg
+map:tiger_bg a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/bg/@@tiger.bg.bg_id|urlify@@";
+	d2rq:class vocab:tiger_bg;
+	d2rq:classDefinitionLabel "tiger.bg";
+	.
+map:tiger_bg__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property rdfs:label;
+	d2rq:pattern "bg #@@tiger.bg.bg_id@@";
+	.
+map:tiger_bg_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_gid;
+	d2rq:propertyDefinitionLabel "bg gid";
+	d2rq:column "tiger.bg.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_bg_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_statefp;
+	d2rq:propertyDefinitionLabel "bg statefp";
+	d2rq:column "tiger.bg.statefp";
+	.
+map:tiger_bg_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_countyfp;
+	d2rq:propertyDefinitionLabel "bg countyfp";
+	d2rq:column "tiger.bg.countyfp";
+	.
+map:tiger_bg_tractce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_tractce;
+	d2rq:propertyDefinitionLabel "bg tractce";
+	d2rq:column "tiger.bg.tractce";
+	.
+map:tiger_bg_blkgrpce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_blkgrpce;
+	d2rq:propertyDefinitionLabel "bg blkgrpce";
+	d2rq:column "tiger.bg.blkgrpce";
+	.
+map:tiger_bg_bg_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_bg_id;
+	d2rq:propertyDefinitionLabel "bg bg_id";
+	d2rq:column "tiger.bg.bg_id";
+	.
+map:tiger_bg_namelsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_namelsad;
+	d2rq:propertyDefinitionLabel "bg namelsad";
+	d2rq:column "tiger.bg.namelsad";
+	.
+map:tiger_bg_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_mtfcc;
+	d2rq:propertyDefinitionLabel "bg mtfcc";
+	d2rq:column "tiger.bg.mtfcc";
+	.
+map:tiger_bg_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_funcstat;
+	d2rq:propertyDefinitionLabel "bg funcstat";
+	d2rq:column "tiger.bg.funcstat";
+	.
+map:tiger_bg_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_aland;
+	d2rq:propertyDefinitionLabel "bg aland";
+	d2rq:column "tiger.bg.aland";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_bg_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_awater;
+	d2rq:propertyDefinitionLabel "bg awater";
+	d2rq:column "tiger.bg.awater";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_bg_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_intptlat;
+	d2rq:propertyDefinitionLabel "bg intptlat";
+	d2rq:column "tiger.bg.intptlat";
+	.
+map:tiger_bg_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_intptlon;
+	d2rq:propertyDefinitionLabel "bg intptlon";
+	d2rq:column "tiger.bg.intptlon";
+	.
+map:tiger_bg_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_bg;
+	d2rq:property vocab:tiger_bg_the_geom;
+	d2rq:propertyDefinitionLabel "bg the_geom";
+	d2rq:column "tiger.bg.the_geom";
+	.
+
+# Table tiger.county
+map:tiger_county a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/county/@@tiger.county.cntyidfp|urlify@@";
+	d2rq:class vocab:tiger_county;
+	d2rq:classDefinitionLabel "tiger.county";
+	.
+map:tiger_county__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property rdfs:label;
+	d2rq:pattern "county #@@tiger.county.cntyidfp@@";
+	.
+map:tiger_county_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_gid;
+	d2rq:propertyDefinitionLabel "county gid";
+	d2rq:column "tiger.county.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_county_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_statefp;
+	d2rq:propertyDefinitionLabel "county statefp";
+	d2rq:column "tiger.county.statefp";
+	.
+map:tiger_county_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_countyfp;
+	d2rq:propertyDefinitionLabel "county countyfp";
+	d2rq:column "tiger.county.countyfp";
+	.
+map:tiger_county_countyns a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_countyns;
+	d2rq:propertyDefinitionLabel "county countyns";
+	d2rq:column "tiger.county.countyns";
+	.
+map:tiger_county_cntyidfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_cntyidfp;
+	d2rq:propertyDefinitionLabel "county cntyidfp";
+	d2rq:column "tiger.county.cntyidfp";
+	.
+map:tiger_county_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_name;
+	d2rq:propertyDefinitionLabel "county name";
+	d2rq:column "tiger.county.name";
+	.
+map:tiger_county_namelsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_namelsad;
+	d2rq:propertyDefinitionLabel "county namelsad";
+	d2rq:column "tiger.county.namelsad";
+	.
+map:tiger_county_lsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_lsad;
+	d2rq:propertyDefinitionLabel "county lsad";
+	d2rq:column "tiger.county.lsad";
+	.
+map:tiger_county_classfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_classfp;
+	d2rq:propertyDefinitionLabel "county classfp";
+	d2rq:column "tiger.county.classfp";
+	.
+map:tiger_county_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_mtfcc;
+	d2rq:propertyDefinitionLabel "county mtfcc";
+	d2rq:column "tiger.county.mtfcc";
+	.
+map:tiger_county_csafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_csafp;
+	d2rq:propertyDefinitionLabel "county csafp";
+	d2rq:column "tiger.county.csafp";
+	.
+map:tiger_county_cbsafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_cbsafp;
+	d2rq:propertyDefinitionLabel "county cbsafp";
+	d2rq:column "tiger.county.cbsafp";
+	.
+map:tiger_county_metdivfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_metdivfp;
+	d2rq:propertyDefinitionLabel "county metdivfp";
+	d2rq:column "tiger.county.metdivfp";
+	.
+map:tiger_county_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_funcstat;
+	d2rq:propertyDefinitionLabel "county funcstat";
+	d2rq:column "tiger.county.funcstat";
+	.
+map:tiger_county_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_aland;
+	d2rq:propertyDefinitionLabel "county aland";
+	d2rq:column "tiger.county.aland";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_county_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_awater;
+	d2rq:propertyDefinitionLabel "county awater";
+	d2rq:column "tiger.county.awater";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_county_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_intptlat;
+	d2rq:propertyDefinitionLabel "county intptlat";
+	d2rq:column "tiger.county.intptlat";
+	.
+map:tiger_county_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_intptlon;
+	d2rq:propertyDefinitionLabel "county intptlon";
+	d2rq:column "tiger.county.intptlon";
+	.
+map:tiger_county_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county;
+	d2rq:property vocab:tiger_county_the_geom;
+	d2rq:propertyDefinitionLabel "county the_geom";
+	d2rq:column "tiger.county.the_geom";
+	.
+
+# Table tiger.county_lookup
+map:tiger_county_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/county_lookup/@@tiger.county_lookup.st_code@@/@@tiger.county_lookup.co_code@@";
+	d2rq:class vocab:tiger_county_lookup;
+	d2rq:classDefinitionLabel "tiger.county_lookup";
+	.
+map:tiger_county_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "county_lookup #@@tiger.county_lookup.st_code@@/@@tiger.county_lookup.co_code@@";
+	.
+map:tiger_county_lookup_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county_lookup;
+	d2rq:property vocab:tiger_county_lookup_st_code;
+	d2rq:propertyDefinitionLabel "county_lookup st_code";
+	d2rq:column "tiger.county_lookup.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_county_lookup_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county_lookup;
+	d2rq:property vocab:tiger_county_lookup_state;
+	d2rq:propertyDefinitionLabel "county_lookup state";
+	d2rq:column "tiger.county_lookup.state";
+	.
+map:tiger_county_lookup_co_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county_lookup;
+	d2rq:property vocab:tiger_county_lookup_co_code;
+	d2rq:propertyDefinitionLabel "county_lookup co_code";
+	d2rq:column "tiger.county_lookup.co_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_county_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_county_lookup;
+	d2rq:property vocab:tiger_county_lookup_name;
+	d2rq:propertyDefinitionLabel "county_lookup name";
+	d2rq:column "tiger.county_lookup.name";
+	.
+
+# Table tiger.countysub_lookup
+map:tiger_countysub_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/countysub_lookup/@@tiger.countysub_lookup.st_code@@/@@tiger.countysub_lookup.co_code@@/@@tiger.countysub_lookup.cs_code@@";
+	d2rq:class vocab:tiger_countysub_lookup;
+	d2rq:classDefinitionLabel "tiger.countysub_lookup";
+	.
+map:tiger_countysub_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "countysub_lookup #@@tiger.countysub_lookup.st_code@@/@@tiger.countysub_lookup.co_code@@/@@tiger.countysub_lookup.cs_code@@";
+	.
+map:tiger_countysub_lookup_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_st_code;
+	d2rq:propertyDefinitionLabel "countysub_lookup st_code";
+	d2rq:column "tiger.countysub_lookup.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_countysub_lookup_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_state;
+	d2rq:propertyDefinitionLabel "countysub_lookup state";
+	d2rq:column "tiger.countysub_lookup.state";
+	.
+map:tiger_countysub_lookup_co_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_co_code;
+	d2rq:propertyDefinitionLabel "countysub_lookup co_code";
+	d2rq:column "tiger.countysub_lookup.co_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_countysub_lookup_county a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_county;
+	d2rq:propertyDefinitionLabel "countysub_lookup county";
+	d2rq:column "tiger.countysub_lookup.county";
+	.
+map:tiger_countysub_lookup_cs_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_cs_code;
+	d2rq:propertyDefinitionLabel "countysub_lookup cs_code";
+	d2rq:column "tiger.countysub_lookup.cs_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_countysub_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_countysub_lookup;
+	d2rq:property vocab:tiger_countysub_lookup_name;
+	d2rq:propertyDefinitionLabel "countysub_lookup name";
+	d2rq:column "tiger.countysub_lookup.name";
+	.
+
+# Table tiger.cousub
+map:tiger_cousub a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/cousub/@@tiger.cousub.cosbidfp|urlify@@";
+	d2rq:class vocab:tiger_cousub;
+	d2rq:classDefinitionLabel "tiger.cousub";
+	.
+map:tiger_cousub__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property rdfs:label;
+	d2rq:pattern "cousub #@@tiger.cousub.cosbidfp@@";
+	.
+map:tiger_cousub_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_gid;
+	d2rq:propertyDefinitionLabel "cousub gid";
+	d2rq:column "tiger.cousub.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_cousub_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_statefp;
+	d2rq:propertyDefinitionLabel "cousub statefp";
+	d2rq:column "tiger.cousub.statefp";
+	.
+map:tiger_cousub_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_countyfp;
+	d2rq:propertyDefinitionLabel "cousub countyfp";
+	d2rq:column "tiger.cousub.countyfp";
+	.
+map:tiger_cousub_cousubfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_cousubfp;
+	d2rq:propertyDefinitionLabel "cousub cousubfp";
+	d2rq:column "tiger.cousub.cousubfp";
+	.
+map:tiger_cousub_cousubns a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_cousubns;
+	d2rq:propertyDefinitionLabel "cousub cousubns";
+	d2rq:column "tiger.cousub.cousubns";
+	.
+map:tiger_cousub_cosbidfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_cosbidfp;
+	d2rq:propertyDefinitionLabel "cousub cosbidfp";
+	d2rq:column "tiger.cousub.cosbidfp";
+	.
+map:tiger_cousub_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_name;
+	d2rq:propertyDefinitionLabel "cousub name";
+	d2rq:column "tiger.cousub.name";
+	.
+map:tiger_cousub_namelsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_namelsad;
+	d2rq:propertyDefinitionLabel "cousub namelsad";
+	d2rq:column "tiger.cousub.namelsad";
+	.
+map:tiger_cousub_lsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_lsad;
+	d2rq:propertyDefinitionLabel "cousub lsad";
+	d2rq:column "tiger.cousub.lsad";
+	.
+map:tiger_cousub_classfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_classfp;
+	d2rq:propertyDefinitionLabel "cousub classfp";
+	d2rq:column "tiger.cousub.classfp";
+	.
+map:tiger_cousub_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_mtfcc;
+	d2rq:propertyDefinitionLabel "cousub mtfcc";
+	d2rq:column "tiger.cousub.mtfcc";
+	.
+map:tiger_cousub_cnectafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_cnectafp;
+	d2rq:propertyDefinitionLabel "cousub cnectafp";
+	d2rq:column "tiger.cousub.cnectafp";
+	.
+map:tiger_cousub_nectafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_nectafp;
+	d2rq:propertyDefinitionLabel "cousub nectafp";
+	d2rq:column "tiger.cousub.nectafp";
+	.
+map:tiger_cousub_nctadvfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_nctadvfp;
+	d2rq:propertyDefinitionLabel "cousub nctadvfp";
+	d2rq:column "tiger.cousub.nctadvfp";
+	.
+map:tiger_cousub_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_funcstat;
+	d2rq:propertyDefinitionLabel "cousub funcstat";
+	d2rq:column "tiger.cousub.funcstat";
+	.
+map:tiger_cousub_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_aland;
+	d2rq:propertyDefinitionLabel "cousub aland";
+	d2rq:column "tiger.cousub.aland";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_cousub_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_awater;
+	d2rq:propertyDefinitionLabel "cousub awater";
+	d2rq:column "tiger.cousub.awater";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_cousub_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_intptlat;
+	d2rq:propertyDefinitionLabel "cousub intptlat";
+	d2rq:column "tiger.cousub.intptlat";
+	.
+map:tiger_cousub_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_intptlon;
+	d2rq:propertyDefinitionLabel "cousub intptlon";
+	d2rq:column "tiger.cousub.intptlon";
+	.
+map:tiger_cousub_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_cousub;
+	d2rq:property vocab:tiger_cousub_the_geom;
+	d2rq:propertyDefinitionLabel "cousub the_geom";
+	d2rq:column "tiger.cousub.the_geom";
+	.
+
+# Table tiger.direction_lookup
+map:tiger_direction_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/direction_lookup/@@tiger.direction_lookup.name|urlify@@";
+	d2rq:class vocab:tiger_direction_lookup;
+	d2rq:classDefinitionLabel "tiger.direction_lookup";
+	.
+map:tiger_direction_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_direction_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "direction_lookup #@@tiger.direction_lookup.name@@";
+	.
+map:tiger_direction_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_direction_lookup;
+	d2rq:property vocab:tiger_direction_lookup_name;
+	d2rq:propertyDefinitionLabel "direction_lookup name";
+	d2rq:column "tiger.direction_lookup.name";
+	.
+map:tiger_direction_lookup_abbrev a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_direction_lookup;
+	d2rq:property vocab:tiger_direction_lookup_abbrev;
+	d2rq:propertyDefinitionLabel "direction_lookup abbrev";
+	d2rq:column "tiger.direction_lookup.abbrev";
+	.
+
+# Table tiger.edges
+map:tiger_edges a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/edges/@@tiger.edges.gid@@";
+	d2rq:class vocab:tiger_edges;
+	d2rq:classDefinitionLabel "tiger.edges";
+	.
+map:tiger_edges__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property rdfs:label;
+	d2rq:pattern "edges #@@tiger.edges.gid@@";
+	.
+map:tiger_edges_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_gid;
+	d2rq:propertyDefinitionLabel "edges gid";
+	d2rq:column "tiger.edges.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_edges_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_statefp;
+	d2rq:propertyDefinitionLabel "edges statefp";
+	d2rq:column "tiger.edges.statefp";
+	.
+map:tiger_edges_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_countyfp;
+	d2rq:propertyDefinitionLabel "edges countyfp";
+	d2rq:column "tiger.edges.countyfp";
+	.
+map:tiger_edges_tlid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_tlid;
+	d2rq:propertyDefinitionLabel "edges tlid";
+	d2rq:column "tiger.edges.tlid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_edges_tfidl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_tfidl;
+	d2rq:propertyDefinitionLabel "edges tfidl";
+	d2rq:column "tiger.edges.tfidl";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_edges_tfidr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_tfidr;
+	d2rq:propertyDefinitionLabel "edges tfidr";
+	d2rq:column "tiger.edges.tfidr";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_edges_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_mtfcc;
+	d2rq:propertyDefinitionLabel "edges mtfcc";
+	d2rq:column "tiger.edges.mtfcc";
+	.
+map:tiger_edges_fullname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_fullname;
+	d2rq:propertyDefinitionLabel "edges fullname";
+	d2rq:column "tiger.edges.fullname";
+	.
+map:tiger_edges_smid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_smid;
+	d2rq:propertyDefinitionLabel "edges smid";
+	d2rq:column "tiger.edges.smid";
+	.
+map:tiger_edges_lfromadd a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_lfromadd;
+	d2rq:propertyDefinitionLabel "edges lfromadd";
+	d2rq:column "tiger.edges.lfromadd";
+	.
+map:tiger_edges_ltoadd a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_ltoadd;
+	d2rq:propertyDefinitionLabel "edges ltoadd";
+	d2rq:column "tiger.edges.ltoadd";
+	.
+map:tiger_edges_rfromadd a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_rfromadd;
+	d2rq:propertyDefinitionLabel "edges rfromadd";
+	d2rq:column "tiger.edges.rfromadd";
+	.
+map:tiger_edges_rtoadd a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_rtoadd;
+	d2rq:propertyDefinitionLabel "edges rtoadd";
+	d2rq:column "tiger.edges.rtoadd";
+	.
+map:tiger_edges_zipl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_zipl;
+	d2rq:propertyDefinitionLabel "edges zipl";
+	d2rq:column "tiger.edges.zipl";
+	.
+map:tiger_edges_zipr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_zipr;
+	d2rq:propertyDefinitionLabel "edges zipr";
+	d2rq:column "tiger.edges.zipr";
+	.
+map:tiger_edges_featcat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_featcat;
+	d2rq:propertyDefinitionLabel "edges featcat";
+	d2rq:column "tiger.edges.featcat";
+	.
+map:tiger_edges_hydroflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_hydroflg;
+	d2rq:propertyDefinitionLabel "edges hydroflg";
+	d2rq:column "tiger.edges.hydroflg";
+	.
+map:tiger_edges_railflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_railflg;
+	d2rq:propertyDefinitionLabel "edges railflg";
+	d2rq:column "tiger.edges.railflg";
+	.
+map:tiger_edges_roadflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_roadflg;
+	d2rq:propertyDefinitionLabel "edges roadflg";
+	d2rq:column "tiger.edges.roadflg";
+	.
+map:tiger_edges_olfflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_olfflg;
+	d2rq:propertyDefinitionLabel "edges olfflg";
+	d2rq:column "tiger.edges.olfflg";
+	.
+map:tiger_edges_passflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_passflg;
+	d2rq:propertyDefinitionLabel "edges passflg";
+	d2rq:column "tiger.edges.passflg";
+	.
+map:tiger_edges_divroad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_divroad;
+	d2rq:propertyDefinitionLabel "edges divroad";
+	d2rq:column "tiger.edges.divroad";
+	.
+map:tiger_edges_exttyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_exttyp;
+	d2rq:propertyDefinitionLabel "edges exttyp";
+	d2rq:column "tiger.edges.exttyp";
+	.
+map:tiger_edges_ttyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_ttyp;
+	d2rq:propertyDefinitionLabel "edges ttyp";
+	d2rq:column "tiger.edges.ttyp";
+	.
+map:tiger_edges_deckedroad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_deckedroad;
+	d2rq:propertyDefinitionLabel "edges deckedroad";
+	d2rq:column "tiger.edges.deckedroad";
+	.
+map:tiger_edges_artpath a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_artpath;
+	d2rq:propertyDefinitionLabel "edges artpath";
+	d2rq:column "tiger.edges.artpath";
+	.
+map:tiger_edges_persist a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_persist;
+	d2rq:propertyDefinitionLabel "edges persist";
+	d2rq:column "tiger.edges.persist";
+	.
+map:tiger_edges_gcseflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_gcseflg;
+	d2rq:propertyDefinitionLabel "edges gcseflg";
+	d2rq:column "tiger.edges.gcseflg";
+	.
+map:tiger_edges_offsetl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_offsetl;
+	d2rq:propertyDefinitionLabel "edges offsetl";
+	d2rq:column "tiger.edges.offsetl";
+	.
+map:tiger_edges_offsetr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_offsetr;
+	d2rq:propertyDefinitionLabel "edges offsetr";
+	d2rq:column "tiger.edges.offsetr";
+	.
+map:tiger_edges_tnidf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_tnidf;
+	d2rq:propertyDefinitionLabel "edges tnidf";
+	d2rq:column "tiger.edges.tnidf";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_edges_tnidt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_tnidt;
+	d2rq:propertyDefinitionLabel "edges tnidt";
+	d2rq:column "tiger.edges.tnidt";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_edges_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_edges;
+	d2rq:property vocab:tiger_edges_the_geom;
+	d2rq:propertyDefinitionLabel "edges the_geom";
+	d2rq:column "tiger.edges.the_geom";
+	.
+
+# Table tiger.faces
+map:tiger_faces a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/faces/@@tiger.faces.gid@@";
+	d2rq:class vocab:tiger_faces;
+	d2rq:classDefinitionLabel "tiger.faces";
+	.
+map:tiger_faces__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property rdfs:label;
+	d2rq:pattern "faces #@@tiger.faces.gid@@";
+	.
+map:tiger_faces_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_gid;
+	d2rq:propertyDefinitionLabel "faces gid";
+	d2rq:column "tiger.faces.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_faces_tfid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tfid;
+	d2rq:propertyDefinitionLabel "faces tfid";
+	d2rq:column "tiger.faces.tfid";
+	d2rq:datatype xsd:decimal;
+	.
+map:tiger_faces_statefp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_statefp00;
+	d2rq:propertyDefinitionLabel "faces statefp00";
+	d2rq:column "tiger.faces.statefp00";
+	.
+map:tiger_faces_countyfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_countyfp00;
+	d2rq:propertyDefinitionLabel "faces countyfp00";
+	d2rq:column "tiger.faces.countyfp00";
+	.
+map:tiger_faces_tractce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tractce00;
+	d2rq:propertyDefinitionLabel "faces tractce00";
+	d2rq:column "tiger.faces.tractce00";
+	.
+map:tiger_faces_blkgrpce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_blkgrpce00;
+	d2rq:propertyDefinitionLabel "faces blkgrpce00";
+	d2rq:column "tiger.faces.blkgrpce00";
+	.
+map:tiger_faces_blockce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_blockce00;
+	d2rq:propertyDefinitionLabel "faces blockce00";
+	d2rq:column "tiger.faces.blockce00";
+	.
+map:tiger_faces_cousubfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cousubfp00;
+	d2rq:propertyDefinitionLabel "faces cousubfp00";
+	d2rq:column "tiger.faces.cousubfp00";
+	.
+map:tiger_faces_submcdfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_submcdfp00;
+	d2rq:propertyDefinitionLabel "faces submcdfp00";
+	d2rq:column "tiger.faces.submcdfp00";
+	.
+map:tiger_faces_conctyfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_conctyfp00;
+	d2rq:propertyDefinitionLabel "faces conctyfp00";
+	d2rq:column "tiger.faces.conctyfp00";
+	.
+map:tiger_faces_placefp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_placefp00;
+	d2rq:propertyDefinitionLabel "faces placefp00";
+	d2rq:column "tiger.faces.placefp00";
+	.
+map:tiger_faces_aiannhfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_aiannhfp00;
+	d2rq:propertyDefinitionLabel "faces aiannhfp00";
+	d2rq:column "tiger.faces.aiannhfp00";
+	.
+map:tiger_faces_aiannhce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_aiannhce00;
+	d2rq:propertyDefinitionLabel "faces aiannhce00";
+	d2rq:column "tiger.faces.aiannhce00";
+	.
+map:tiger_faces_comptyp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_comptyp00;
+	d2rq:propertyDefinitionLabel "faces comptyp00";
+	d2rq:column "tiger.faces.comptyp00";
+	.
+map:tiger_faces_trsubfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_trsubfp00;
+	d2rq:propertyDefinitionLabel "faces trsubfp00";
+	d2rq:column "tiger.faces.trsubfp00";
+	.
+map:tiger_faces_trsubce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_trsubce00;
+	d2rq:propertyDefinitionLabel "faces trsubce00";
+	d2rq:column "tiger.faces.trsubce00";
+	.
+map:tiger_faces_anrcfp00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_anrcfp00;
+	d2rq:propertyDefinitionLabel "faces anrcfp00";
+	d2rq:column "tiger.faces.anrcfp00";
+	.
+map:tiger_faces_elsdlea00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_elsdlea00;
+	d2rq:propertyDefinitionLabel "faces elsdlea00";
+	d2rq:column "tiger.faces.elsdlea00";
+	.
+map:tiger_faces_scsdlea00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_scsdlea00;
+	d2rq:propertyDefinitionLabel "faces scsdlea00";
+	d2rq:column "tiger.faces.scsdlea00";
+	.
+map:tiger_faces_unsdlea00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_unsdlea00;
+	d2rq:propertyDefinitionLabel "faces unsdlea00";
+	d2rq:column "tiger.faces.unsdlea00";
+	.
+map:tiger_faces_uace00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_uace00;
+	d2rq:propertyDefinitionLabel "faces uace00";
+	d2rq:column "tiger.faces.uace00";
+	.
+map:tiger_faces_cd108fp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cd108fp;
+	d2rq:propertyDefinitionLabel "faces cd108fp";
+	d2rq:column "tiger.faces.cd108fp";
+	.
+map:tiger_faces_sldust00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_sldust00;
+	d2rq:propertyDefinitionLabel "faces sldust00";
+	d2rq:column "tiger.faces.sldust00";
+	.
+map:tiger_faces_sldlst00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_sldlst00;
+	d2rq:propertyDefinitionLabel "faces sldlst00";
+	d2rq:column "tiger.faces.sldlst00";
+	.
+map:tiger_faces_vtdst00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_vtdst00;
+	d2rq:propertyDefinitionLabel "faces vtdst00";
+	d2rq:column "tiger.faces.vtdst00";
+	.
+map:tiger_faces_zcta5ce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_zcta5ce00;
+	d2rq:propertyDefinitionLabel "faces zcta5ce00";
+	d2rq:column "tiger.faces.zcta5ce00";
+	.
+map:tiger_faces_tazce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tazce00;
+	d2rq:propertyDefinitionLabel "faces tazce00";
+	d2rq:column "tiger.faces.tazce00";
+	.
+map:tiger_faces_ugace00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_ugace00;
+	d2rq:propertyDefinitionLabel "faces ugace00";
+	d2rq:column "tiger.faces.ugace00";
+	.
+map:tiger_faces_puma5ce00 a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_puma5ce00;
+	d2rq:propertyDefinitionLabel "faces puma5ce00";
+	d2rq:column "tiger.faces.puma5ce00";
+	.
+map:tiger_faces_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_statefp;
+	d2rq:propertyDefinitionLabel "faces statefp";
+	d2rq:column "tiger.faces.statefp";
+	.
+map:tiger_faces_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_countyfp;
+	d2rq:propertyDefinitionLabel "faces countyfp";
+	d2rq:column "tiger.faces.countyfp";
+	.
+map:tiger_faces_tractce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tractce;
+	d2rq:propertyDefinitionLabel "faces tractce";
+	d2rq:column "tiger.faces.tractce";
+	.
+map:tiger_faces_blkgrpce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_blkgrpce;
+	d2rq:propertyDefinitionLabel "faces blkgrpce";
+	d2rq:column "tiger.faces.blkgrpce";
+	.
+map:tiger_faces_blockce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_blockce;
+	d2rq:propertyDefinitionLabel "faces blockce";
+	d2rq:column "tiger.faces.blockce";
+	.
+map:tiger_faces_cousubfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cousubfp;
+	d2rq:propertyDefinitionLabel "faces cousubfp";
+	d2rq:column "tiger.faces.cousubfp";
+	.
+map:tiger_faces_submcdfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_submcdfp;
+	d2rq:propertyDefinitionLabel "faces submcdfp";
+	d2rq:column "tiger.faces.submcdfp";
+	.
+map:tiger_faces_conctyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_conctyfp;
+	d2rq:propertyDefinitionLabel "faces conctyfp";
+	d2rq:column "tiger.faces.conctyfp";
+	.
+map:tiger_faces_placefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_placefp;
+	d2rq:propertyDefinitionLabel "faces placefp";
+	d2rq:column "tiger.faces.placefp";
+	.
+map:tiger_faces_aiannhfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_aiannhfp;
+	d2rq:propertyDefinitionLabel "faces aiannhfp";
+	d2rq:column "tiger.faces.aiannhfp";
+	.
+map:tiger_faces_aiannhce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_aiannhce;
+	d2rq:propertyDefinitionLabel "faces aiannhce";
+	d2rq:column "tiger.faces.aiannhce";
+	.
+map:tiger_faces_comptyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_comptyp;
+	d2rq:propertyDefinitionLabel "faces comptyp";
+	d2rq:column "tiger.faces.comptyp";
+	.
+map:tiger_faces_trsubfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_trsubfp;
+	d2rq:propertyDefinitionLabel "faces trsubfp";
+	d2rq:column "tiger.faces.trsubfp";
+	.
+map:tiger_faces_trsubce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_trsubce;
+	d2rq:propertyDefinitionLabel "faces trsubce";
+	d2rq:column "tiger.faces.trsubce";
+	.
+map:tiger_faces_anrcfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_anrcfp;
+	d2rq:propertyDefinitionLabel "faces anrcfp";
+	d2rq:column "tiger.faces.anrcfp";
+	.
+map:tiger_faces_ttractce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_ttractce;
+	d2rq:propertyDefinitionLabel "faces ttractce";
+	d2rq:column "tiger.faces.ttractce";
+	.
+map:tiger_faces_tblkgpce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tblkgpce;
+	d2rq:propertyDefinitionLabel "faces tblkgpce";
+	d2rq:column "tiger.faces.tblkgpce";
+	.
+map:tiger_faces_elsdlea a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_elsdlea;
+	d2rq:propertyDefinitionLabel "faces elsdlea";
+	d2rq:column "tiger.faces.elsdlea";
+	.
+map:tiger_faces_scsdlea a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_scsdlea;
+	d2rq:propertyDefinitionLabel "faces scsdlea";
+	d2rq:column "tiger.faces.scsdlea";
+	.
+map:tiger_faces_unsdlea a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_unsdlea;
+	d2rq:propertyDefinitionLabel "faces unsdlea";
+	d2rq:column "tiger.faces.unsdlea";
+	.
+map:tiger_faces_uace a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_uace;
+	d2rq:propertyDefinitionLabel "faces uace";
+	d2rq:column "tiger.faces.uace";
+	.
+map:tiger_faces_cd111fp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cd111fp;
+	d2rq:propertyDefinitionLabel "faces cd111fp";
+	d2rq:column "tiger.faces.cd111fp";
+	.
+map:tiger_faces_sldust a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_sldust;
+	d2rq:propertyDefinitionLabel "faces sldust";
+	d2rq:column "tiger.faces.sldust";
+	.
+map:tiger_faces_sldlst a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_sldlst;
+	d2rq:propertyDefinitionLabel "faces sldlst";
+	d2rq:column "tiger.faces.sldlst";
+	.
+map:tiger_faces_vtdst a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_vtdst;
+	d2rq:propertyDefinitionLabel "faces vtdst";
+	d2rq:column "tiger.faces.vtdst";
+	.
+map:tiger_faces_zcta5ce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_zcta5ce;
+	d2rq:propertyDefinitionLabel "faces zcta5ce";
+	d2rq:column "tiger.faces.zcta5ce";
+	.
+map:tiger_faces_tazce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_tazce;
+	d2rq:propertyDefinitionLabel "faces tazce";
+	d2rq:column "tiger.faces.tazce";
+	.
+map:tiger_faces_ugace a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_ugace;
+	d2rq:propertyDefinitionLabel "faces ugace";
+	d2rq:column "tiger.faces.ugace";
+	.
+map:tiger_faces_puma5ce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_puma5ce;
+	d2rq:propertyDefinitionLabel "faces puma5ce";
+	d2rq:column "tiger.faces.puma5ce";
+	.
+map:tiger_faces_csafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_csafp;
+	d2rq:propertyDefinitionLabel "faces csafp";
+	d2rq:column "tiger.faces.csafp";
+	.
+map:tiger_faces_cbsafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cbsafp;
+	d2rq:propertyDefinitionLabel "faces cbsafp";
+	d2rq:column "tiger.faces.cbsafp";
+	.
+map:tiger_faces_metdivfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_metdivfp;
+	d2rq:propertyDefinitionLabel "faces metdivfp";
+	d2rq:column "tiger.faces.metdivfp";
+	.
+map:tiger_faces_cnectafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_cnectafp;
+	d2rq:propertyDefinitionLabel "faces cnectafp";
+	d2rq:column "tiger.faces.cnectafp";
+	.
+map:tiger_faces_nectafp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_nectafp;
+	d2rq:propertyDefinitionLabel "faces nectafp";
+	d2rq:column "tiger.faces.nectafp";
+	.
+map:tiger_faces_nctadvfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_nctadvfp;
+	d2rq:propertyDefinitionLabel "faces nctadvfp";
+	d2rq:column "tiger.faces.nctadvfp";
+	.
+map:tiger_faces_lwflag a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_lwflag;
+	d2rq:propertyDefinitionLabel "faces lwflag";
+	d2rq:column "tiger.faces.lwflag";
+	.
+map:tiger_faces_offset a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_offset;
+	d2rq:propertyDefinitionLabel "faces offset";
+	d2rq:column "tiger.faces.offset";
+	.
+map:tiger_faces_atotal a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_atotal;
+	d2rq:propertyDefinitionLabel "faces atotal";
+	d2rq:column "tiger.faces.atotal";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_faces_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_intptlat;
+	d2rq:propertyDefinitionLabel "faces intptlat";
+	d2rq:column "tiger.faces.intptlat";
+	.
+map:tiger_faces_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_intptlon;
+	d2rq:propertyDefinitionLabel "faces intptlon";
+	d2rq:column "tiger.faces.intptlon";
+	.
+map:tiger_faces_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_faces;
+	d2rq:property vocab:tiger_faces_the_geom;
+	d2rq:propertyDefinitionLabel "faces the_geom";
+	d2rq:column "tiger.faces.the_geom";
+	.
+
+# Table tiger.featnames
+map:tiger_featnames a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/featnames/@@tiger.featnames.gid@@";
+	d2rq:class vocab:tiger_featnames;
+	d2rq:classDefinitionLabel "tiger.featnames";
+	.
+map:tiger_featnames__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property rdfs:label;
+	d2rq:pattern "featnames #@@tiger.featnames.gid@@";
+	.
+map:tiger_featnames_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_gid;
+	d2rq:propertyDefinitionLabel "featnames gid";
+	d2rq:column "tiger.featnames.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_featnames_tlid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_tlid;
+	d2rq:propertyDefinitionLabel "featnames tlid";
+	d2rq:column "tiger.featnames.tlid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_featnames_fullname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_fullname;
+	d2rq:propertyDefinitionLabel "featnames fullname";
+	d2rq:column "tiger.featnames.fullname";
+	.
+map:tiger_featnames_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_name;
+	d2rq:propertyDefinitionLabel "featnames name";
+	d2rq:column "tiger.featnames.name";
+	.
+map:tiger_featnames_predirabrv a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_predirabrv;
+	d2rq:propertyDefinitionLabel "featnames predirabrv";
+	d2rq:column "tiger.featnames.predirabrv";
+	.
+map:tiger_featnames_pretypabrv a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_pretypabrv;
+	d2rq:propertyDefinitionLabel "featnames pretypabrv";
+	d2rq:column "tiger.featnames.pretypabrv";
+	.
+map:tiger_featnames_prequalabr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_prequalabr;
+	d2rq:propertyDefinitionLabel "featnames prequalabr";
+	d2rq:column "tiger.featnames.prequalabr";
+	.
+map:tiger_featnames_sufdirabrv a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_sufdirabrv;
+	d2rq:propertyDefinitionLabel "featnames sufdirabrv";
+	d2rq:column "tiger.featnames.sufdirabrv";
+	.
+map:tiger_featnames_suftypabrv a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_suftypabrv;
+	d2rq:propertyDefinitionLabel "featnames suftypabrv";
+	d2rq:column "tiger.featnames.suftypabrv";
+	.
+map:tiger_featnames_sufqualabr a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_sufqualabr;
+	d2rq:propertyDefinitionLabel "featnames sufqualabr";
+	d2rq:column "tiger.featnames.sufqualabr";
+	.
+map:tiger_featnames_predir a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_predir;
+	d2rq:propertyDefinitionLabel "featnames predir";
+	d2rq:column "tiger.featnames.predir";
+	.
+map:tiger_featnames_pretyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_pretyp;
+	d2rq:propertyDefinitionLabel "featnames pretyp";
+	d2rq:column "tiger.featnames.pretyp";
+	.
+map:tiger_featnames_prequal a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_prequal;
+	d2rq:propertyDefinitionLabel "featnames prequal";
+	d2rq:column "tiger.featnames.prequal";
+	.
+map:tiger_featnames_sufdir a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_sufdir;
+	d2rq:propertyDefinitionLabel "featnames sufdir";
+	d2rq:column "tiger.featnames.sufdir";
+	.
+map:tiger_featnames_suftyp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_suftyp;
+	d2rq:propertyDefinitionLabel "featnames suftyp";
+	d2rq:column "tiger.featnames.suftyp";
+	.
+map:tiger_featnames_sufqual a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_sufqual;
+	d2rq:propertyDefinitionLabel "featnames sufqual";
+	d2rq:column "tiger.featnames.sufqual";
+	.
+map:tiger_featnames_linearid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_linearid;
+	d2rq:propertyDefinitionLabel "featnames linearid";
+	d2rq:column "tiger.featnames.linearid";
+	.
+map:tiger_featnames_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_mtfcc;
+	d2rq:propertyDefinitionLabel "featnames mtfcc";
+	d2rq:column "tiger.featnames.mtfcc";
+	.
+map:tiger_featnames_paflag a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_paflag;
+	d2rq:propertyDefinitionLabel "featnames paflag";
+	d2rq:column "tiger.featnames.paflag";
+	.
+map:tiger_featnames_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_featnames;
+	d2rq:property vocab:tiger_featnames_statefp;
+	d2rq:propertyDefinitionLabel "featnames statefp";
+	d2rq:column "tiger.featnames.statefp";
+	.
+
+# Table tiger.geocode_settings
+map:tiger_geocode_settings a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/geocode_settings/@@tiger.geocode_settings.name|urlify@@";
+	d2rq:class vocab:tiger_geocode_settings;
+	d2rq:classDefinitionLabel "tiger.geocode_settings";
+	.
+map:tiger_geocode_settings__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property rdfs:label;
+	d2rq:pattern "geocode_settings #@@tiger.geocode_settings.name@@";
+	.
+map:tiger_geocode_settings_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property vocab:tiger_geocode_settings_name;
+	d2rq:propertyDefinitionLabel "geocode_settings name";
+	d2rq:column "tiger.geocode_settings.name";
+	.
+map:tiger_geocode_settings_setting a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property vocab:tiger_geocode_settings_setting;
+	d2rq:propertyDefinitionLabel "geocode_settings setting";
+	d2rq:column "tiger.geocode_settings.setting";
+	.
+map:tiger_geocode_settings_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property vocab:tiger_geocode_settings_unit;
+	d2rq:propertyDefinitionLabel "geocode_settings unit";
+	d2rq:column "tiger.geocode_settings.unit";
+	.
+map:tiger_geocode_settings_category a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property vocab:tiger_geocode_settings_category;
+	d2rq:propertyDefinitionLabel "geocode_settings category";
+	d2rq:column "tiger.geocode_settings.category";
+	.
+map:tiger_geocode_settings_short_desc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings;
+	d2rq:property vocab:tiger_geocode_settings_short_desc;
+	d2rq:propertyDefinitionLabel "geocode_settings short_desc";
+	d2rq:column "tiger.geocode_settings.short_desc";
+	.
+
+# Table tiger.geocode_settings_default
+map:tiger_geocode_settings_default a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/geocode_settings_default/@@tiger.geocode_settings_default.name|urlify@@";
+	d2rq:class vocab:tiger_geocode_settings_default;
+	d2rq:classDefinitionLabel "tiger.geocode_settings_default";
+	.
+map:tiger_geocode_settings_default__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property rdfs:label;
+	d2rq:pattern "geocode_settings_default #@@tiger.geocode_settings_default.name@@";
+	.
+map:tiger_geocode_settings_default_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property vocab:tiger_geocode_settings_default_name;
+	d2rq:propertyDefinitionLabel "geocode_settings_default name";
+	d2rq:column "tiger.geocode_settings_default.name";
+	.
+map:tiger_geocode_settings_default_setting a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property vocab:tiger_geocode_settings_default_setting;
+	d2rq:propertyDefinitionLabel "geocode_settings_default setting";
+	d2rq:column "tiger.geocode_settings_default.setting";
+	.
+map:tiger_geocode_settings_default_unit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property vocab:tiger_geocode_settings_default_unit;
+	d2rq:propertyDefinitionLabel "geocode_settings_default unit";
+	d2rq:column "tiger.geocode_settings_default.unit";
+	.
+map:tiger_geocode_settings_default_category a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property vocab:tiger_geocode_settings_default_category;
+	d2rq:propertyDefinitionLabel "geocode_settings_default category";
+	d2rq:column "tiger.geocode_settings_default.category";
+	.
+map:tiger_geocode_settings_default_short_desc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_geocode_settings_default;
+	d2rq:property vocab:tiger_geocode_settings_default_short_desc;
+	d2rq:propertyDefinitionLabel "geocode_settings_default short_desc";
+	d2rq:column "tiger.geocode_settings_default.short_desc";
+	.
+
+# Table tiger.loader_lookuptables
+map:tiger_loader_lookuptables a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/loader_lookuptables/@@tiger.loader_lookuptables.lookup_name|urlify@@";
+	d2rq:class vocab:tiger_loader_lookuptables;
+	d2rq:classDefinitionLabel "tiger.loader_lookuptables";
+	.
+map:tiger_loader_lookuptables__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property rdfs:label;
+	d2rq:pattern "loader_lookuptables #@@tiger.loader_lookuptables.lookup_name@@";
+	.
+# Skipping column @@tiger.loader_lookuptables.columns_exclude@@ as property bridge.
+#     Its datatype UnsupportedDataType:_TEXT{jdbcType:2003,typeName:'_TEXT'} cannot be mapped to RDF.
+map:tiger_loader_lookuptables_process_order a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_process_order;
+	d2rq:propertyDefinitionLabel "loader_lookuptables process_order";
+	d2rq:column "tiger.loader_lookuptables.process_order";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_loader_lookuptables_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_lookup_name;
+	d2rq:propertyDefinitionLabel "loader_lookuptables lookup_name";
+	d2rq:column "tiger.loader_lookuptables.lookup_name";
+	.
+map:tiger_loader_lookuptables_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_table_name;
+	d2rq:propertyDefinitionLabel "loader_lookuptables table_name";
+	d2rq:column "tiger.loader_lookuptables.table_name";
+	.
+map:tiger_loader_lookuptables_single_mode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_single_mode;
+	d2rq:propertyDefinitionLabel "loader_lookuptables single_mode";
+	d2rq:column "tiger.loader_lookuptables.single_mode";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_load a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_load;
+	d2rq:propertyDefinitionLabel "loader_lookuptables load";
+	d2rq:column "tiger.loader_lookuptables.load";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_level_county a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_level_county;
+	d2rq:propertyDefinitionLabel "loader_lookuptables level_county";
+	d2rq:column "tiger.loader_lookuptables.level_county";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_level_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_level_state;
+	d2rq:propertyDefinitionLabel "loader_lookuptables level_state";
+	d2rq:column "tiger.loader_lookuptables.level_state";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_level_nation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_level_nation;
+	d2rq:propertyDefinitionLabel "loader_lookuptables level_nation";
+	d2rq:column "tiger.loader_lookuptables.level_nation";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_post_load_process a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_post_load_process;
+	d2rq:propertyDefinitionLabel "loader_lookuptables post_load_process";
+	d2rq:column "tiger.loader_lookuptables.post_load_process";
+	.
+map:tiger_loader_lookuptables_single_geom_mode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_single_geom_mode;
+	d2rq:propertyDefinitionLabel "loader_lookuptables single_geom_mode";
+	d2rq:column "tiger.loader_lookuptables.single_geom_mode";
+	d2rq:datatype xsd:boolean;
+	.
+map:tiger_loader_lookuptables_insert_mode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_insert_mode;
+	d2rq:propertyDefinitionLabel "loader_lookuptables insert_mode";
+	d2rq:column "tiger.loader_lookuptables.insert_mode";
+	.
+map:tiger_loader_lookuptables_pre_load_process a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_pre_load_process;
+	d2rq:propertyDefinitionLabel "loader_lookuptables pre_load_process";
+	d2rq:column "tiger.loader_lookuptables.pre_load_process";
+	.
+map:tiger_loader_lookuptables_website_root_override a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_lookuptables;
+	d2rq:property vocab:tiger_loader_lookuptables_website_root_override;
+	d2rq:propertyDefinitionLabel "loader_lookuptables website_root_override";
+	d2rq:column "tiger.loader_lookuptables.website_root_override";
+	.
+
+# Table tiger.loader_platform
+map:tiger_loader_platform a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/loader_platform/@@tiger.loader_platform.os|urlify@@";
+	d2rq:class vocab:tiger_loader_platform;
+	d2rq:classDefinitionLabel "tiger.loader_platform";
+	.
+map:tiger_loader_platform__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property rdfs:label;
+	d2rq:pattern "loader_platform #@@tiger.loader_platform.os@@";
+	.
+map:tiger_loader_platform_os a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_os;
+	d2rq:propertyDefinitionLabel "loader_platform os";
+	d2rq:column "tiger.loader_platform.os";
+	.
+map:tiger_loader_platform_declare_sect a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_declare_sect;
+	d2rq:propertyDefinitionLabel "loader_platform declare_sect";
+	d2rq:column "tiger.loader_platform.declare_sect";
+	.
+map:tiger_loader_platform_pgbin a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_pgbin;
+	d2rq:propertyDefinitionLabel "loader_platform pgbin";
+	d2rq:column "tiger.loader_platform.pgbin";
+	.
+map:tiger_loader_platform_wget a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_wget;
+	d2rq:propertyDefinitionLabel "loader_platform wget";
+	d2rq:column "tiger.loader_platform.wget";
+	.
+map:tiger_loader_platform_unzip_command a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_unzip_command;
+	d2rq:propertyDefinitionLabel "loader_platform unzip_command";
+	d2rq:column "tiger.loader_platform.unzip_command";
+	.
+map:tiger_loader_platform_psql a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_psql;
+	d2rq:propertyDefinitionLabel "loader_platform psql";
+	d2rq:column "tiger.loader_platform.psql";
+	.
+map:tiger_loader_platform_path_sep a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_path_sep;
+	d2rq:propertyDefinitionLabel "loader_platform path_sep";
+	d2rq:column "tiger.loader_platform.path_sep";
+	.
+map:tiger_loader_platform_loader a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_loader;
+	d2rq:propertyDefinitionLabel "loader_platform loader";
+	d2rq:column "tiger.loader_platform.loader";
+	.
+map:tiger_loader_platform_environ_set_command a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_environ_set_command;
+	d2rq:propertyDefinitionLabel "loader_platform environ_set_command";
+	d2rq:column "tiger.loader_platform.environ_set_command";
+	.
+map:tiger_loader_platform_county_process_command a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_platform;
+	d2rq:property vocab:tiger_loader_platform_county_process_command;
+	d2rq:propertyDefinitionLabel "loader_platform county_process_command";
+	d2rq:column "tiger.loader_platform.county_process_command";
+	.
+
+# Table tiger.loader_variables
+map:tiger_loader_variables a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/loader_variables/@@tiger.loader_variables.tiger_year|urlify@@";
+	d2rq:class vocab:tiger_loader_variables;
+	d2rq:classDefinitionLabel "tiger.loader_variables";
+	.
+map:tiger_loader_variables__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property rdfs:label;
+	d2rq:pattern "loader_variables #@@tiger.loader_variables.tiger_year@@";
+	.
+map:tiger_loader_variables_tiger_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property vocab:tiger_loader_variables_tiger_year;
+	d2rq:propertyDefinitionLabel "loader_variables tiger_year";
+	d2rq:column "tiger.loader_variables.tiger_year";
+	.
+map:tiger_loader_variables_website_root a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property vocab:tiger_loader_variables_website_root;
+	d2rq:propertyDefinitionLabel "loader_variables website_root";
+	d2rq:column "tiger.loader_variables.website_root";
+	.
+map:tiger_loader_variables_staging_fold a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property vocab:tiger_loader_variables_staging_fold;
+	d2rq:propertyDefinitionLabel "loader_variables staging_fold";
+	d2rq:column "tiger.loader_variables.staging_fold";
+	.
+map:tiger_loader_variables_data_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property vocab:tiger_loader_variables_data_schema;
+	d2rq:propertyDefinitionLabel "loader_variables data_schema";
+	d2rq:column "tiger.loader_variables.data_schema";
+	.
+map:tiger_loader_variables_staging_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_loader_variables;
+	d2rq:property vocab:tiger_loader_variables_staging_schema;
+	d2rq:propertyDefinitionLabel "loader_variables staging_schema";
+	d2rq:column "tiger.loader_variables.staging_schema";
+	.
+
+# Table tiger.pagc_gaz
+map:tiger_pagc_gaz a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/pagc_gaz/@@tiger.pagc_gaz.id@@";
+	d2rq:class vocab:tiger_pagc_gaz;
+	d2rq:classDefinitionLabel "tiger.pagc_gaz";
+	.
+map:tiger_pagc_gaz__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property rdfs:label;
+	d2rq:pattern "pagc_gaz #@@tiger.pagc_gaz.id@@";
+	.
+map:tiger_pagc_gaz_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_id;
+	d2rq:propertyDefinitionLabel "pagc_gaz id";
+	d2rq:column "tiger.pagc_gaz.id";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_gaz_seq a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_seq;
+	d2rq:propertyDefinitionLabel "pagc_gaz seq";
+	d2rq:column "tiger.pagc_gaz.seq";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_gaz_word a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_word;
+	d2rq:propertyDefinitionLabel "pagc_gaz word";
+	d2rq:column "tiger.pagc_gaz.word";
+	.
+map:tiger_pagc_gaz_stdword a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_stdword;
+	d2rq:propertyDefinitionLabel "pagc_gaz stdword";
+	d2rq:column "tiger.pagc_gaz.stdword";
+	.
+map:tiger_pagc_gaz_token a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_token;
+	d2rq:propertyDefinitionLabel "pagc_gaz token";
+	d2rq:column "tiger.pagc_gaz.token";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_gaz_is_custom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_gaz;
+	d2rq:property vocab:tiger_pagc_gaz_is_custom;
+	d2rq:propertyDefinitionLabel "pagc_gaz is_custom";
+	d2rq:column "tiger.pagc_gaz.is_custom";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table tiger.pagc_lex
+map:tiger_pagc_lex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/pagc_lex/@@tiger.pagc_lex.id@@";
+	d2rq:class vocab:tiger_pagc_lex;
+	d2rq:classDefinitionLabel "tiger.pagc_lex";
+	.
+map:tiger_pagc_lex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "pagc_lex #@@tiger.pagc_lex.id@@";
+	.
+map:tiger_pagc_lex_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_id;
+	d2rq:propertyDefinitionLabel "pagc_lex id";
+	d2rq:column "tiger.pagc_lex.id";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_lex_seq a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_seq;
+	d2rq:propertyDefinitionLabel "pagc_lex seq";
+	d2rq:column "tiger.pagc_lex.seq";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_lex_word a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_word;
+	d2rq:propertyDefinitionLabel "pagc_lex word";
+	d2rq:column "tiger.pagc_lex.word";
+	.
+map:tiger_pagc_lex_stdword a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_stdword;
+	d2rq:propertyDefinitionLabel "pagc_lex stdword";
+	d2rq:column "tiger.pagc_lex.stdword";
+	.
+map:tiger_pagc_lex_token a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_token;
+	d2rq:propertyDefinitionLabel "pagc_lex token";
+	d2rq:column "tiger.pagc_lex.token";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_lex_is_custom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_lex;
+	d2rq:property vocab:tiger_pagc_lex_is_custom;
+	d2rq:propertyDefinitionLabel "pagc_lex is_custom";
+	d2rq:column "tiger.pagc_lex.is_custom";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table tiger.pagc_rules
+map:tiger_pagc_rules a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/pagc_rules/@@tiger.pagc_rules.id@@";
+	d2rq:class vocab:tiger_pagc_rules;
+	d2rq:classDefinitionLabel "tiger.pagc_rules";
+	.
+map:tiger_pagc_rules__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_rules;
+	d2rq:property rdfs:label;
+	d2rq:pattern "pagc_rules #@@tiger.pagc_rules.id@@";
+	.
+map:tiger_pagc_rules_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_rules;
+	d2rq:property vocab:tiger_pagc_rules_id;
+	d2rq:propertyDefinitionLabel "pagc_rules id";
+	d2rq:column "tiger.pagc_rules.id";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_pagc_rules_rule a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_rules;
+	d2rq:property vocab:tiger_pagc_rules_rule;
+	d2rq:propertyDefinitionLabel "pagc_rules rule";
+	d2rq:column "tiger.pagc_rules.rule";
+	.
+map:tiger_pagc_rules_is_custom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_pagc_rules;
+	d2rq:property vocab:tiger_pagc_rules_is_custom;
+	d2rq:propertyDefinitionLabel "pagc_rules is_custom";
+	d2rq:column "tiger.pagc_rules.is_custom";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table tiger.place
+map:tiger_place a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/place/@@tiger.place.plcidfp|urlify@@";
+	d2rq:class vocab:tiger_place;
+	d2rq:classDefinitionLabel "tiger.place";
+	.
+map:tiger_place__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property rdfs:label;
+	d2rq:pattern "place #@@tiger.place.plcidfp@@";
+	.
+map:tiger_place_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_gid;
+	d2rq:propertyDefinitionLabel "place gid";
+	d2rq:column "tiger.place.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_place_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_statefp;
+	d2rq:propertyDefinitionLabel "place statefp";
+	d2rq:column "tiger.place.statefp";
+	.
+map:tiger_place_placefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_placefp;
+	d2rq:propertyDefinitionLabel "place placefp";
+	d2rq:column "tiger.place.placefp";
+	.
+map:tiger_place_placens a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_placens;
+	d2rq:propertyDefinitionLabel "place placens";
+	d2rq:column "tiger.place.placens";
+	.
+map:tiger_place_plcidfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_plcidfp;
+	d2rq:propertyDefinitionLabel "place plcidfp";
+	d2rq:column "tiger.place.plcidfp";
+	.
+map:tiger_place_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_name;
+	d2rq:propertyDefinitionLabel "place name";
+	d2rq:column "tiger.place.name";
+	.
+map:tiger_place_namelsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_namelsad;
+	d2rq:propertyDefinitionLabel "place namelsad";
+	d2rq:column "tiger.place.namelsad";
+	.
+map:tiger_place_lsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_lsad;
+	d2rq:propertyDefinitionLabel "place lsad";
+	d2rq:column "tiger.place.lsad";
+	.
+map:tiger_place_classfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_classfp;
+	d2rq:propertyDefinitionLabel "place classfp";
+	d2rq:column "tiger.place.classfp";
+	.
+map:tiger_place_cpi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_cpi;
+	d2rq:propertyDefinitionLabel "place cpi";
+	d2rq:column "tiger.place.cpi";
+	.
+map:tiger_place_pcicbsa a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_pcicbsa;
+	d2rq:propertyDefinitionLabel "place pcicbsa";
+	d2rq:column "tiger.place.pcicbsa";
+	.
+map:tiger_place_pcinecta a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_pcinecta;
+	d2rq:propertyDefinitionLabel "place pcinecta";
+	d2rq:column "tiger.place.pcinecta";
+	.
+map:tiger_place_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_mtfcc;
+	d2rq:propertyDefinitionLabel "place mtfcc";
+	d2rq:column "tiger.place.mtfcc";
+	.
+map:tiger_place_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_funcstat;
+	d2rq:propertyDefinitionLabel "place funcstat";
+	d2rq:column "tiger.place.funcstat";
+	.
+map:tiger_place_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_aland;
+	d2rq:propertyDefinitionLabel "place aland";
+	d2rq:column "tiger.place.aland";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_place_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_awater;
+	d2rq:propertyDefinitionLabel "place awater";
+	d2rq:column "tiger.place.awater";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_place_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_intptlat;
+	d2rq:propertyDefinitionLabel "place intptlat";
+	d2rq:column "tiger.place.intptlat";
+	.
+map:tiger_place_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_intptlon;
+	d2rq:propertyDefinitionLabel "place intptlon";
+	d2rq:column "tiger.place.intptlon";
+	.
+map:tiger_place_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place;
+	d2rq:property vocab:tiger_place_the_geom;
+	d2rq:propertyDefinitionLabel "place the_geom";
+	d2rq:column "tiger.place.the_geom";
+	.
+
+# Table tiger.place_lookup
+map:tiger_place_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/place_lookup/@@tiger.place_lookup.st_code@@/@@tiger.place_lookup.pl_code@@";
+	d2rq:class vocab:tiger_place_lookup;
+	d2rq:classDefinitionLabel "tiger.place_lookup";
+	.
+map:tiger_place_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "place_lookup #@@tiger.place_lookup.st_code@@/@@tiger.place_lookup.pl_code@@";
+	.
+map:tiger_place_lookup_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place_lookup;
+	d2rq:property vocab:tiger_place_lookup_st_code;
+	d2rq:propertyDefinitionLabel "place_lookup st_code";
+	d2rq:column "tiger.place_lookup.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_place_lookup_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place_lookup;
+	d2rq:property vocab:tiger_place_lookup_state;
+	d2rq:propertyDefinitionLabel "place_lookup state";
+	d2rq:column "tiger.place_lookup.state";
+	.
+map:tiger_place_lookup_pl_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place_lookup;
+	d2rq:property vocab:tiger_place_lookup_pl_code;
+	d2rq:propertyDefinitionLabel "place_lookup pl_code";
+	d2rq:column "tiger.place_lookup.pl_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_place_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_place_lookup;
+	d2rq:property vocab:tiger_place_lookup_name;
+	d2rq:propertyDefinitionLabel "place_lookup name";
+	d2rq:column "tiger.place_lookup.name";
+	.
+
+# Table tiger.secondary_unit_lookup
+map:tiger_secondary_unit_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/secondary_unit_lookup/@@tiger.secondary_unit_lookup.name|urlify@@";
+	d2rq:class vocab:tiger_secondary_unit_lookup;
+	d2rq:classDefinitionLabel "tiger.secondary_unit_lookup";
+	.
+map:tiger_secondary_unit_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_secondary_unit_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "secondary_unit_lookup #@@tiger.secondary_unit_lookup.name@@";
+	.
+map:tiger_secondary_unit_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_secondary_unit_lookup;
+	d2rq:property vocab:tiger_secondary_unit_lookup_name;
+	d2rq:propertyDefinitionLabel "secondary_unit_lookup name";
+	d2rq:column "tiger.secondary_unit_lookup.name";
+	.
+map:tiger_secondary_unit_lookup_abbrev a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_secondary_unit_lookup;
+	d2rq:property vocab:tiger_secondary_unit_lookup_abbrev;
+	d2rq:propertyDefinitionLabel "secondary_unit_lookup abbrev";
+	d2rq:column "tiger.secondary_unit_lookup.abbrev";
+	.
+
+# Table tiger.state
+map:tiger_state a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/state/@@tiger.state.statefp|urlify@@";
+	d2rq:class vocab:tiger_state;
+	d2rq:classDefinitionLabel "tiger.state";
+	.
+map:tiger_state__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property rdfs:label;
+	d2rq:pattern "state #@@tiger.state.statefp@@";
+	.
+map:tiger_state_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_gid;
+	d2rq:propertyDefinitionLabel "state gid";
+	d2rq:column "tiger.state.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_state_region a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_region;
+	d2rq:propertyDefinitionLabel "state region";
+	d2rq:column "tiger.state.region";
+	.
+map:tiger_state_division a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_division;
+	d2rq:propertyDefinitionLabel "state division";
+	d2rq:column "tiger.state.division";
+	.
+map:tiger_state_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_statefp;
+	d2rq:propertyDefinitionLabel "state statefp";
+	d2rq:column "tiger.state.statefp";
+	.
+map:tiger_state_statens a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_statens;
+	d2rq:propertyDefinitionLabel "state statens";
+	d2rq:column "tiger.state.statens";
+	.
+map:tiger_state_stusps a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_stusps;
+	d2rq:propertyDefinitionLabel "state stusps";
+	d2rq:column "tiger.state.stusps";
+	.
+map:tiger_state_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_name;
+	d2rq:propertyDefinitionLabel "state name";
+	d2rq:column "tiger.state.name";
+	.
+map:tiger_state_lsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_lsad;
+	d2rq:propertyDefinitionLabel "state lsad";
+	d2rq:column "tiger.state.lsad";
+	.
+map:tiger_state_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_mtfcc;
+	d2rq:propertyDefinitionLabel "state mtfcc";
+	d2rq:column "tiger.state.mtfcc";
+	.
+map:tiger_state_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_funcstat;
+	d2rq:propertyDefinitionLabel "state funcstat";
+	d2rq:column "tiger.state.funcstat";
+	.
+map:tiger_state_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_aland;
+	d2rq:propertyDefinitionLabel "state aland";
+	d2rq:column "tiger.state.aland";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_state_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_awater;
+	d2rq:propertyDefinitionLabel "state awater";
+	d2rq:column "tiger.state.awater";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_state_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_intptlat;
+	d2rq:propertyDefinitionLabel "state intptlat";
+	d2rq:column "tiger.state.intptlat";
+	.
+map:tiger_state_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_intptlon;
+	d2rq:propertyDefinitionLabel "state intptlon";
+	d2rq:column "tiger.state.intptlon";
+	.
+map:tiger_state_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state;
+	d2rq:property vocab:tiger_state_the_geom;
+	d2rq:propertyDefinitionLabel "state the_geom";
+	d2rq:column "tiger.state.the_geom";
+	.
+
+# Table tiger.state_lookup
+map:tiger_state_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/state_lookup/@@tiger.state_lookup.st_code@@";
+	d2rq:class vocab:tiger_state_lookup;
+	d2rq:classDefinitionLabel "tiger.state_lookup";
+	.
+map:tiger_state_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "state_lookup #@@tiger.state_lookup.st_code@@";
+	.
+map:tiger_state_lookup_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state_lookup;
+	d2rq:property vocab:tiger_state_lookup_st_code;
+	d2rq:propertyDefinitionLabel "state_lookup st_code";
+	d2rq:column "tiger.state_lookup.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_state_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state_lookup;
+	d2rq:property vocab:tiger_state_lookup_name;
+	d2rq:propertyDefinitionLabel "state_lookup name";
+	d2rq:column "tiger.state_lookup.name";
+	.
+map:tiger_state_lookup_abbrev a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state_lookup;
+	d2rq:property vocab:tiger_state_lookup_abbrev;
+	d2rq:propertyDefinitionLabel "state_lookup abbrev";
+	d2rq:column "tiger.state_lookup.abbrev";
+	.
+map:tiger_state_lookup_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_state_lookup;
+	d2rq:property vocab:tiger_state_lookup_statefp;
+	d2rq:propertyDefinitionLabel "state_lookup statefp";
+	d2rq:column "tiger.state_lookup.statefp";
+	.
+
+# Table tiger.street_type_lookup
+map:tiger_street_type_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/street_type_lookup/@@tiger.street_type_lookup.name|urlify@@";
+	d2rq:class vocab:tiger_street_type_lookup;
+	d2rq:classDefinitionLabel "tiger.street_type_lookup";
+	.
+map:tiger_street_type_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_street_type_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "street_type_lookup #@@tiger.street_type_lookup.name@@";
+	.
+map:tiger_street_type_lookup_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_street_type_lookup;
+	d2rq:property vocab:tiger_street_type_lookup_name;
+	d2rq:propertyDefinitionLabel "street_type_lookup name";
+	d2rq:column "tiger.street_type_lookup.name";
+	.
+map:tiger_street_type_lookup_abbrev a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_street_type_lookup;
+	d2rq:property vocab:tiger_street_type_lookup_abbrev;
+	d2rq:propertyDefinitionLabel "street_type_lookup abbrev";
+	d2rq:column "tiger.street_type_lookup.abbrev";
+	.
+map:tiger_street_type_lookup_is_hw a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_street_type_lookup;
+	d2rq:property vocab:tiger_street_type_lookup_is_hw;
+	d2rq:propertyDefinitionLabel "street_type_lookup is_hw";
+	d2rq:column "tiger.street_type_lookup.is_hw";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table tiger.tabblock
+map:tiger_tabblock a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/tabblock/@@tiger.tabblock.tabblock_id|urlify@@";
+	d2rq:class vocab:tiger_tabblock;
+	d2rq:classDefinitionLabel "tiger.tabblock";
+	.
+map:tiger_tabblock__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property rdfs:label;
+	d2rq:pattern "tabblock #@@tiger.tabblock.tabblock_id@@";
+	.
+map:tiger_tabblock_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_gid;
+	d2rq:propertyDefinitionLabel "tabblock gid";
+	d2rq:column "tiger.tabblock.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_tabblock_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_statefp;
+	d2rq:propertyDefinitionLabel "tabblock statefp";
+	d2rq:column "tiger.tabblock.statefp";
+	.
+map:tiger_tabblock_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_countyfp;
+	d2rq:propertyDefinitionLabel "tabblock countyfp";
+	d2rq:column "tiger.tabblock.countyfp";
+	.
+map:tiger_tabblock_tractce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_tractce;
+	d2rq:propertyDefinitionLabel "tabblock tractce";
+	d2rq:column "tiger.tabblock.tractce";
+	.
+map:tiger_tabblock_blockce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_blockce;
+	d2rq:propertyDefinitionLabel "tabblock blockce";
+	d2rq:column "tiger.tabblock.blockce";
+	.
+map:tiger_tabblock_tabblock_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_tabblock_id;
+	d2rq:propertyDefinitionLabel "tabblock tabblock_id";
+	d2rq:column "tiger.tabblock.tabblock_id";
+	.
+map:tiger_tabblock_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_name;
+	d2rq:propertyDefinitionLabel "tabblock name";
+	d2rq:column "tiger.tabblock.name";
+	.
+map:tiger_tabblock_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_mtfcc;
+	d2rq:propertyDefinitionLabel "tabblock mtfcc";
+	d2rq:column "tiger.tabblock.mtfcc";
+	.
+map:tiger_tabblock_ur a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_ur;
+	d2rq:propertyDefinitionLabel "tabblock ur";
+	d2rq:column "tiger.tabblock.ur";
+	.
+map:tiger_tabblock_uace a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_uace;
+	d2rq:propertyDefinitionLabel "tabblock uace";
+	d2rq:column "tiger.tabblock.uace";
+	.
+map:tiger_tabblock_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_funcstat;
+	d2rq:propertyDefinitionLabel "tabblock funcstat";
+	d2rq:column "tiger.tabblock.funcstat";
+	.
+map:tiger_tabblock_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_aland;
+	d2rq:propertyDefinitionLabel "tabblock aland";
+	d2rq:column "tiger.tabblock.aland";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_tabblock_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_awater;
+	d2rq:propertyDefinitionLabel "tabblock awater";
+	d2rq:column "tiger.tabblock.awater";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_tabblock_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_intptlat;
+	d2rq:propertyDefinitionLabel "tabblock intptlat";
+	d2rq:column "tiger.tabblock.intptlat";
+	.
+map:tiger_tabblock_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_intptlon;
+	d2rq:propertyDefinitionLabel "tabblock intptlon";
+	d2rq:column "tiger.tabblock.intptlon";
+	.
+map:tiger_tabblock_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tabblock;
+	d2rq:property vocab:tiger_tabblock_the_geom;
+	d2rq:propertyDefinitionLabel "tabblock the_geom";
+	d2rq:column "tiger.tabblock.the_geom";
+	.
+
+# Table tiger.tract
+map:tiger_tract a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/tract/@@tiger.tract.tract_id|urlify@@";
+	d2rq:class vocab:tiger_tract;
+	d2rq:classDefinitionLabel "tiger.tract";
+	.
+map:tiger_tract__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property rdfs:label;
+	d2rq:pattern "tract #@@tiger.tract.tract_id@@";
+	.
+map:tiger_tract_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_gid;
+	d2rq:propertyDefinitionLabel "tract gid";
+	d2rq:column "tiger.tract.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_tract_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_statefp;
+	d2rq:propertyDefinitionLabel "tract statefp";
+	d2rq:column "tiger.tract.statefp";
+	.
+map:tiger_tract_countyfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_countyfp;
+	d2rq:propertyDefinitionLabel "tract countyfp";
+	d2rq:column "tiger.tract.countyfp";
+	.
+map:tiger_tract_tractce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_tractce;
+	d2rq:propertyDefinitionLabel "tract tractce";
+	d2rq:column "tiger.tract.tractce";
+	.
+map:tiger_tract_tract_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_tract_id;
+	d2rq:propertyDefinitionLabel "tract tract_id";
+	d2rq:column "tiger.tract.tract_id";
+	.
+map:tiger_tract_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_name;
+	d2rq:propertyDefinitionLabel "tract name";
+	d2rq:column "tiger.tract.name";
+	.
+map:tiger_tract_namelsad a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_namelsad;
+	d2rq:propertyDefinitionLabel "tract namelsad";
+	d2rq:column "tiger.tract.namelsad";
+	.
+map:tiger_tract_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_mtfcc;
+	d2rq:propertyDefinitionLabel "tract mtfcc";
+	d2rq:column "tiger.tract.mtfcc";
+	.
+map:tiger_tract_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_funcstat;
+	d2rq:propertyDefinitionLabel "tract funcstat";
+	d2rq:column "tiger.tract.funcstat";
+	.
+map:tiger_tract_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_aland;
+	d2rq:propertyDefinitionLabel "tract aland";
+	d2rq:column "tiger.tract.aland";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_tract_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_awater;
+	d2rq:propertyDefinitionLabel "tract awater";
+	d2rq:column "tiger.tract.awater";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_tract_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_intptlat;
+	d2rq:propertyDefinitionLabel "tract intptlat";
+	d2rq:column "tiger.tract.intptlat";
+	.
+map:tiger_tract_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_intptlon;
+	d2rq:propertyDefinitionLabel "tract intptlon";
+	d2rq:column "tiger.tract.intptlon";
+	.
+map:tiger_tract_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_tract;
+	d2rq:property vocab:tiger_tract_the_geom;
+	d2rq:propertyDefinitionLabel "tract the_geom";
+	d2rq:column "tiger.tract.the_geom";
+	.
+
+# Table tiger.zcta5
+map:tiger_zcta5 a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/zcta5/@@tiger.zcta5.zcta5ce|urlify@@/@@tiger.zcta5.statefp|urlify@@";
+	d2rq:class vocab:tiger_zcta5;
+	d2rq:classDefinitionLabel "tiger.zcta5";
+	.
+map:tiger_zcta5__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property rdfs:label;
+	d2rq:pattern "zcta5 #@@tiger.zcta5.zcta5ce@@/@@tiger.zcta5.statefp@@";
+	.
+map:tiger_zcta5_gid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_gid;
+	d2rq:propertyDefinitionLabel "zcta5 gid";
+	d2rq:column "tiger.zcta5.gid";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zcta5_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_statefp;
+	d2rq:propertyDefinitionLabel "zcta5 statefp";
+	d2rq:column "tiger.zcta5.statefp";
+	.
+map:tiger_zcta5_zcta5ce a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_zcta5ce;
+	d2rq:propertyDefinitionLabel "zcta5 zcta5ce";
+	d2rq:column "tiger.zcta5.zcta5ce";
+	.
+map:tiger_zcta5_classfp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_classfp;
+	d2rq:propertyDefinitionLabel "zcta5 classfp";
+	d2rq:column "tiger.zcta5.classfp";
+	.
+map:tiger_zcta5_mtfcc a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_mtfcc;
+	d2rq:propertyDefinitionLabel "zcta5 mtfcc";
+	d2rq:column "tiger.zcta5.mtfcc";
+	.
+map:tiger_zcta5_funcstat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_funcstat;
+	d2rq:propertyDefinitionLabel "zcta5 funcstat";
+	d2rq:column "tiger.zcta5.funcstat";
+	.
+map:tiger_zcta5_aland a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_aland;
+	d2rq:propertyDefinitionLabel "zcta5 aland";
+	d2rq:column "tiger.zcta5.aland";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_zcta5_awater a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_awater;
+	d2rq:propertyDefinitionLabel "zcta5 awater";
+	d2rq:column "tiger.zcta5.awater";
+	d2rq:datatype xsd:double;
+	.
+map:tiger_zcta5_intptlat a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_intptlat;
+	d2rq:propertyDefinitionLabel "zcta5 intptlat";
+	d2rq:column "tiger.zcta5.intptlat";
+	.
+map:tiger_zcta5_intptlon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_intptlon;
+	d2rq:propertyDefinitionLabel "zcta5 intptlon";
+	d2rq:column "tiger.zcta5.intptlon";
+	.
+map:tiger_zcta5_partflg a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_partflg;
+	d2rq:propertyDefinitionLabel "zcta5 partflg";
+	d2rq:column "tiger.zcta5.partflg";
+	.
+map:tiger_zcta5_the_geom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zcta5;
+	d2rq:property vocab:tiger_zcta5_the_geom;
+	d2rq:propertyDefinitionLabel "zcta5 the_geom";
+	d2rq:column "tiger.zcta5.the_geom";
+	.
+
+# Table tiger.zip_lookup
+map:tiger_zip_lookup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/zip_lookup/@@tiger.zip_lookup.zip@@";
+	d2rq:class vocab:tiger_zip_lookup;
+	d2rq:classDefinitionLabel "tiger.zip_lookup";
+	.
+map:tiger_zip_lookup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "zip_lookup #@@tiger.zip_lookup.zip@@";
+	.
+map:tiger_zip_lookup_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_zip;
+	d2rq:propertyDefinitionLabel "zip_lookup zip";
+	d2rq:column "tiger.zip_lookup.zip";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_st_code;
+	d2rq:propertyDefinitionLabel "zip_lookup st_code";
+	d2rq:column "tiger.zip_lookup.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_state;
+	d2rq:propertyDefinitionLabel "zip_lookup state";
+	d2rq:column "tiger.zip_lookup.state";
+	.
+map:tiger_zip_lookup_co_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_co_code;
+	d2rq:propertyDefinitionLabel "zip_lookup co_code";
+	d2rq:column "tiger.zip_lookup.co_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_county a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_county;
+	d2rq:propertyDefinitionLabel "zip_lookup county";
+	d2rq:column "tiger.zip_lookup.county";
+	.
+map:tiger_zip_lookup_cs_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_cs_code;
+	d2rq:propertyDefinitionLabel "zip_lookup cs_code";
+	d2rq:column "tiger.zip_lookup.cs_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_cousub a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_cousub;
+	d2rq:propertyDefinitionLabel "zip_lookup cousub";
+	d2rq:column "tiger.zip_lookup.cousub";
+	.
+map:tiger_zip_lookup_pl_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_pl_code;
+	d2rq:propertyDefinitionLabel "zip_lookup pl_code";
+	d2rq:column "tiger.zip_lookup.pl_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_place a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_place;
+	d2rq:propertyDefinitionLabel "zip_lookup place";
+	d2rq:column "tiger.zip_lookup.place";
+	.
+map:tiger_zip_lookup_cnt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup;
+	d2rq:property vocab:tiger_zip_lookup_cnt;
+	d2rq:propertyDefinitionLabel "zip_lookup cnt";
+	d2rq:column "tiger.zip_lookup.cnt";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table tiger.zip_lookup_all
+map:tiger_zip_lookup_all a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "tiger.zip_lookup_all" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "tiger/zip_lookup_all";
+	d2rq:class vocab:tiger_zip_lookup_all;
+	d2rq:classDefinitionLabel "tiger.zip_lookup_all";
+	.
+map:tiger_zip_lookup_all_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_zip;
+	d2rq:propertyDefinitionLabel "zip_lookup_all zip";
+	d2rq:column "tiger.zip_lookup_all.zip";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_all_st_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_st_code;
+	d2rq:propertyDefinitionLabel "zip_lookup_all st_code";
+	d2rq:column "tiger.zip_lookup_all.st_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_all_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_state;
+	d2rq:propertyDefinitionLabel "zip_lookup_all state";
+	d2rq:column "tiger.zip_lookup_all.state";
+	.
+map:tiger_zip_lookup_all_co_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_co_code;
+	d2rq:propertyDefinitionLabel "zip_lookup_all co_code";
+	d2rq:column "tiger.zip_lookup_all.co_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_all_county a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_county;
+	d2rq:propertyDefinitionLabel "zip_lookup_all county";
+	d2rq:column "tiger.zip_lookup_all.county";
+	.
+map:tiger_zip_lookup_all_cs_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_cs_code;
+	d2rq:propertyDefinitionLabel "zip_lookup_all cs_code";
+	d2rq:column "tiger.zip_lookup_all.cs_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_all_cousub a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_cousub;
+	d2rq:propertyDefinitionLabel "zip_lookup_all cousub";
+	d2rq:column "tiger.zip_lookup_all.cousub";
+	.
+map:tiger_zip_lookup_all_pl_code a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_pl_code;
+	d2rq:propertyDefinitionLabel "zip_lookup_all pl_code";
+	d2rq:column "tiger.zip_lookup_all.pl_code";
+	d2rq:datatype xsd:integer;
+	.
+map:tiger_zip_lookup_all_place a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_place;
+	d2rq:propertyDefinitionLabel "zip_lookup_all place";
+	d2rq:column "tiger.zip_lookup_all.place";
+	.
+map:tiger_zip_lookup_all_cnt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_all;
+	d2rq:property vocab:tiger_zip_lookup_all_cnt;
+	d2rq:propertyDefinitionLabel "zip_lookup_all cnt";
+	d2rq:column "tiger.zip_lookup_all.cnt";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table tiger.zip_lookup_base
+map:tiger_zip_lookup_base a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/zip_lookup_base/@@tiger.zip_lookup_base.zip|urlify@@";
+	d2rq:class vocab:tiger_zip_lookup_base;
+	d2rq:classDefinitionLabel "tiger.zip_lookup_base";
+	.
+map:tiger_zip_lookup_base__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property rdfs:label;
+	d2rq:pattern "zip_lookup_base #@@tiger.zip_lookup_base.zip@@";
+	.
+map:tiger_zip_lookup_base_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property vocab:tiger_zip_lookup_base_zip;
+	d2rq:propertyDefinitionLabel "zip_lookup_base zip";
+	d2rq:column "tiger.zip_lookup_base.zip";
+	.
+map:tiger_zip_lookup_base_state a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property vocab:tiger_zip_lookup_base_state;
+	d2rq:propertyDefinitionLabel "zip_lookup_base state";
+	d2rq:column "tiger.zip_lookup_base.state";
+	.
+map:tiger_zip_lookup_base_county a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property vocab:tiger_zip_lookup_base_county;
+	d2rq:propertyDefinitionLabel "zip_lookup_base county";
+	d2rq:column "tiger.zip_lookup_base.county";
+	.
+map:tiger_zip_lookup_base_city a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property vocab:tiger_zip_lookup_base_city;
+	d2rq:propertyDefinitionLabel "zip_lookup_base city";
+	d2rq:column "tiger.zip_lookup_base.city";
+	.
+map:tiger_zip_lookup_base_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_lookup_base;
+	d2rq:property vocab:tiger_zip_lookup_base_statefp;
+	d2rq:propertyDefinitionLabel "zip_lookup_base statefp";
+	d2rq:column "tiger.zip_lookup_base.statefp";
+	.
+
+# Table tiger.zip_state
+map:tiger_zip_state a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/zip_state/@@tiger.zip_state.zip|urlify@@/@@tiger.zip_state.stusps|urlify@@";
+	d2rq:class vocab:tiger_zip_state;
+	d2rq:classDefinitionLabel "tiger.zip_state";
+	.
+map:tiger_zip_state__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state;
+	d2rq:property rdfs:label;
+	d2rq:pattern "zip_state #@@tiger.zip_state.zip@@/@@tiger.zip_state.stusps@@";
+	.
+map:tiger_zip_state_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state;
+	d2rq:property vocab:tiger_zip_state_zip;
+	d2rq:propertyDefinitionLabel "zip_state zip";
+	d2rq:column "tiger.zip_state.zip";
+	.
+map:tiger_zip_state_stusps a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state;
+	d2rq:property vocab:tiger_zip_state_stusps;
+	d2rq:propertyDefinitionLabel "zip_state stusps";
+	d2rq:column "tiger.zip_state.stusps";
+	.
+map:tiger_zip_state_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state;
+	d2rq:property vocab:tiger_zip_state_statefp;
+	d2rq:propertyDefinitionLabel "zip_state statefp";
+	d2rq:column "tiger.zip_state.statefp";
+	.
+
+# Table tiger.zip_state_loc
+map:tiger_zip_state_loc a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "tiger/zip_state_loc/@@tiger.zip_state_loc.zip|urlify@@/@@tiger.zip_state_loc.stusps|urlify@@/@@tiger.zip_state_loc.place|urlify@@";
+	d2rq:class vocab:tiger_zip_state_loc;
+	d2rq:classDefinitionLabel "tiger.zip_state_loc";
+	.
+map:tiger_zip_state_loc__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state_loc;
+	d2rq:property rdfs:label;
+	d2rq:pattern "zip_state_loc #@@tiger.zip_state_loc.zip@@/@@tiger.zip_state_loc.stusps@@/@@tiger.zip_state_loc.place@@";
+	.
+map:tiger_zip_state_loc_zip a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state_loc;
+	d2rq:property vocab:tiger_zip_state_loc_zip;
+	d2rq:propertyDefinitionLabel "zip_state_loc zip";
+	d2rq:column "tiger.zip_state_loc.zip";
+	.
+map:tiger_zip_state_loc_stusps a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state_loc;
+	d2rq:property vocab:tiger_zip_state_loc_stusps;
+	d2rq:propertyDefinitionLabel "zip_state_loc stusps";
+	d2rq:column "tiger.zip_state_loc.stusps";
+	.
+map:tiger_zip_state_loc_statefp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state_loc;
+	d2rq:property vocab:tiger_zip_state_loc_statefp;
+	d2rq:propertyDefinitionLabel "zip_state_loc statefp";
+	d2rq:column "tiger.zip_state_loc.statefp";
+	.
+map:tiger_zip_state_loc_place a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:tiger_zip_state_loc;
+	d2rq:property vocab:tiger_zip_state_loc_place;
+	d2rq:propertyDefinitionLabel "zip_state_loc place";
+	d2rq:column "tiger.zip_state_loc.place";
+	.
+
+# Table topology.layer
+map:topology_layer a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "topology/layer/@@topology.layer.topology_id@@/@@topology.layer.layer_id@@";
+	d2rq:class vocab:topology_layer;
+	d2rq:classDefinitionLabel "topology.layer";
+	.
+map:topology_layer__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property rdfs:label;
+	d2rq:pattern "layer #@@topology.layer.topology_id@@/@@topology.layer.layer_id@@";
+	.
+map:topology_layer_layer_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_layer_id;
+	d2rq:propertyDefinitionLabel "layer layer_id";
+	d2rq:column "topology.layer.layer_id";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_layer_schema_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_schema_name;
+	d2rq:propertyDefinitionLabel "layer schema_name";
+	d2rq:column "topology.layer.schema_name";
+	.
+map:topology_layer_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_table_name;
+	d2rq:propertyDefinitionLabel "layer table_name";
+	d2rq:column "topology.layer.table_name";
+	.
+map:topology_layer_feature_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_feature_column;
+	d2rq:propertyDefinitionLabel "layer feature_column";
+	d2rq:column "topology.layer.feature_column";
+	.
+map:topology_layer_feature_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_feature_type;
+	d2rq:propertyDefinitionLabel "layer feature_type";
+	d2rq:column "topology.layer.feature_type";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_layer_level a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_level;
+	d2rq:propertyDefinitionLabel "layer level";
+	d2rq:column "topology.layer.level";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_layer_child_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_child_id;
+	d2rq:propertyDefinitionLabel "layer child_id";
+	d2rq:column "topology.layer.child_id";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_layer_topology_id__ref a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_layer;
+	d2rq:property vocab:topology_layer_topology_id;
+	d2rq:refersToClassMap map:topology_topology;
+	d2rq:join "topology.layer.topology_id => topology.topology.id";
+	.
+
+# Table topology.topology
+map:topology_topology a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "topology/topology/@@topology.topology.id@@";
+	d2rq:class vocab:topology_topology;
+	d2rq:classDefinitionLabel "topology.topology";
+	.
+map:topology_topology__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property rdfs:label;
+	d2rq:pattern "topology #@@topology.topology.id@@";
+	.
+map:topology_topology_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property vocab:topology_topology_id;
+	d2rq:propertyDefinitionLabel "topology id";
+	d2rq:column "topology.topology.id";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_topology_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property vocab:topology_topology_name;
+	d2rq:propertyDefinitionLabel "topology name";
+	d2rq:column "topology.topology.name";
+	.
+map:topology_topology_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property vocab:topology_topology_srid;
+	d2rq:propertyDefinitionLabel "topology srid";
+	d2rq:column "topology.topology.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:topology_topology_precision a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property vocab:topology_topology_precision;
+	d2rq:propertyDefinitionLabel "topology precision";
+	d2rq:column "topology.topology.precision";
+	d2rq:datatype xsd:double;
+	.
+map:topology_topology_hasz a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:topology_topology;
+	d2rq:property vocab:topology_topology_hasz;
+	d2rq:propertyDefinitionLabel "topology hasz";
+	d2rq:column "topology.topology.hasz";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table geography_columns
+map:geography_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "geography_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "geography_columns";
+	d2rq:class vocab:geography_columns;
+	d2rq:classDefinitionLabel "geography_columns";
+	.
+map:geography_columns_f_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_catalog;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_catalog";
+	d2rq:column "geography_columns.f_table_catalog";
+	.
+map:geography_columns_f_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_schema;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_schema";
+	d2rq:column "geography_columns.f_table_schema";
+	.
+map:geography_columns_f_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_table_name;
+	d2rq:propertyDefinitionLabel "geography_columns f_table_name";
+	d2rq:column "geography_columns.f_table_name";
+	.
+map:geography_columns_f_geography_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_f_geography_column;
+	d2rq:propertyDefinitionLabel "geography_columns f_geography_column";
+	d2rq:column "geography_columns.f_geography_column";
+	.
+map:geography_columns_coord_dimension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_coord_dimension;
+	d2rq:propertyDefinitionLabel "geography_columns coord_dimension";
+	d2rq:column "geography_columns.coord_dimension";
+	d2rq:datatype xsd:integer;
+	.
+map:geography_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_srid;
+	d2rq:propertyDefinitionLabel "geography_columns srid";
+	d2rq:column "geography_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:geography_columns_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geography_columns;
+	d2rq:property vocab:geography_columns_type;
+	d2rq:propertyDefinitionLabel "geography_columns type";
+	d2rq:column "geography_columns.type";
+	.
+
+# Table geometry_columns
+map:geometry_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "geometry_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "geometry_columns";
+	d2rq:class vocab:geometry_columns;
+	d2rq:classDefinitionLabel "geometry_columns";
+	.
+map:geometry_columns_f_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_catalog;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_catalog";
+	d2rq:column "geometry_columns.f_table_catalog";
+	.
+map:geometry_columns_f_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_schema;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_schema";
+	d2rq:column "geometry_columns.f_table_schema";
+	.
+map:geometry_columns_f_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_table_name;
+	d2rq:propertyDefinitionLabel "geometry_columns f_table_name";
+	d2rq:column "geometry_columns.f_table_name";
+	.
+map:geometry_columns_f_geometry_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_f_geometry_column;
+	d2rq:propertyDefinitionLabel "geometry_columns f_geometry_column";
+	d2rq:column "geometry_columns.f_geometry_column";
+	.
+map:geometry_columns_coord_dimension a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_coord_dimension;
+	d2rq:propertyDefinitionLabel "geometry_columns coord_dimension";
+	d2rq:column "geometry_columns.coord_dimension";
+	d2rq:datatype xsd:integer;
+	.
+map:geometry_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_srid;
+	d2rq:propertyDefinitionLabel "geometry_columns srid";
+	d2rq:column "geometry_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:geometry_columns_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:geometry_columns;
+	d2rq:property vocab:geometry_columns_type;
+	d2rq:propertyDefinitionLabel "geometry_columns type";
+	d2rq:column "geometry_columns.type";
+	.
+
+# Table pointcloud_columns
+map:pointcloud_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "pointcloud_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "pointcloud_columns";
+	d2rq:class vocab:pointcloud_columns;
+	d2rq:classDefinitionLabel "pointcloud_columns";
+	.
+map:pointcloud_columns_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_schema;
+	d2rq:propertyDefinitionLabel "pointcloud_columns schema";
+	d2rq:column "pointcloud_columns.schema";
+	.
+map:pointcloud_columns_table a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_table;
+	d2rq:propertyDefinitionLabel "pointcloud_columns table";
+	d2rq:column "pointcloud_columns.table";
+	.
+map:pointcloud_columns_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_column;
+	d2rq:propertyDefinitionLabel "pointcloud_columns column";
+	d2rq:column "pointcloud_columns.column";
+	.
+map:pointcloud_columns_pcid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_pcid;
+	d2rq:propertyDefinitionLabel "pointcloud_columns pcid";
+	d2rq:column "pointcloud_columns.pcid";
+	d2rq:datatype xsd:integer;
+	.
+map:pointcloud_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_srid;
+	d2rq:propertyDefinitionLabel "pointcloud_columns srid";
+	d2rq:column "pointcloud_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:pointcloud_columns_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:pointcloud_columns;
+	d2rq:property vocab:pointcloud_columns_type;
+	d2rq:propertyDefinitionLabel "pointcloud_columns type";
+	d2rq:column "pointcloud_columns.type";
+	.
+
+# Table raster_columns
+map:raster_columns a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "raster_columns" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "raster_columns";
+	d2rq:class vocab:raster_columns;
+	d2rq:classDefinitionLabel "raster_columns";
+	.
+# Skipping column @@raster_columns.pixel_types@@ as property bridge.
+#     Its datatype UnsupportedDataType:_TEXT{jdbcType:2003,typeName:'_TEXT'} cannot be mapped to RDF.
+# Skipping column @@raster_columns.nodata_values@@ as property bridge.
+#     Its datatype UnsupportedDataType:_FLOAT8{jdbcType:2003,typeName:'_FLOAT8'} cannot be mapped to RDF.
+# Skipping column @@raster_columns.out_db@@ as property bridge.
+#     Its datatype UnsupportedDataType:_BOOL{jdbcType:2003,typeName:'_BOOL'} cannot be mapped to RDF.
+map:raster_columns_r_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_catalog";
+	d2rq:column "raster_columns.r_table_catalog";
+	.
+map:raster_columns_r_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_schema;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_schema";
+	d2rq:column "raster_columns.r_table_schema";
+	.
+map:raster_columns_r_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_table_name;
+	d2rq:propertyDefinitionLabel "raster_columns r_table_name";
+	d2rq:column "raster_columns.r_table_name";
+	.
+map:raster_columns_r_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_r_raster_column;
+	d2rq:propertyDefinitionLabel "raster_columns r_raster_column";
+	d2rq:column "raster_columns.r_raster_column";
+	.
+map:raster_columns_srid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_srid;
+	d2rq:propertyDefinitionLabel "raster_columns srid";
+	d2rq:column "raster_columns.srid";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_scale_x a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_scale_x;
+	d2rq:propertyDefinitionLabel "raster_columns scale_x";
+	d2rq:column "raster_columns.scale_x";
+	d2rq:datatype xsd:double;
+	.
+map:raster_columns_scale_y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_scale_y;
+	d2rq:propertyDefinitionLabel "raster_columns scale_y";
+	d2rq:column "raster_columns.scale_y";
+	d2rq:datatype xsd:double;
+	.
+map:raster_columns_blocksize_x a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_blocksize_x;
+	d2rq:propertyDefinitionLabel "raster_columns blocksize_x";
+	d2rq:column "raster_columns.blocksize_x";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_blocksize_y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_blocksize_y;
+	d2rq:propertyDefinitionLabel "raster_columns blocksize_y";
+	d2rq:column "raster_columns.blocksize_y";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_same_alignment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_same_alignment;
+	d2rq:propertyDefinitionLabel "raster_columns same_alignment";
+	d2rq:column "raster_columns.same_alignment";
+	d2rq:datatype xsd:boolean;
+	.
+map:raster_columns_regular_blocking a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_regular_blocking;
+	d2rq:propertyDefinitionLabel "raster_columns regular_blocking";
+	d2rq:column "raster_columns.regular_blocking";
+	d2rq:datatype xsd:boolean;
+	.
+map:raster_columns_num_bands a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_num_bands;
+	d2rq:propertyDefinitionLabel "raster_columns num_bands";
+	d2rq:column "raster_columns.num_bands";
+	d2rq:datatype xsd:integer;
+	.
+map:raster_columns_extent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_extent;
+	d2rq:propertyDefinitionLabel "raster_columns extent";
+	d2rq:column "raster_columns.extent";
+	.
+map:raster_columns_spatial_index a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_columns;
+	d2rq:property vocab:raster_columns_spatial_index;
+	d2rq:propertyDefinitionLabel "raster_columns spatial_index";
+	d2rq:column "raster_columns.spatial_index";
+	d2rq:datatype xsd:boolean;
+	.
+
+# Table raster_overviews
+map:raster_overviews a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "raster_overviews" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "raster_overviews";
+	d2rq:class vocab:raster_overviews;
+	d2rq:classDefinitionLabel "raster_overviews";
+	.
+map:raster_overviews_o_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_catalog";
+	d2rq:column "raster_overviews.o_table_catalog";
+	.
+map:raster_overviews_o_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_schema;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_schema";
+	d2rq:column "raster_overviews.o_table_schema";
+	.
+map:raster_overviews_o_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_table_name;
+	d2rq:propertyDefinitionLabel "raster_overviews o_table_name";
+	d2rq:column "raster_overviews.o_table_name";
+	.
+map:raster_overviews_o_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_o_raster_column;
+	d2rq:propertyDefinitionLabel "raster_overviews o_raster_column";
+	d2rq:column "raster_overviews.o_raster_column";
+	.
+map:raster_overviews_r_table_catalog a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_catalog;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_catalog";
+	d2rq:column "raster_overviews.r_table_catalog";
+	.
+map:raster_overviews_r_table_schema a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_schema;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_schema";
+	d2rq:column "raster_overviews.r_table_schema";
+	.
+map:raster_overviews_r_table_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_table_name;
+	d2rq:propertyDefinitionLabel "raster_overviews r_table_name";
+	d2rq:column "raster_overviews.r_table_name";
+	.
+map:raster_overviews_r_raster_column a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_r_raster_column;
+	d2rq:propertyDefinitionLabel "raster_overviews r_raster_column";
+	d2rq:column "raster_overviews.r_raster_column";
+	.
+map:raster_overviews_overview_factor a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:raster_overviews;
+	d2rq:property vocab:raster_overviews_overview_factor;
+	d2rq:propertyDefinitionLabel "raster_overviews overview_factor";
+	d2rq:column "raster_overviews.overview_factor";
+	d2rq:datatype xsd:integer;
+	.
+
