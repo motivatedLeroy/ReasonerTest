@@ -8,6 +8,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class Main {
 
+    public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private JFrame mainWindow = new JFrame("Rule - based Reasoning");
     private JTabbedPane tabbedPane = new JTabbedPane();
     /*private JTextArea ruleTextArea = new JTextArea();
@@ -21,8 +22,6 @@ public class Main {
     private JMenuBar menuBar = new JMenuBar();
     private JMenu menu = new JMenu("File");
     private JMenuItem exit = new JMenuItem("Exit");
-    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
 
     /*
      * Allgemeine Layouts zum Anordnen untergeordneter JPanels
