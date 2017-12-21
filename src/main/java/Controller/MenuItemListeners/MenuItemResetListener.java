@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class MenuItemResetListener implements ActionListener {
 
-    private com.mxgraph.swing.mxGraphComponent mxGraphComponent;
+    private mxGraphComponent mxGraphComponent;
     private mxCell mxCell;
 
     public MenuItemResetListener(mxGraphComponent mxGraphComponent, mxCell mxCell) {
@@ -19,10 +19,15 @@ public class MenuItemResetListener implements ActionListener {
     }
     public void actionPerformed(ActionEvent e) {
         mxGraph graph = mxGraphComponent.getGraph();
-        mxCell.setValue("");
-        mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
-        cell.setValue("");
-        graph.refresh();
+        graph.getModel().beginUpdate();
+        try{
+            mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
+            graph.getModel().setValue(mxCell, "");
+            System.out.println(graph.getModel().getStyle(mxCell));
+            System.out.println(graph.getModel().getStyle(cell));
+        }finally {
+            graph.getModel().endUpdate();
+        }
 
     }
 }

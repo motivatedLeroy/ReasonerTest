@@ -22,9 +22,14 @@ public class MenuItemListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         mxGraph graph = mxGraphComponent.getGraph();
-        mxCell.setValue(((JMenuItem)e.getSource()).getText());
-        mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
-        cell.setValue(((JMenuItem)e.getSource()).getText());
-        graph.refresh();
+        graph.getModel().beginUpdate();
+        try{
+            mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
+            graph.getModel().setValue(mxCell, ((JMenuItem)e.getSource()).getText());
+            graph.getModel().setValue(cell, ((JMenuItem)e.getSource()).getText());
+        }finally {
+            graph.getModel().endUpdate();
+        }
+
     }
 }

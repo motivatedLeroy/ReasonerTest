@@ -20,9 +20,14 @@ public class MenuItemMathListener implements ActionListener {
     }
     public void actionPerformed(ActionEvent e) {
         mxGraph graph = mxGraphComponent.getGraph();
-        mxCell.setValue(((JLabel)((JMenuItem)e.getSource()).getComponent(0)).getText().split(" ")[3]+((JTextField) ((JMenuItem) e.getSource()).getComponent(1)).getText());
-        mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
-        cell.setValue(((JLabel)((JMenuItem)e.getSource()).getComponent(0)).getText().split(" ")[3]+((JTextField) ((JMenuItem) e.getSource()).getComponent(1)).getText());
-        graph.refresh();
+        graph.getModel().beginUpdate();
+        try{
+            mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
+            graph.getModel().setValue(mxCell,((JLabel)((JMenuItem)e.getSource()).getComponent(0)).getText().split(" ")[3]+((JTextField) ((JMenuItem) e.getSource()).getComponent(1)).getText());
+            graph.getModel().setValue(cell,((JLabel)((JMenuItem)e.getSource()).getComponent(0)).getText().split(" ")[3]+((JTextField) ((JMenuItem) e.getSource()).getComponent(1)).getText());
+        }finally {
+        graph.getModel().endUpdate();
     }
+
+}
 }

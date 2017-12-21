@@ -43,8 +43,14 @@ public class MenuItemFreeVariablesListener implements ActionListener{
                 Map<String, Object> style = sheet.getStyles().get(mxCell.getStyle());
 
                 Color c = JColorChooser.showDialog(null, "Choose a Color", null);
-                style.put(mxConstants.STYLE_FILLCOLOR, mxUtils.getHexColorString(c));
-                sheet.putCellStyle("newStyle"+ InstanceReasoningScrollPane.styleCounter, style);
+                Map<String, Object> newStyle = new HashMap<>();
+                for(Map.Entry<String, Object> entry : style.entrySet()){
+                    newStyle.put(entry.getKey(), entry.getValue());
+                }
+
+
+                newStyle.put(mxConstants.STYLE_FILLCOLOR, mxUtils.getHexColorString(c));
+                sheet.putCellStyle("newStyle"+ InstanceReasoningScrollPane.styleCounter, newStyle);
                 graph.getModel().setStyle(mxCell, "newStyle"+InstanceReasoningScrollPane.styleCounter);
                 mxCell.setValue("Free Variable!");
                 InstanceReasoningScrollPane.styleCounter++;
@@ -54,11 +60,13 @@ public class MenuItemFreeVariablesListener implements ActionListener{
             }else{
                 mxStylesheet sheet = graph.getStylesheet();
                 Map<String, Object> style = sheet.getStyles().get(mxCell.getStyle());
-
-                style.put(mxConstants.STYLE_FILLCOLOR, mxUtils.getHexColorString(color));
-                sheet.putCellStyle("newStyle"+ InstanceReasoningScrollPane.styleCounter, style);
+                Map<String, Object> newStyle = new HashMap<>();
+                for(Map.Entry<String, Object> entry : style.entrySet()){
+                    newStyle.put(entry.getKey(), entry.getValue());
+                }
+                newStyle.put(mxConstants.STYLE_FILLCOLOR, mxUtils.getHexColorString(color));
+                sheet.putCellStyle("newStyle"+ InstanceReasoningScrollPane.styleCounter, newStyle);
                 graph.getModel().setStyle(mxCell, "newStyle"+InstanceReasoningScrollPane.styleCounter);
-                mxCell.setValue("Free Variable!");
                 InstanceReasoningScrollPane.styleCounter++;
                 mxCell.setValue("Free Variable!");
             }
@@ -66,8 +74,6 @@ public class MenuItemFreeVariablesListener implements ActionListener{
 
         }finally {
             graph.getModel().endUpdate();
-            //graph.repaint();
-
         }
 
     }
