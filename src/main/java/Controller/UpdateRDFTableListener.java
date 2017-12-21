@@ -29,13 +29,11 @@ public class UpdateRDFTableListener implements ActionListener {
             String tempURI = iterator.next();
             Resource resource = tempModel.createResource(tempURI);
 
-
                 StmtIterator stmtIterator = reasonerPanel.model.listStatements(resource, null, (RDFNode)null);
                 while (stmtIterator.hasNext()) {
                     Statement stmt = stmtIterator.nextStatement();  // get next statement
                     Resource subject = stmt.getSubject();     // get the subject
                     if(!updatedModel.contains(stmt)){
-                        //System.out.println(stmt.toString());
                         updatedModel.add(stmt);
                         findTypes(subject.toString());
                     }
@@ -60,8 +58,6 @@ public class UpdateRDFTableListener implements ActionListener {
                     StmtIterator subclassIterator2 = reasonerPanel.model.listStatements(subclassSubject, null, (RDFNode)null);
                     while (subclassIterator2.hasNext()) {
                         Statement subclassStmt = subclassIterator2.nextStatement();  // get next statement
-                        Property subclassStmtPredicate= subclassStmt.getPredicate();   // get the predicate
-                        RDFNode subclassStmtObject = subclassStmt.getObject();      // get the object#
                         if(!updatedModel.contains(subclassStmt)) {
                             updatedModel.add(subclassStmt);
                             findTypes(subclassSubject.toString());
@@ -84,11 +80,8 @@ public class UpdateRDFTableListener implements ActionListener {
 
             StmtIterator typeIterator2 = reasonerPanel.model.listStatements(typeSubject, null, (RDFNode)null);
             while (typeIterator2.hasNext()) {
-                Statement typeStmt = typeIterator2.nextStatement();  // get next statement
-                Property typePredicate= typeStmt.getPredicate();   // get the predicate
-                RDFNode typeObject = typeStmt.getObject();
+                Statement typeStmt = typeIterator2.nextStatement();
                 if(!updatedModel.contains(typeStmt)) {
-                    //System.out.println("TYPE: " + typeStmt.toString());
                     updatedModel.add(typeStmt);
                 }
             }

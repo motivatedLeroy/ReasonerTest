@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RdfTest.iml" filepath="$PROJECT_DIR$/RdfTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rdf.iml" filepath="$PROJECT_DIR$/Rdf.iml" />
     </modules>
   </component>
 </project>

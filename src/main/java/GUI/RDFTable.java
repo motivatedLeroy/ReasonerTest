@@ -1,6 +1,7 @@
 package GUI;
 
 import Controller.TripleToReasoningSessionListener;
+import org.apache.jena.base.Sys;
 import org.apache.jena.rdf.model.*;
 
 import javax.swing.*;
@@ -14,17 +15,18 @@ public class RDFTable extends JTable {
 
     private ReasonerPanel reasonerPanel;
     private DefaultTableModel defaultTableModel = new DefaultTableModel();
+    public HashMap<String, String> modelToTableMapper_Subject = new HashMap<>();
+    public HashMap<String, String> modelToTableMapper_Predicate = new HashMap<>();;
+    public HashMap<String, String> modelToTableMapper_Object = new HashMap<>();;
 
 
     public RDFTable(ReasonerPanel reasonerPanel){
         this.reasonerPanel = reasonerPanel;
-        this.addMouseListener(new TripleToReasoningSessionListener(this.reasonerPanel.rightInstanceReasoningSubPanel4,this));
+        this.addMouseListener(new TripleToReasoningSessionListener(this.reasonerPanel.rightInstanceReasoningSubPanel,this, reasonerPanel));
     }
 
     @Override
-    public Component prepareRenderer(
-            TableCellRenderer renderer, int row, int column)
-    {
+    public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
         Component c = super.prepareRenderer(renderer, row, column);
 
         //  add custom rendering here
@@ -39,10 +41,7 @@ public class RDFTable extends JTable {
             if (value0.equals("")&& value1.equals("") && value2.equals("")){
                 c.setBackground(UIManager.getColor ( "Panel.background" ));
             }
-
         }
-
-
         return c;
     }
 
@@ -50,55 +49,48 @@ public class RDFTable extends JTable {
         initializeDefaultTableModel();
         StmtIterator iterator = model.listStatements();
 
-        ComboBoxModel subjectComboBoxModel = reasonerPanel.subjectComboBox.getModel();
-        Vector subjectComboBoxItems = new Vector();
-        ComboBoxModel predicateComboBoxModel = reasonerPanel.predicateComboBox.getModel();
-        Vector predicateComboBoxItems = new Vector();
-        ComboBoxModel objectComboBoxModel = reasonerPanel.objectComboBox.getModel();
-        Vector objectComboBoxItems = new Vector();
         HashSet<String> tempSub0 = new HashSet<>();
         HashSet<String> tempPred = new HashSet<>();
         HashSet<String> tempPred1 = new HashSet<>();
 
         List<String[]> sortingList = new ArrayList();
         int sortingCounter = 0;
-        /*for(int i = 0; i< subjectComboBoxModel.getSize(); i++){
-            subjectComboBoxItems.add(subjectComboBoxModel.getElementAt(i));
-        }
-        for(int i = 0; i< predicateComboBoxModel.getSize(); i++){
-            predicateComboBoxItems.add(predicateComboBoxModel.getElementAt(i));
-        }
-        for(int i = 0; i< objectComboBoxModel.getSize(); i++){
-            objectComboBoxItems.add(objectComboBoxModel.getElementAt(i));
-        }*/
+
         while (iterator.hasNext()) {
             Statement stmt = iterator.nextStatement();  // get next statement
             Resource subject = stmt.getSubject();     // get the subject
             Property predicate = stmt.getPredicate();   // get the predicate
             RDFNode object = stmt.getObject();      // get the object#
+
             String[] subjectArray = subject.toString().split("/");
             String[] objectArray = object.toString().split("/");
             String[] predicateArray = predicate.toString().split("#");
 
+            String subjectString = subjectArray[subjectArray.length-1];
+            String predicateString = predicateArray[predicateArray.length-1];
+            String objectString = objectArray[objectArray.length-1];
+
+            if(!modelToTableMapper_Subject.containsKey(subjectString)){
+                modelToTableMapper_Subject.put(subjectString, subject.toString());
+            }
+            if(!modelToTableMapper_Predicate.containsKey(predicateString)){
+                modelToTableMapper_Predicate.put(predicateString, predicate.toString());
+            }
+            if(!modelToTableMapper_Object.containsKey(objectString)){
+                modelToTableMapper_Object.put(objectString, object.toString());
+            }
+
+
             if (tempSub0.contains(subject.toString())) {
                 if(tempPred.contains(predicate.toString())) {
 
-                    this.defaultTableModel.addRow(new String[]{"", predicateArray[predicateArray.length-1], objectArray[objectArray.length-1]});
-                    //System.out.println(predicateArray[predicateArray.length-1]+" " +objectArray[objectArray.length-1]);
-                    sortingList.add(new String[] {predicateArray[predicateArray.length-1],objectArray[objectArray.length-1] });
+                    this.defaultTableModel.addRow(new String[]{"", predicateString, objectString});
+                    sortingList.add(new String[] {predicateString,objectString });
                 }else{
-                    if(tempPred1.contains(predicate.toString())){
-                        objectComboBoxItems.add(objectArray[objectArray.length-1]);
 
-                    }else{
-                        objectComboBoxItems.add(objectArray[objectArray.length-1]);
-                        predicateComboBoxItems.add(predicateArray[predicateArray.length-1]);
-                    }
+                    this.defaultTableModel.addRow(new String[]{"", predicateString, objectString});
 
-                    this.defaultTableModel.addRow(new String[]{"", predicateArray[predicateArray.length-1], objectArray[objectArray.length-1]});
-
-                    //System.out.println(predicateArray[predicateArray.length-1]+" " +objectArray[objectArray.length-1]);
-                    sortingList.add(new String[] {predicateArray[predicateArray.length-1],objectArray[objectArray.length-1] });
+                    sortingList.add(new String[] {predicateString,objectString });
                 }
 
 
@@ -128,30 +120,16 @@ public class RDFTable extends JTable {
                 sortingCounter = this.defaultTableModel.getRowCount();
 
 
-                this.defaultTableModel.addRow(new String[]{subjectArray[subjectArray.length-1],predicateArray[predicateArray.length-1], objectArray[objectArray.length-1]});
+                this.defaultTableModel.addRow(new String[]{subjectString,predicateString, objectString});
 
-                sortingList.add(new String[] {predicateArray[predicateArray.length-1],objectArray[objectArray.length-1] });
+                sortingList.add(new String[] {predicateString,objectString });
 
-
-
-                subjectComboBoxItems.add(subjectArray[subjectArray.length-1]);
-                if(tempPred1.contains(predicate.toString())){
-                    objectComboBoxItems.add(objectArray[objectArray.length-1]);
-                }else {
-                    predicateComboBoxItems.add(predicateArray[predicateArray.length-1]);
-                    objectComboBoxItems.add(objectArray[objectArray.length-1]);
-                }
             }
             tempSub0.add(subject.toString());
             tempPred.add(predicate.toString());
             tempPred1.add(predicate.toString());
         }
-        subjectComboBoxModel = new DefaultComboBoxModel(subjectComboBoxItems);
-        reasonerPanel.subjectComboBox.setModel(subjectComboBoxModel);
-        predicateComboBoxModel = new DefaultComboBoxModel(predicateComboBoxItems);
-        reasonerPanel.predicateComboBox.setModel(predicateComboBoxModel);
-        objectComboBoxModel = new DefaultComboBoxModel(objectComboBoxItems);
-        reasonerPanel.objectComboBox.setModel(objectComboBoxModel);
+
     }
 
     private void initializeDefaultTableModel(){
@@ -160,6 +138,18 @@ public class RDFTable extends JTable {
         defaultTableModel.addColumn("Predicate");
         defaultTableModel.addColumn("Object");
         this.setModel(defaultTableModel);
+    }
+
+    public HashMap<String, String> getModelToTableMapper_Subject() {
+        return modelToTableMapper_Subject;
+    }
+
+    public HashMap<String, String> getModelToTableMapper_Predicate() {
+        return modelToTableMapper_Predicate;
+    }
+
+    public HashMap<String, String> getModelToTableMapper_Object() {
+        return modelToTableMapper_Object;
     }
 
 

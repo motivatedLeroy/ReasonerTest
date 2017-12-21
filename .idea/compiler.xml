@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="RdfTest" />
+        <module name="Rdf" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Rdf" target="8" />
+      <module name="Rdf (1)" target="8" />
       <module name="RdfTest" target="8" />
     </bytecodeTargetLevel>
   </component>

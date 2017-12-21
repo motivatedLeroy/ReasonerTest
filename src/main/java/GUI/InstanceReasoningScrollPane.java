@@ -1,5 +1,7 @@
 package GUI;
 
+import Controller.DragAndDrop.DraggablePanelDeleteListener;
+import Controller.DragAndDrop.KeyDispatcher;
 import GUI.DragAndDrop.*;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
@@ -12,39 +14,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
-import java.util.Hashtable;
+import java.util.*;
 
 public class InstanceReasoningScrollPane extends JSplitPane {
 
 
     public JPanel leftsideJPanel = new JPanel();
     public JPanel rightsideJPanel = new JPanel();
+    public static int styleCounter = 0;
 
     private JScrollPane leftSideScrollPane = new JScrollPane(leftsideJPanel);
     private JScrollPane rightSideScrollPane = new JScrollPane(rightsideJPanel);
 
+    public ArrayList<String> ruleSet;
+    public static ArrayList<Color> freeVariables;
 
     public InstanceReasoningScrollPane(){
         super(JSplitPane.HORIZONTAL_SPLIT);
         this.setLeftComponent(this.leftSideScrollPane);
         this.setRightComponent(this.rightSideScrollPane);
+        this.ruleSet = new ArrayList<>();
+        this.freeVariables = new ArrayList<>();
 
-
-
-        mxGraph graph = new mxGraph();
-
-        Object parent = graph.getDefaultParent();
-        Hashtable<String, Object> style = new Hashtable<String, Object>();
-        style.put(mxConstants.STYLE_FILLCOLOR, mxUtils.getHexColorString(new Color(10,194, 148)));
-        style.put(mxConstants.STYLE_STROKEWIDTH, 1.5);
-        style.put(mxConstants.STYLE_STROKECOLOR, mxUtils.getHexColorString(new Color(255, 0, 0)));
-        style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_ELLIPSE);
-        style.put(mxConstants.STYLE_PERIMETER, mxConstants.PERIMETER_ELLIPSE);
-        mxStylesheet stylesheet = graph.getStylesheet();
-        stylesheet.putCellStyle("Ellipse_Style", style);
-
-
-
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher( new KeyDispatcher(this));
 
         DraggableJPanel leftSide1 = new DraggableJPanel();
         DraggableJPanel leftSide2 = new DraggableJPanel();
@@ -59,7 +52,6 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         DraggableJPanel rightSide4 = new DraggableJPanel();
         DraggableJPanel rightSide5 = new DraggableJPanel();
         DraggableJPanel rightSide6 = new DraggableJPanel();
-
 
 
         leftsideJPanel.setLayout(new BoxLayout(leftsideJPanel, BoxLayout.Y_AXIS));
@@ -78,8 +70,17 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         rightsideJPanel.add(rightSide4);
         rightsideJPanel.add(rightSide5);
         rightsideJPanel.add(rightSide6);
-
-        this.setDividerLocation(0.5);
-
     }
+    private boolean painted;
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        if (!painted) {
+            painted = true;
+            this.setDividerLocation(0.5);
+        }
+    }
+
 }

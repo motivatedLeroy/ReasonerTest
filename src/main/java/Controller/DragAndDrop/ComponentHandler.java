@@ -1,11 +1,13 @@
-package GUI.DragAndDrop;
+package Controller.DragAndDrop;
+
+import GUI.DragAndDrop.DraggableJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 
-class ComponentHandler extends TransferHandler{
+public class ComponentHandler extends TransferHandler{
 
     private Container con;
 
@@ -41,8 +43,7 @@ class ComponentHandler extends TransferHandler{
 
     @Override
     public void exportDone(JComponent c, Transferable t, int action){
-        System.out.println(action);
-        System.out.println(c.getBounds());
+        ((DraggableJPanel)c).removemxGraphComponent();
         con.repaint();
 
     }

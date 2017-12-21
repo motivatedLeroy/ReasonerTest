@@ -17,17 +17,14 @@ import java.util.List;
 
 public class AddRuleButtonListener implements ActionListener {
 
-    private JTextArea ruleWindow;
     private ReasonerPanel reasonerPanel;
 
     public AddRuleButtonListener(ReasonerPanel reasonerPanel){
-        this.ruleWindow = reasonerPanel.ruleTextArea;
         this.reasonerPanel = reasonerPanel;
     }
 
 
     public void actionPerformed(ActionEvent e) {
-        reasonerPanel.ruleSet.add(ruleWindow.getText());
-        ruleWindow.setText("");
+
     }
 }

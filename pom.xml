@@ -38,12 +38,7 @@
             <version>4.5.3</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.protege.editor.owl -->
-        <dependency>
-            <groupId>edu.stanford.protege</groupId>
-            <artifactId>org.protege.editor.owl</artifactId>
-            <version>4.3.0</version>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.tinyjee.jgraphx/jgraphx -->
         <dependency>
@@ -132,7 +127,7 @@
                     <artifactId>vowl</artifactId>
                     <version>0.1.4-SNAPSHOT</version>
                     <packaging>jar</packaging>
-                    <file>C:\Users\Hambe\IdeaProjects\ProtegeVOWL\out\artifacts\ProtegeVOWL_jar\ProtegeVOWL.jar</file>
+                    <file>C:\Users\Hambe\IdeaProjects\RdfReasoningVOWL\target\vowl-0.1.4-SNAPSHOT.jar</file>
                     <generatePom>true</generatePom>
                 </configuration>
                 <executions>
