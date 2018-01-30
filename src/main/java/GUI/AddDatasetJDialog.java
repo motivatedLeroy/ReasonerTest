@@ -1,13 +1,11 @@
 package GUI;
 
 import Controller.FileChooserListener;
-import domain.RdfFile;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class AddDatasetJDialog extends JDialog{
 
@@ -31,7 +29,7 @@ public class AddDatasetJDialog extends JDialog{
         JLabel provider = new JLabel("Provider: ");
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.addActionListener(new FileChooserListener(this, (BrokerPanel) parent));
-        fileChooser.setFileFilter(new FileNameExtensionFilter("RDF / TTL / OWL Dateien","rdf", "ttl", "owl"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("RDF / TTL / OWL Dateien","rdf", "ttl", "owl", "rj"));
 
         Component verticalGlue0 = Box.createVerticalGlue();
         verticalGlue0.setPreferredSize(new Dimension(0, 10));

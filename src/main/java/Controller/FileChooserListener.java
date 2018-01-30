@@ -2,37 +2,24 @@ package Controller;
 
 import GUI.AddDatasetJDialog;
 import GUI.BrokerPanel;
-import com.fasterxml.jackson.core.type.TypeReference;
 import domain.RdfFile;
-import javafx.stage.FileChooser;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
-import org.apache.jena.base.Sys;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -80,7 +67,7 @@ public class FileChooserListener implements ActionListener {
                 builder.addTextBody("rating", Double.toString(5.0));
                 builder.addTextBody("dateOfUpload", Long.toString(time));
                 builder.addTextBody("entries", Long.toString(200L));
-                builder.addTextBody("provider", provider);
+                builder.addTextBody("provider", String.valueOf(provider));
                 builder.addTextBody("type", type);
                 httppost.setEntity(builder.build());
                 HttpResponse response = client.execute(httppost);
@@ -89,25 +76,15 @@ public class FileChooserListener implements ActionListener {
                 System.out.println("executing request " + httppost.getRequestLine());
                 HttpEntity resEntity = response.getEntity();
 
-                System.out.println(response.getStatusLine());
                 if (resEntity != null) {
                     String result = EntityUtils.toString(resEntity);
-                    RdfFile rdfFile = new RdfFile(fileName, tags,5.0,Long.toString(time), 200L, provider, type);
-                    brokerPanel.addRow(rdfFile);
-                   /*try {
-                        ObjectMapper mapper = new ObjectMapper();
-                        files = mapper.readValue(result, new TypeReference<ArrayList<RdfFile>>(){});
-                        for(int i = 0; i < files.size(); i++){
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }*/
+                    RdfFile rdfFile = new RdfFile(fileName, tags,5.0,Long.toString(time), 200L, provider,false, type);
+                    brokerPanel.addRdfFileRow(rdfFile);
+
                 }
                 if (resEntity != null) {
                     EntityUtils.consume(resEntity);
                 }
-
-
 
                 client.close();
 

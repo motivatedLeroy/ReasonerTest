@@ -1,8 +1,10 @@
 package Controller;
 
+import GUI.RDFTable;
 import GUI.ReasonerPanel;
 import org.apache.jena.rdf.model.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,10 +21,16 @@ public class UpdateRDFTableListener implements ActionListener {
 
     public UpdateRDFTableListener(ReasonerPanel reasonerPanel){
         this.reasonerPanel = reasonerPanel;
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        int index = reasonerPanel.rdfTabbedPane.getSelectedIndex();
+        JScrollPane scrollPane = (JScrollPane)reasonerPanel.rdfTabbedPane.getComponent(index);
+        RDFTable rdfTable = (RDFTable)scrollPane.getComponent(0);
+
         HashSet<String> uris = reasonerPanel.vowlViewComponent.getClickedNodesURIs();
         Iterator<String> iterator = uris.iterator();
         while(iterator.hasNext()){
@@ -35,50 +43,51 @@ public class UpdateRDFTableListener implements ActionListener {
                     Resource subject = stmt.getSubject();     // get the subject
                     if(!updatedModel.contains(stmt)){
                         updatedModel.add(stmt);
-                        findTypes(subject.toString());
+                        findTypes(subject.toString(), rdfTable);
                     }
 
                 }
-                findSubClasses(resource.toString());
+                findSubClasses(resource.toString(), rdfTable);
         }
-        reasonerPanel.rdfTable.setRDFTableModel(updatedModel);
+
+        rdfTable.readRDFTableModel(updatedModel);
         updatedModel = ModelFactory.createDefaultModel();
     }
 
-    public void findSubClasses(String uri){
+    public void findSubClasses(String uri, RDFTable rdfTable){
         Resource resource = tempModel.createResource(uri);
         ArrayList<Statement> result = new ArrayList<>();
 
 
-            StmtIterator subclassIterator = reasonerPanel.model.listStatements(null, subclassOfPredicate, resource);
+            StmtIterator subclassIterator = rdfTable.model.listStatements(null, subclassOfPredicate, resource);
             while (subclassIterator.hasNext()) {
                 Statement stmt = subclassIterator.nextStatement();
                 Resource subclassSubject = stmt.getSubject();
 
-                    StmtIterator subclassIterator2 = reasonerPanel.model.listStatements(subclassSubject, null, (RDFNode)null);
+                    StmtIterator subclassIterator2 = rdfTable.model.listStatements(subclassSubject, null, (RDFNode)null);
                     while (subclassIterator2.hasNext()) {
                         Statement subclassStmt = subclassIterator2.nextStatement();  // get next statement
                         if(!updatedModel.contains(subclassStmt)) {
                             updatedModel.add(subclassStmt);
-                            findTypes(subclassSubject.toString());
+                            findTypes(subclassSubject.toString(), rdfTable);
                         }                    }
-                 findSubClasses(subclassSubject.toString());
+                 findSubClasses(subclassSubject.toString(),rdfTable);
             }
     }
 
 
-    public void findTypes(String uri){
+    public void findTypes(String uri, RDFTable rdfTable){
         Resource resource = tempModel.createResource(uri);
         ArrayList<Statement> result = new ArrayList<>();
 
 
-        StmtIterator typeIterator = reasonerPanel.model.listStatements(null, typePredicate, resource);
+        StmtIterator typeIterator = rdfTable.model.listStatements(null, typePredicate, resource);
         while (typeIterator.hasNext()) {
             Statement stmt = typeIterator.nextStatement();
             Resource typeSubject = stmt.getSubject();
 
 
-            StmtIterator typeIterator2 = reasonerPanel.model.listStatements(typeSubject, null, (RDFNode)null);
+            StmtIterator typeIterator2 = rdfTable.model.listStatements(typeSubject, null, (RDFNode)null);
             while (typeIterator2.hasNext()) {
                 Statement typeStmt = typeIterator2.nextStatement();
                 if(!updatedModel.contains(typeStmt)) {

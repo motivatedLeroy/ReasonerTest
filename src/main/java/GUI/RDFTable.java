@@ -18,18 +18,20 @@ public class RDFTable extends JTable {
     public HashMap<String, String> modelToTableMapper_Subject = new HashMap<>();
     public HashMap<String, String> modelToTableMapper_Predicate = new HashMap<>();;
     public HashMap<String, String> modelToTableMapper_Object = new HashMap<>();;
+    public Model model;
+    public boolean liveData;
 
 
-    public RDFTable(ReasonerPanel reasonerPanel){
+    public RDFTable(ReasonerPanel reasonerPanel, boolean liveData){
         this.reasonerPanel = reasonerPanel;
         this.addMouseListener(new TripleToReasoningSessionListener(this.reasonerPanel.rightInstanceReasoningSubPanel,this, reasonerPanel));
+        this.model = ModelFactory.createDefaultModel();
+        this.liveData = liveData;
     }
 
     @Override
     public Component prepareRenderer(TableCellRenderer renderer, int row, int column){
         Component c = super.prepareRenderer(renderer, row, column);
-
-        //  add custom rendering here
 
         if (!isRowSelected(row))
         {
@@ -45,9 +47,10 @@ public class RDFTable extends JTable {
         return c;
     }
 
-    public void setRDFTableModel(Model model){
+    public void readRDFTableModel(Model model){
+        this.model = model;
         initializeDefaultTableModel();
-        StmtIterator iterator = model.listStatements();
+        StmtIterator iterator = this.model.listStatements();
 
         HashSet<String> tempSub0 = new HashSet<>();
         HashSet<String> tempPred = new HashSet<>();
@@ -131,6 +134,80 @@ public class RDFTable extends JTable {
         }
 
     }
+
+
+    public void readCSVTableModel(Model model){
+        this.model = model;
+        initializeDefaultTableModel();
+        StmtIterator iterator = this.model.listStatements();
+
+        HashSet<String> tempSub0 = new HashSet<>();
+        HashSet<String> tempPred = new HashSet<>();
+        HashSet<String> tempPred1 = new HashSet<>();
+
+
+        while (iterator.hasNext()) {
+            Statement stmt = iterator.nextStatement();  // get next statement
+            Resource subject = stmt.getSubject();     // get the subject
+            Property predicate = stmt.getPredicate();   // get the predicate
+            RDFNode object = stmt.getObject();      // get the object#
+
+            //String[] subjectArray = subject.toString().split("/");
+            String[] objectArray = object.toString().split("\\^\\^");
+            String[] predicateArray = predicate.toString().split("\\.");
+
+            String subjectString = subject.toString();
+            String predicateString = "";
+            if(predicateArray.length>0){
+                predicateString = predicateArray[predicateArray.length-1];
+            }else{
+                predicateString = predicate.toString();
+            }
+
+            String objectString = objectArray[0];
+
+            if(!modelToTableMapper_Subject.containsKey(subjectString)){
+                modelToTableMapper_Subject.put(subjectString, subject.toString());
+            }
+            if(!modelToTableMapper_Predicate.containsKey(predicateString)){
+                modelToTableMapper_Predicate.put(predicateString, predicate.toString());
+            }
+            if(!modelToTableMapper_Object.containsKey(objectString)){
+                modelToTableMapper_Object.put(objectString, object.toString());
+            }
+
+
+            if (tempSub0.contains(subject.toString())) {
+                if(tempPred.contains(predicate.toString())) {
+
+                    this.defaultTableModel.addRow(new String[]{"", predicateString, objectString});
+                }else{
+
+                    this.defaultTableModel.addRow(new String[]{"", predicateString, objectString});
+
+                }
+
+
+            }else{
+                tempPred = new HashSet<>();
+
+                this.defaultTableModel.addRow(new String[]{"","",""});
+
+                this.defaultTableModel.addRow(new String[]{subjectString,predicateString, objectString});
+
+            }
+            tempSub0.add(subject.toString());
+            tempPred.add(predicate.toString());
+            tempPred1.add(predicate.toString());
+        }
+
+    }
+
+
+
+
+
+
 
     private void initializeDefaultTableModel(){
         this.defaultTableModel = new DefaultTableModel();

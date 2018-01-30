@@ -34,7 +34,7 @@ public class RDFReasonerEx2 {
 
         // Load vowlViewComponent data
         //Model model = FileManager.get().loadModel("musicRDF.rdf");
-        Model model = FileManager.get().loadModel("music.owl");
+        Model model = FileManager.get().loadModel("received/music.owl");
 
         InfModel infmodel = ModelFactory.createInfModel(reasoner, model);
 

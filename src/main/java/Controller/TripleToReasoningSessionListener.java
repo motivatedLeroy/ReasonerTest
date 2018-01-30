@@ -1,6 +1,7 @@
 package Controller;
 
 import GUI.DragAndDrop.DraggableJPanel;
+import GUI.DragAndDrop.mxDragAndDropComponent;
 import GUI.InstanceReasoningScrollPane;
 import GUI.RDFTable;
 import GUI.ReasonerPanel;
@@ -87,7 +88,7 @@ public class TripleToReasoningSessionListener implements MouseListener {
                 graph.getModel().endUpdate();
             }
 
-            mxGraphComponent graphComponent = new mxGraphComponent(graph);
+            mxDragAndDropComponent graphComponent = new mxDragAndDropComponent(graph, false);
             graphComponent.setEnabled(false);
             DraggableJPanel draggableJPanel = new DraggableJPanel(graphComponent, this.reasonerPanel, instanceReasoningScrollPane);
             instanceReasoningScrollPane.leftsideJPanel.add(draggableJPanel);

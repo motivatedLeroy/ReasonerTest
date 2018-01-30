@@ -21,7 +21,7 @@ public class ReasonerPanel extends JPanel{
 
 
 
-    public final Model model = ModelFactory.createDefaultModel();
+    public Model model = ModelFactory.createDefaultModel();
 
 
     public VOWLViewComponent vowlViewComponent = new VOWLViewComponent();
@@ -30,11 +30,10 @@ public class ReasonerPanel extends JPanel{
 
     public InstanceReasoningScrollPane rightInstanceReasoningSubPanel = new InstanceReasoningScrollPane();
 
-    public RDFTable rdfTable = new RDFTable(this);
-
     public ArrayList<String> fileNames = new ArrayList<>();
     JPanel schemaReasoningPanel = new JPanel();
 
+    public JTabbedPane rdfTabbedPane = new JTabbedPane();
 
     public ReasonerPanel(){
 
@@ -43,9 +42,6 @@ public class ReasonerPanel extends JPanel{
 
         JSplitPane instanceReasoningPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
-        JSplitPane leftInstanceReasoningPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        JScrollPane ontologyTablePane = new JScrollPane(rdfTable);
-        //JScrollPane csvTablePanel = new JScrollPane(rdfTable);
 
          JPanel rightInstanceReasoningPanel = new JPanel();
          JPanel instanceReasoningSubPanel = new JPanel();
@@ -79,14 +75,6 @@ public class ReasonerPanel extends JPanel{
 
 
 
-
-
-        //midCenterPanel.setPreferredSize(new Dimension((int)(screenSize.width*0.33), (int)(screenSize.height*0.75)));
-        //leftInstanceReasoningPanel.setPreferredSize(new Dimension((int)(Main.screenSize.width*0.3), (int)(Main.screenSize.height*0.75)));
-        leftInstanceReasoningPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
-        leftInstanceReasoningPanel.setTopComponent(ontologyTablePane);
-        //leftInstanceReasoningPanel.setBottomComponent(csvTablePanel);
-
         //rightInstanceReasoningPanel.setPreferredSize(new Dimension((int)(Main.screenSize.width*0.7), (int)(Main.screenSize.height*0.75)));
         rightInstanceReasoningPanel.setLayout(rightInstanceReasoningPanelLayout);
         rightInstanceReasoningPanel.setBorder(new CompoundBorder(new EmptyBorder(40,10,40,10),new MatteBorder(2,2,2,2, Color.BLACK)));
@@ -106,7 +94,7 @@ public class ReasonerPanel extends JPanel{
 
 
         //instanceReasoningPanel.setLayout(instanceReasoningPanelLayout);
-        instanceReasoningPanel.setLeftComponent(leftInstanceReasoningPanel);
+        instanceReasoningPanel.setLeftComponent(rdfTabbedPane);
         instanceReasoningPanel.setRightComponent(rightInstanceReasoningPanel);
         instanceReasoningPanel.setBorder(new CompoundBorder(new EtchedBorder(Color.GRAY, Color.DARK_GRAY),new EmptyBorder(10,10,10,10)));
 
@@ -132,12 +120,15 @@ public class ReasonerPanel extends JPanel{
 
 
 
-
-
-
-
         this.add(jTabbedPane);
         this.add(instanceReasoningSubPanel);
+    }
+
+
+    public void addRDFTable(RDFTable rdfTable, String name){
+        JScrollPane jScrollPane = new JScrollPane(rdfTable);
+        rdfTabbedPane.add(name,  jScrollPane);
+
     }
 
 

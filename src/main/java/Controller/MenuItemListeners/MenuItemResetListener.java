@@ -23,8 +23,6 @@ public class MenuItemResetListener implements ActionListener {
         try{
             mxCell cell = (mxCell)((mxGraphModel)mxGraphComponent.getGraph().getModel()).getCell(mxCell.getId());
             graph.getModel().setValue(mxCell, "");
-            System.out.println(graph.getModel().getStyle(mxCell));
-            System.out.println(graph.getModel().getStyle(cell));
         }finally {
             graph.getModel().endUpdate();
         }

@@ -2,6 +2,7 @@ package GUI;
 
 import Controller.DragAndDrop.DraggablePanelDeleteListener;
 import Controller.DragAndDrop.KeyDispatcher;
+import Controller.DragAndDrop.PanelHandler;
 import GUI.DragAndDrop.*;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
@@ -36,6 +37,7 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         this.ruleSet = new ArrayList<>();
         this.freeVariables = new ArrayList<>();
 
+
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher( new KeyDispatcher(this));
 
@@ -43,15 +45,13 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         DraggableJPanel leftSide2 = new DraggableJPanel();
         DraggableJPanel leftSide3 = new DraggableJPanel();
         DraggableJPanel leftSide4 = new DraggableJPanel();
-        DraggableJPanel leftSide5 = new DraggableJPanel();
-        DraggableJPanel leftSide6 = new DraggableJPanel();
+
 
         DraggableJPanel rightSide1 = new DraggableJPanel();
         DraggableJPanel rightSide2 = new DraggableJPanel();
         DraggableJPanel rightSide3 = new DraggableJPanel();
         DraggableJPanel rightSide4 = new DraggableJPanel();
-        DraggableJPanel rightSide5 = new DraggableJPanel();
-        DraggableJPanel rightSide6 = new DraggableJPanel();
+
 
 
         leftsideJPanel.setLayout(new BoxLayout(leftsideJPanel, BoxLayout.Y_AXIS));
@@ -61,15 +61,12 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         leftsideJPanel.add(leftSide2);
         leftsideJPanel.add(leftSide3);
         leftsideJPanel.add(leftSide4);
-        leftsideJPanel.add(leftSide5);
-        leftsideJPanel.add(leftSide6);
 
         rightsideJPanel.add(rightSide1);
         rightsideJPanel.add(rightSide2);
         rightsideJPanel.add(rightSide3);
         rightsideJPanel.add(rightSide4);
-        rightsideJPanel.add(rightSide5);
-        rightsideJPanel.add(rightSide6);
+
     }
     private boolean painted;
 
@@ -79,7 +76,6 @@ public class InstanceReasoningScrollPane extends JSplitPane {
 
         if (!painted) {
             painted = true;
-            this.setDividerLocation(0.5);
         }
     }
 

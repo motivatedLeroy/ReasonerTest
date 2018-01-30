@@ -1,6 +1,8 @@
 package Controller.DragAndDrop;
 
 import GUI.DragAndDrop.DraggableJPanel;
+import GUI.InstanceReasoningScrollPane;
+import com.mxgraph.swing.mxGraphComponent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,12 @@ import java.awt.datatransfer.Transferable;
 public class ComponentHandler extends TransferHandler{
 
     private Container con;
+    private mxGraphComponent mxGraphComponent;
+
+
+    public ComponentHandler(){
+
+    }
 
     @Override
     public int getSourceActions(JComponent c){
@@ -43,8 +51,7 @@ public class ComponentHandler extends TransferHandler{
 
     @Override
     public void exportDone(JComponent c, Transferable t, int action){
-        ((DraggableJPanel)c).removemxGraphComponent();
-        con.repaint();
+
 
     }
 }

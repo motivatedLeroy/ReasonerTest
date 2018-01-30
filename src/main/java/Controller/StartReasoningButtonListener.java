@@ -2,6 +2,7 @@ package Controller;
 
 import GUI.DragAndDrop.DraggableJPanel;
 import GUI.InstanceReasoningScrollPane;
+import GUI.RDFTable;
 import GUI.ReasonerPanel;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
@@ -54,18 +55,22 @@ public class StartReasoningButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int leftsideJPanelComponentCount = instanceReasoningScrollPane.leftsideJPanel.getComponentCount();
         int rightsideJPanelComponentCount = instanceReasoningScrollPane.rightsideJPanel.getComponentCount();
-        String rulePart ="[(";
+        int index = reasonerPanel.rdfTabbedPane.getSelectedIndex();
+        JScrollPane scrollPane = (JScrollPane)reasonerPanel.rdfTabbedPane.getComponent(index);
+        RDFTable rdfTable = (RDFTable)scrollPane.getComponent(0);
+
+        String rulePart ="rule0: [(";
 
         for(int i = 0; i < leftsideJPanelComponentCount; i++){
 
             DraggableJPanel panel = (DraggableJPanel)(instanceReasoningScrollPane.leftsideJPanel.getComponent(i));
             if(panel.mxGraphComponent != null){
                 mxCell mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("0");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                rulePart += rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("1");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                rulePart += rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("2");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
+                rulePart += rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
                 System.out.println(rulePart);
             }
         }
@@ -75,25 +80,29 @@ public class StartReasoningButtonListener implements ActionListener {
             DraggableJPanel panel = (DraggableJPanel)(instanceReasoningScrollPane.rightsideJPanel.getComponent(i));
             if(panel.mxGraphComponent != null){
                 mxCell mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("0");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                rulePart += rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("1");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                rulePart += rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("2");
-                rulePart += reasonerPanel.rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
+                rulePart += rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
                 System.out.println(rulePart);
             }
         }
-        rulePart =" -> ]";
+        //rulePart +=" -> ]";
 
 
-        String rules =  "[rule0: (?a http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c) " +
+        /*String rules =  "[rule0: (?a http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c) " +
                 "(?b http://www.workingontologist.org/Examples/Chapter3/biography.owl#married ?a) ->" +
-                " print(?a)]";
-                //" (?b http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c)]";
+                *///" print(?a)]";
+          rulePart +=      " ?b http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c)]";
         //String rules =  "[rule0: (?a http://www.w3.org/2000/01/rdf-schema#label ?b) -> (?a eg:test ?b)]";
         //List rules = Rule.rulesFromURL("file:demo.rules");
 
-        Reasoner reasoner = new GenericRuleReasoner(Rule.parseRules(rules));
+        Reasoner reasoner = new GenericRuleReasoner(Rule.parseRules(rulePart));
+        System.out.println(rulePart);
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         reasoner.setDerivationLogging(true);
         InfModel inf = ModelFactory.createInfModel(reasoner, reasonerPanel.model);

@@ -60,7 +60,11 @@
             <version>0.1.4-SNAPSHOT</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.XML2CSV</groupId>
+            <artifactId>GenericConverter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
 
 
@@ -123,11 +127,11 @@
                 <artifactId>maven-install-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <groupId>org.visualdataweb</groupId>
-                    <artifactId>vowl</artifactId>
-                    <version>0.1.4-SNAPSHOT</version>
+                    <groupId>org.XML2CSV</groupId>
+                    <artifactId>GenericConverter</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
                     <packaging>jar</packaging>
-                    <file>C:\Users\Hambe\IdeaProjects\RdfReasoningVOWL\target\vowl-0.1.4-SNAPSHOT.jar</file>
+                    <file>C:\Users\Felix\IdeaProjects\XML2CSVGenericConverter_V1.0.0.jar</file>
                     <generatePom>true</generatePom>
                 </configuration>
                 <executions>

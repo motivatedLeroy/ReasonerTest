@@ -6,6 +6,7 @@ import Controller.MenuItemListeners.MenuItemMathListener;
 import Controller.MenuItemListeners.MenuItemResetListener;
 import GUI.InstanceReasoningScrollPane;
 import GUI.Main;
+import GUI.RDFTable;
 import GUI.ReasonerPanel;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
@@ -33,28 +34,23 @@ public class NodePopupMenu extends JPopupMenu {
 
     private mxGraphComponent mxGraphComponent;
     private mxCell mxCell;
-    private ReasonerPanel reasonerPanel;
     private InstanceReasoningScrollPane instanceReasoningScrollPane;
     private ArrayList<Color> colors = new ArrayList<>();
+    private RDFTable rdfTable;
 
     private Model tempModel = ModelFactory.createDefaultModel();
     private final Property subclassOfPredicate = tempModel.createProperty("http://www.w3.org/2000/01/rdf-schema#subClassOf");
     private final Property typePredicate = tempModel.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 
-    public NodePopupMenu(mxGraphComponent mxGraphComponent, int x, int y, int graphComponentNumber, mxCell mxCell, ReasonerPanel reasonerPanel, InstanceReasoningScrollPane instanceReasoningScrollPane){
-        this.reasonerPanel = reasonerPanel;
+    public NodePopupMenu(RDFTable rdfTable, mxGraphComponent mxGraphComponent, int x, int y, int graphComponentNumber, mxCell mxCell, InstanceReasoningScrollPane instanceReasoningScrollPane){
         this.mxGraphComponent = mxGraphComponent;
         this.mxCell = mxCell;
         this.instanceReasoningScrollPane = instanceReasoningScrollPane;
+        this.rdfTable = rdfTable;
         JMenuItem item;
 
 
         if( graphComponentNumber == 0){
-            /*Iterator<String> i0 = freeVariables.iterator();
-            while(i0.hasNext()){
-                this.add(item = new JMenuItem(i0.next()));
-                item.addActionListener(new MenuItemListener(mxGraphComponent, mxCell));
-            }*/
 
             TreeSet<String> subjects;
             String baseSubject = (String)mxCell.getValue();
@@ -134,9 +130,9 @@ public class NodePopupMenu extends JPopupMenu {
 
 
     public TreeSet<String> findSubClasses(String baseSubject){
-        Resource resource = tempModel.createResource(reasonerPanel.rdfTable.getModelToTableMapper_Subject().get(baseSubject));
+        Resource resource = tempModel.createResource(rdfTable.getModelToTableMapper_Subject().get(baseSubject));
         TreeSet<String> cellValues = findTypes(resource.toString());
-        StmtIterator subclassIterator = reasonerPanel.model.listStatements(null, subclassOfPredicate, resource);
+        StmtIterator subclassIterator = rdfTable.model.listStatements(null, subclassOfPredicate, resource);
         while (subclassIterator.hasNext()) {
             Statement stmt = subclassIterator.nextStatement();
             Resource subclassSubject = stmt.getSubject();
@@ -162,7 +158,7 @@ public class NodePopupMenu extends JPopupMenu {
     public TreeSet<String> findTypes(String uri){
         TreeSet<String> cellValues = new TreeSet<>();
         Resource resource = tempModel.createResource(uri);
-        StmtIterator typeIterator = reasonerPanel.model.listStatements(null, typePredicate, resource);
+        StmtIterator typeIterator = rdfTable.model.listStatements(null, typePredicate, resource);
         while (typeIterator.hasNext()) {
             Statement stmt = typeIterator.nextStatement();
             Resource typeSubject = stmt.getSubject();
@@ -177,7 +173,7 @@ public class NodePopupMenu extends JPopupMenu {
 
     public TreeSet<String> findSubjects(){
         TreeSet<String> cellValues = new TreeSet<>();
-        StmtIterator predicateIterator = reasonerPanel.model.listStatements(null, null, (RDFNode)null);
+        StmtIterator predicateIterator = rdfTable.model.listStatements(null, null, (RDFNode)null);
         while (predicateIterator.hasNext()) {
             Statement stmt = predicateIterator.nextStatement();
             Resource subject = stmt.getSubject();
@@ -193,7 +189,7 @@ public class NodePopupMenu extends JPopupMenu {
 
     public TreeSet<String> findPredicates(){
         TreeSet<String> cellValues = new TreeSet<>();
-        StmtIterator predicateIterator = reasonerPanel.model.listStatements(null, null, (RDFNode)null);
+        StmtIterator predicateIterator = rdfTable.model.listStatements(null, null, (RDFNode)null);
         while (predicateIterator.hasNext()) {
             Statement stmt = predicateIterator.nextStatement();
             Property predicate = stmt.getPredicate();
@@ -208,7 +204,7 @@ public class NodePopupMenu extends JPopupMenu {
 
     public TreeSet<String> findObjects(){
         TreeSet<String> cellValues = new TreeSet<>();
-        StmtIterator predicateIterator = reasonerPanel.model.listStatements(null, null, (RDFNode)null);
+        StmtIterator predicateIterator = rdfTable.model.listStatements(null, null, (RDFNode)null);
         while (predicateIterator.hasNext()) {
             Statement stmt = predicateIterator.nextStatement();
             RDFNode object = stmt.getObject();

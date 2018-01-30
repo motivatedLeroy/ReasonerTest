@@ -2,10 +2,12 @@ package Controller.DragAndDrop;
 
 import Controller.NodePopupMenu;
 import GUI.InstanceReasoningScrollPane;
+import GUI.RDFTable;
 import GUI.ReasonerPanel;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -25,7 +27,10 @@ public class mxGraphComponentDropDownListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Object cell = mxGraphComponent.getCellAt(e.getX(), e.getY());
         try{
-            NodePopupMenu popupMenu1 = new NodePopupMenu(mxGraphComponent, e.getX()+30 , e.getY()+30, Integer.parseInt(((mxCell)cell).getId()), (mxCell)cell, reasonerPanel, instanceReasoningScrollPane);
+            int index = reasonerPanel.rdfTabbedPane.getSelectedIndex();
+            JScrollPane scrollPane = (JScrollPane)reasonerPanel.rdfTabbedPane.getComponent(index);
+            RDFTable rdfTable = (RDFTable)scrollPane.getComponent(0);
+            NodePopupMenu popupMenu1 = new NodePopupMenu(rdfTable,mxGraphComponent, e.getX()+30 , e.getY()+30, Integer.parseInt(((mxCell)cell).getId()), (mxCell)cell, instanceReasoningScrollPane);
         }catch(NullPointerException ex){
         }
     }

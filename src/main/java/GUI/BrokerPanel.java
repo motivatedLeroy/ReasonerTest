@@ -1,28 +1,27 @@
 package GUI;
 
 import Controller.AddDatasetListener;
+import Controller.AddLiveDataButtonListener;
 import Controller.DatasetToReasoningSessionListener;
 import Controller.ViewSchemaButtonListener;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.LiveData;
 import domain.RdfFile;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.base.Sys;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ public class BrokerPanel extends JPanel {
     private JComboBox filterBox = new JComboBox(filters);
     private JSearchTextField searchTextField = new JSearchTextField();
     private JButton newDatasetButton = new JButton("Upload new Dataset");
+    private JButton addLiveDataButton = new JButton("Add Live - Data");
     private JButton viewSchemaButton = new JButton("View Dataset schema");
     private JButton addDatasetToSessionButton = new JButton("Add Dataset to Reasoning Session");
     private JButton purchaseButton = new JButton("Purchase Dataset");
@@ -127,6 +127,7 @@ public class BrokerPanel extends JPanel {
         dtm.addColumn(new String("Date of Upload"));
         dtm.addColumn(new String("Number of entries"));
         dtm.addColumn(new String("Provider"));
+        dtm.addColumn(new String("Live - Support"));
         dtm.addColumn(new String("Type"));
         rdfInformationTable.setModel(dtm);
         rdfInformationTable.setFont(new Font(rdfInformationTable.getFont().getName(), Font.BOLD, 14));
@@ -148,6 +149,10 @@ public class BrokerPanel extends JPanel {
         bottomRightPanel.setBorder(new EmptyBorder(0,0,40,0));
         newDatasetButton.addActionListener(new AddDatasetListener(this));
         bottomRightPanel.add(newDatasetButton);
+
+        addLiveDataButton.addActionListener(new AddLiveDataButtonListener(this));
+        bottomRightPanel.add(addLiveDataButton);
+
 
         viewSchemaButton.addActionListener(new ViewSchemaButtonListener(this));
         bottomRightPanel.add(viewSchemaButton);
@@ -173,12 +178,26 @@ public class BrokerPanel extends JPanel {
         this.add(brokerMidLine);
         this.add(brokerBottomLine);
 
-        //addRow(new RdfFile[7]);
+        //addRdfFileRow(new RdfFile[7]);
         refreshTable();
     }
 
-    public void addRow(RdfFile data) {
-        String[] row = new String[]{data.fileName, data.tags, Double.toString(data.rating), data.dateOfUpload, Long.toString(data.numberOfEntries), data.provider, data.type};
+    public void addRdfFileRow(RdfFile data) {
+        String[] row = new String[]{data.fileName, data.tags, Double.toString(data.rating), data.dateOfUpload, Long.toString(data.numberOfEntries), data.provider, String.valueOf(false), data.type};
+        System.out.println(data);
+        System.out.println(data.fileName);
+        System.out.println(data.tags);
+        System.out.println(data.rating);
+        System.out.println(data.dateOfUpload);
+        System.out.println(data.numberOfEntries);
+        System.out.println(data.provider);
+        System.out.println(data.liveData);
+        System.out.println(data.type);
+        dtm.addRow(row);
+    }
+
+    public void addLiveDataRow(LiveData data) {
+        String[] row = new String[]{data.sourceName, data.tags, Double.toString(data.rating), data.dateOfUpload, Long.toString(data.numberOfEntries), data.provider, String.valueOf(true), data.type};
         dtm.addRow(row);
     }
 
@@ -190,7 +209,9 @@ public class BrokerPanel extends JPanel {
                     dtm.getValueAt(rdfInformationTable.getSelectedRow(),3).toString(),
                     Long.valueOf(dtm.getValueAt(rdfInformationTable.getSelectedRow(),4).toString()),
                     dtm.getValueAt(rdfInformationTable.getSelectedRow(),5).toString(),
-                    dtm.getValueAt(rdfInformationTable.getSelectedRow(),6).toString());
+                    Boolean.valueOf(dtm.getValueAt(rdfInformationTable.getSelectedRow(),6).toString()),
+                    dtm.getValueAt(rdfInformationTable.getSelectedRow(),7).toString()
+                        );
         }else {
             return null;
         }
@@ -206,7 +227,6 @@ public class BrokerPanel extends JPanel {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
             HttpResponse response = client.execute(httpGet);
-            HttpEntity entity = response.getEntity();
 
             System.out.println("executing request " + httpGet.getRequestLine());
             HttpEntity resEntity = response.getEntity();
@@ -214,15 +234,55 @@ public class BrokerPanel extends JPanel {
             System.out.println(response.getStatusLine());
             if (resEntity != null) {
                 String result = EntityUtils.toString(resEntity);
-                   try {
-                        ObjectMapper mapper = new ObjectMapper();
-                        files = mapper.readValue(result, new TypeReference<ArrayList<RdfFile>>(){});
-                        for(int i = 0; i < files.size(); i++){
-                            this.addRow(files.get(i));
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    files = mapper.readValue(result, new TypeReference<ArrayList<RdfFile>>(){});
+                    for(int i = 0; i < files.size(); i++){
+                        this.addRdfFileRow(files.get(i));
                     }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (resEntity != null) {
+                EntityUtils.consume(resEntity);
+            }
+
+            client.close();
+
+        } catch (MalformedURLException ex) {
+
+            ex.printStackTrace();
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        try {ArrayList<LiveData>files;
+
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpGet httpGet = new HttpGet("http://localhost:5434/loadAllLive");
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            HttpResponse response = client.execute(httpGet);
+
+            System.out.println("executing request " + httpGet.getRequestLine());
+            HttpEntity resEntity = response.getEntity();
+
+            System.out.println(response.getStatusLine());
+            if (resEntity != null) {
+                String result = EntityUtils.toString(resEntity);
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    files = mapper.readValue(result, new TypeReference<ArrayList<LiveData>>(){});
+                    for(int i = 0; i < files.size(); i++){
+                        this.addLiveDataRow(files.get(i));
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
             if (resEntity != null) {
                 EntityUtils.consume(resEntity);

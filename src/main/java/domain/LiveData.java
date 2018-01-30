@@ -1,12 +1,11 @@
 package domain;
 
-import java.io.Serializable;
 
-public class RdfFile implements Serializable {
+public class LiveData {
 
     public Long id;
 
-    public String fileName;
+    public String sourceName;
 
     public String tags;
 
@@ -18,39 +17,39 @@ public class RdfFile implements Serializable {
 
     public String provider;
 
-    public String type;
-
     public boolean liveData;
-
-    public RdfFile(){
-
-    }
-
-    public RdfFile(String fileName, String tags, double rating, String dateOfUpload, long numberOfEntries, String provider, boolean liveData, String type) {
-        this.fileName = fileName;
-        this.tags = tags;
-        this.rating = rating;
-        this.dateOfUpload = dateOfUpload;
-        this.numberOfEntries = numberOfEntries;
-        this.provider = provider;
-        this.type = type;
-        this.liveData = liveData;
-    }
 
     public Long getId() {
         return id;
     }
 
+    public LiveData(){
+
+    }
+
+    public LiveData(String sourceName, String tags, double rating, String dateOfUpload, long numberOfEntries, String provider,boolean liveData, String type, String url){
+        this.sourceName = sourceName;
+        this.tags = tags;
+        this.rating = rating;
+        this.dateOfUpload = dateOfUpload;
+        this.numberOfEntries = numberOfEntries;
+        this.provider = provider;
+        this.url = url;
+        this.liveData = liveData;
+        this.type = type;
+    }
+
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getSourceName() {
+        return sourceName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 
     public String getTags() {
@@ -100,5 +99,17 @@ public class RdfFile implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-}
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String type;
+
+    public String url;
+
+}
