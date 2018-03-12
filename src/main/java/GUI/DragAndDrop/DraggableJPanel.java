@@ -1,7 +1,6 @@
 package GUI.DragAndDrop;
 
 import Controller.DragAndDrop.*;
-import Controller.NodePopupMenu;
 import GUI.InstanceReasoningScrollPane;
 import GUI.ReasonerPanel;
 import com.mxgraph.model.mxCell;

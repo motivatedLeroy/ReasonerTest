@@ -1,5 +1,7 @@
 package Controller;
 
+import EvaluationClasses.WaterLevells.WaterLevels;
+import EvaluationClasses.WeatherData.WeatherDataComplete;
 import GUI.BrokerPanel;
 import GUI.RDFTable;
 import GUI.ReasonerPanel;
@@ -71,6 +73,23 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                     if (resEntity != null) {
                         ObjectMapper mapper = new ObjectMapper();
                         LiveData liveData = mapper.readValue(EntityUtils.toString(resEntity), LiveData.class);
+                        if (liveData.url.equals("https://www.pegelonline.wsv.de/webservices/rest-api/v2/stations.json?waters=RHEIN,NECKAR")){
+                            Model model = WaterLevels.loadLiveData();
+                            RDFTable rdfTable = new RDFTable(reasonerPanel, false);
+                            rdfTable.readRDFTableModel(model);
+                            reasonerPanel.addRDFTable(rdfTable, rdfFile.fileName);
+                            reasonerPanel.model.add(rdfTable.model);
+                            return;
+                        }
+                        if(liveData.url.equals("http://api.openweathermap.org/data/2.5/box/city?bbox=7.5113934084,47.5338000528,10.4918239143,49.7913749328,10&lang=de&appid=0f4e460063387d91c92d56eb5e57d05d")){
+                            Model model = WeatherDataComplete.loadLiveData();
+                            RDFTable rdfTable = new RDFTable(reasonerPanel, false);
+                            rdfTable.readRDFTableModel(model);
+                            reasonerPanel.addRDFTable(rdfTable, rdfFile.fileName);
+                            reasonerPanel.model.add(rdfTable.model);
+                            return;
+                        }
+
 
                         System.out.println(liveData.url);
                         URL urlObject = new URL(liveData.url);
@@ -78,7 +97,6 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                         urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
 
                         String s = toString(urlConnection.getInputStream());
-
 
                         File file = new File("src/main/resources/received/"+rdfFile.fileName+".xml");
                         FileWriter fileWriter = new FileWriter(file);
@@ -101,17 +119,16 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                             }
 
                             Model tempModel = ModelFactory.createDefaultModel();
-                            tempModel.read("src/main/resources/"+rdfFile.fileName+".csv");
+                        tempModel.read("src/main/resources/"+rdfFile.fileName+".csv");
                             RDFTable rdfTable = new RDFTable(reasonerPanel, true);
                             rdfTable.readCSVTableModel(tempModel);
                             reasonerPanel.addRDFTable(rdfTable, rdfFile.fileName);
                             reasonerPanel.model.add(rdfTable.model);
 
-
+                        reasonerPanel.vowlViewComponent.setFileName(rdfFile.fileName+".xml");
                         reasonerPanel.vowlViewComponent.initialiseOWLView();
                         reasonerPanel.vowlControlViewComponent.initialiseOWLView();
                         reasonerPanel.vowlSideBarComponent.initialiseOWLView();
-
                     }
                     if (resEntity != null) {
                         EntityUtils.consume(resEntity);
@@ -189,17 +206,11 @@ public class DatasetToReasoningSessionListener implements ActionListener {
                             reasonerPanel.model.add(rdfTable.model);
                         }
 
-                        StmtIterator iterator = reasonerPanel.model.listStatements();
-                        int i = 0;
-                        while (iterator.hasNext()) {
-                            iterator.nextStatement();
-                            i++;
-                        }
-                        System.out.println(i);
 
+                        /*reasonerPanel.vowlViewComponent.setFileName(rdfFile.fileName+"."+rdfFile.type);
                         reasonerPanel.vowlViewComponent.initialiseOWLView();
                         reasonerPanel.vowlControlViewComponent.initialiseOWLView();
-                        reasonerPanel.vowlSideBarComponent.initialiseOWLView();
+                        reasonerPanel.vowlSideBarComponent.initialiseOWLView();*/
 
                     }
                     if (resEntity != null) {

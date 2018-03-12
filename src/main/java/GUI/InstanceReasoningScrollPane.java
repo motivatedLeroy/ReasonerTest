@@ -12,6 +12,8 @@ import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -27,31 +29,52 @@ public class InstanceReasoningScrollPane extends JSplitPane {
     private JScrollPane leftSideScrollPane = new JScrollPane(leftsideJPanel);
     private JScrollPane rightSideScrollPane = new JScrollPane(rightsideJPanel);
 
-    public ArrayList<String> ruleSet;
     public static ArrayList<Color> freeVariables;
 
     public InstanceReasoningScrollPane(){
         super(JSplitPane.HORIZONTAL_SPLIT);
-        this.setLeftComponent(this.leftSideScrollPane);
-        this.setRightComponent(this.rightSideScrollPane);
-        this.ruleSet = new ArrayList<>();
         this.freeVariables = new ArrayList<>();
+
 
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher( new KeyDispatcher(this));
+
+        resetRuleField();
+
+    }
+
+    private boolean painted;
+
+
+    public void resetRuleField(){
+        leftsideJPanel = new JPanel();
+        rightsideJPanel = new JPanel();
+
+        TitledBorder leftBorder = BorderFactory.createTitledBorder("Conditions");
+        TitledBorder rightBorder = BorderFactory.createTitledBorder("Consequents");
+        leftsideJPanel.setBorder(leftBorder);
+        ((javax.swing.border.TitledBorder) leftsideJPanel.getBorder()).setTitleFont(new Font("Arial", Font.BOLD, 18));
+        ((javax.swing.border.TitledBorder) leftsideJPanel.getBorder()).setTitleJustification(TitledBorder.CENTER);
+        rightsideJPanel.setBorder(rightBorder);
+        ((javax.swing.border.TitledBorder) rightsideJPanel.getBorder()).setTitleFont(new Font("Arial", Font.BOLD, 18));
+        ((javax.swing.border.TitledBorder) rightsideJPanel.getBorder()).setTitleJustification(TitledBorder.CENTER);
+
+        leftSideScrollPane = new JScrollPane(leftsideJPanel);
+        rightSideScrollPane = new JScrollPane(rightsideJPanel);
+
+        this.setLeftComponent(this.leftSideScrollPane);
+        this.setRightComponent(this.rightSideScrollPane);
 
         DraggableJPanel leftSide1 = new DraggableJPanel();
         DraggableJPanel leftSide2 = new DraggableJPanel();
         DraggableJPanel leftSide3 = new DraggableJPanel();
         DraggableJPanel leftSide4 = new DraggableJPanel();
 
-
         DraggableJPanel rightSide1 = new DraggableJPanel();
         DraggableJPanel rightSide2 = new DraggableJPanel();
         DraggableJPanel rightSide3 = new DraggableJPanel();
         DraggableJPanel rightSide4 = new DraggableJPanel();
-
 
 
         leftsideJPanel.setLayout(new BoxLayout(leftsideJPanel, BoxLayout.Y_AXIS));
@@ -66,17 +89,6 @@ public class InstanceReasoningScrollPane extends JSplitPane {
         rightsideJPanel.add(rightSide2);
         rightsideJPanel.add(rightSide3);
         rightsideJPanel.add(rightSide4);
-
-    }
-    private boolean painted;
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-
-        if (!painted) {
-            painted = true;
-        }
     }
 
 }

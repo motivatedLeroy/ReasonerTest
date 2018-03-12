@@ -17,7 +17,7 @@ public class AddDatasetJDialog extends JDialog{
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public AddDatasetJDialog(Container parent){
-        super((JFrame)parent.getParent().getParent().getParent().getParent().getParent());
+        super((JFrame)parent.getParent().getParent().getParent().getParent().getParent(), "Add static data set");
         this.setModal(true);
         this.setBounds((int)(screenSize.width*0.2),(int)(screenSize.height*0.2),(int)(screenSize.width*0.3), (int)(screenSize.height*0.5));
 

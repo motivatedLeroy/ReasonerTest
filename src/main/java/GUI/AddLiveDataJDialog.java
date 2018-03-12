@@ -1,6 +1,7 @@
 package GUI;
 
 import domain.LiveData;
+import jdk.nashorn.internal.scripts.JD;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -18,7 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class AddLiveDataJDialog extends JDialog {
 
@@ -29,13 +33,15 @@ public class AddLiveDataJDialog extends JDialog {
     public JButton acceptButton = new JButton("Accept");
     public JButton cancelButton = new JButton("Cancel");
     private BrokerPanel brokerPanel;
+    private  DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
 
 
 
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public AddLiveDataJDialog(Container parent){
-        super((JFrame)parent.getParent().getParent().getParent().getParent().getParent());
+        super((JFrame)parent.getParent().getParent().getParent().getParent().getParent(), "Add live data set");
         this.setModal(true);
         this.setBounds((int)(screenSize.width*0.3),(int)(screenSize.height*0.2),(int)(screenSize.width*0.3), (int)(screenSize.height*0.5));
         this.brokerPanel = (BrokerPanel)parent;
@@ -132,6 +138,8 @@ public class AddLiveDataJDialog extends JDialog {
                     String tags = tagsField.getText();
                     String url = liveDataURLField.getText();
                     Date date = new Date();
+                    String reportDate = df.format(date);
+
                     long time = date.getTime();
                     String provider = providerField.getText();
                     try {
@@ -143,7 +151,12 @@ public class AddLiveDataJDialog extends JDialog {
                         builder.addTextBody("sourceName", sourceName);
                         builder.addTextBody("tags", tags);
                         builder.addTextBody("rating", Double.toString(5.0));
-                        builder.addTextBody("dateOfUpload", Long.toString(time));
+                        builder.addTextBody("dateOfUpload", reportDate);
+
+                        Random random = new Random();
+                        long entries = random.nextInt(5000);
+                        entries+=200;
+
                         builder.addTextBody("entries", Long.toString(200L));
                         builder.addTextBody("provider", provider);
                         builder.addTextBody("type", "live");
@@ -152,12 +165,13 @@ public class AddLiveDataJDialog extends JDialog {
                         HttpResponse response = client.execute(httppost);
                         HttpEntity entity = response.getEntity();
 
-                        System.out.println("executing request " + httppost.getRequestLine());
                         HttpEntity resEntity = response.getEntity();
 
                         if (resEntity != null) {
+
+
                             String result = EntityUtils.toString(resEntity);
-                            LiveData liveData = new LiveData(sourceName, tags,5.0,Long.toString(time), 200L, provider,true, "live", url);
+                            LiveData liveData = new LiveData(sourceName, tags,3.0,reportDate, entries, provider,true, "live", url);
                             brokerPanel.addLiveDataRow(liveData);
                         }
                         if (resEntity != null) {
@@ -176,7 +190,14 @@ public class AddLiveDataJDialog extends JDialog {
 
 
                 }
+                Container parent = (Container)e.getSource();
+                while(!parent.getClass().equals(AddLiveDataJDialog.class)){
+                    parent = parent.getParent();
+                }
+                AddLiveDataJDialog dialog = (AddLiveDataJDialog)(parent);
+                dialog.dispose();
             }
+
         });
 
 

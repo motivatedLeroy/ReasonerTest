@@ -2,6 +2,7 @@ package Controller;
 
 import GUI.RDFTable;
 import GUI.ReasonerPanel;
+import org.apache.jena.base.Sys;
 import org.apache.jena.rdf.model.*;
 
 import javax.swing.*;
@@ -29,14 +30,18 @@ public class UpdateRDFTableListener implements ActionListener {
 
         int index = reasonerPanel.rdfTabbedPane.getSelectedIndex();
         JScrollPane scrollPane = (JScrollPane)reasonerPanel.rdfTabbedPane.getComponent(index);
-        RDFTable rdfTable = (RDFTable)scrollPane.getComponent(0);
+        JViewport viewport = (JViewport)scrollPane.getComponent(0);
+        RDFTable rdfTable = (RDFTable)viewport.getComponent(0);
 
         HashSet<String> uris = reasonerPanel.vowlViewComponent.getClickedNodesURIs();
+        if (uris.isEmpty()){
+
+        }
         Iterator<String> iterator = uris.iterator();
         while(iterator.hasNext()){
             String tempURI = iterator.next();
             Resource resource = tempModel.createResource(tempURI);
-
+            System.out.println(resource.toString());
                 StmtIterator stmtIterator = reasonerPanel.model.listStatements(resource, null, (RDFNode)null);
                 while (stmtIterator.hasNext()) {
                     Statement stmt = stmtIterator.nextStatement();  // get next statement

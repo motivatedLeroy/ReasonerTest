@@ -1,14 +1,21 @@
 package GUI;
 
 
-import Controller.DragAndDrop.KeyDispatcher;
+import EvaluationClasses.WaterLevells.Values;
+import EvaluationClasses.WaterLevells.WaterLevels;
+import EvaluationClasses.WeatherData.WeatherDataComplete;
+import EvaluationClasses.WeatherData.WeatherDataWrapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
-import static com.sun.deploy.util.DeployUIManager.setLookAndFeel;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import static javax.swing.UIManager.getInstalledLookAndFeels;
 
 public class Main {
 
@@ -49,10 +56,15 @@ public class Main {
         mainWindow.setVisible(true);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
+
+        WeatherDataComplete.loadLiveData();
 
         Main main = new Main();
     }
 
 
-    }
+
+
+}
+

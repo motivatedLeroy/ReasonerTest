@@ -19,6 +19,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.jena.base.Sys;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.reasoner.Derivation;
 import org.apache.jena.reasoner.Reasoner;
@@ -36,80 +37,134 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StartReasoningButtonListener implements ActionListener {
     private InstanceReasoningScrollPane instanceReasoningScrollPane;
     private ReasonerPanel reasonerPanel;
+    private HashMap<String, String> mathOperators = new HashMap<>();
 
     public StartReasoningButtonListener(InstanceReasoningScrollPane instanceReasoningScrollPane, ReasonerPanel reasonerPanel){
         this.instanceReasoningScrollPane = instanceReasoningScrollPane;
         this.reasonerPanel = reasonerPanel;
+        this.mathOperators.put("+", "sum( ");
+        this.mathOperators.put("*", "product( ");
+        this.mathOperators.put("-", "difference( ");
+        this.mathOperators.put("/", "quotient( ");
+
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String subjectString;
+        String [] subjectArray;
+        String predicateString;
+        String [] predicateArray;
+        String objectString;
+        String [] objectArray;
+
         int leftsideJPanelComponentCount = instanceReasoningScrollPane.leftsideJPanel.getComponentCount();
         int rightsideJPanelComponentCount = instanceReasoningScrollPane.rightsideJPanel.getComponentCount();
         int index = reasonerPanel.rdfTabbedPane.getSelectedIndex();
         JScrollPane scrollPane = (JScrollPane)reasonerPanel.rdfTabbedPane.getComponent(index);
-        RDFTable rdfTable = (RDFTable)scrollPane.getComponent(0);
+        JViewport viewport = (JViewport)scrollPane.getComponent(0);
+        RDFTable rdfTable = (RDFTable)viewport.getComponent(0);
 
-        String rulePart ="rule0: [(";
+        String rulePart ="[rule2: ";
 
         for(int i = 0; i < leftsideJPanelComponentCount; i++){
 
             DraggableJPanel panel = (DraggableJPanel)(instanceReasoningScrollPane.leftsideJPanel.getComponent(i));
             if(panel.mxGraphComponent != null){
+
                 mxCell mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("0");
-                rulePart += rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                subjectString = rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                subjectArray = subjectString.split("\\^\\^");
+                rulePart += " ( " +subjectArray[subjectArray.length-1];
+
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("1");
-                rulePart += rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                Pattern pattern = Pattern.compile("^([-+*\\/])");
+                Matcher matcher = pattern.matcher(mxCell.getValue().toString());
+                boolean check = matcher.find();
+
+                if(check){
+                    if(mathOperators.containsKey(matcher.group(1))){
+                        predicateString =mxCell.getValue().toString();
+                        String operator = matcher.group(1);
+                        matcher.reset();
+
+                        pattern = pattern.compile("(.*)\\(");
+                        matcher = pattern.matcher(rulePart);
+                        matcher.find();
+
+                        rulePart = matcher.group(1) + mathOperators.get(operator);
+                        rulePart += subjectArray[subjectArray.length-1]+ " ";
+
+                        matcher.reset();
+                        pattern = pattern.compile("(\\d+(?:\\.\\d+)?)");
+                        matcher = pattern.matcher(predicateString);
+                        matcher.find();
+                        rulePart += matcher.group(1)+ " ";
+
+                        matcher.reset();
+
+                    }else{
+                        predicateString = rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                        predicateArray = predicateString.split("\\^\\^");
+                        rulePart += predicateArray[predicateArray.length-1];
+                    }
+                }else{
+                    predicateString = rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                    predicateArray = predicateString.split("\\^\\^");
+                    rulePart += predicateArray[predicateArray.length-1];
+                }
+
+
+
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("2");
-                rulePart += rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
-                System.out.println(rulePart);
+                objectString = rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ " ";
+                objectArray = objectString.split("\\^\\^");
+                rulePart += objectArray[objectArray.length-1] + " ) ";
             }
         }
-        rulePart += " -> (";
+        rulePart += " -> ";
 
         for(int i = 0; i < rightsideJPanelComponentCount; i++){
             DraggableJPanel panel = (DraggableJPanel)(instanceReasoningScrollPane.rightsideJPanel.getComponent(i));
             if(panel.mxGraphComponent != null){
                 mxCell mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("0");
-                rulePart += rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                subjectString = rdfTable.getModelToTableMapper_Subject().get(mxCell.getValue())+ " ";
+                subjectArray = subjectString.split("\\^\\^");
+                rulePart += "( "+ subjectArray[subjectArray.length-1];
+
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("1");
-                rulePart += rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                predicateString = rdfTable.getModelToTableMapper_Predicate().get(mxCell.getValue())+ " ";
+                predicateArray = predicateString.split("\\^\\^");
+                rulePart += predicateArray[predicateArray.length-1];
+
                 mxCell =  (mxCell) ((mxGraphModel)panel.mxGraphComponent.getGraph().getModel()).getCell("2");
-                rulePart += rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ ") ";
-                System.out.println(rulePart);
+                objectString = rdfTable.getModelToTableMapper_Object().get(mxCell.getValue())+ " ";
+                objectArray = objectString.split("\\^\\^");
+                rulePart += objectArray[objectArray.length-1]+ " ) ";
             }
         }
-        //rulePart +=" -> ]";
+
+        rulePart += "]";
+
+        System.out.println(rulePart);
 
 
-        /*String rules =  "[rule0: (?a http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c) " +
-                "(?b http://www.workingontologist.org/Examples/Chapter3/biography.owl#married ?a) ->" +
-                *///" print(?a)]";
-          rulePart +=      " ?b http://www.workingontologist.org/Examples/Chapter3/biography.owl#livedIn ?c)]";
-        //String rules =  "[rule0: (?a http://www.w3.org/2000/01/rdf-schema#label ?b) -> (?a eg:test ?b)]";
-        //List rules = Rule.rulesFromURL("file:demo.rules");
 
         Reasoner reasoner = new GenericRuleReasoner(Rule.parseRules(rulePart));
-        System.out.println(rulePart);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
         reasoner.setDerivationLogging(true);
         InfModel inf = ModelFactory.createInfModel(reasoner, reasonerPanel.model);
 
         //inf.write(System.out);
 
-        StmtIterator list = inf.listStatements(null, null, (RDFNode) null);
+        /*StmtIterator list = inf.listStatements(null, null, (RDFNode) null);
         PrintWriter out = new PrintWriter(System.out);
 
         while (list.hasNext()) {
@@ -125,6 +180,18 @@ public class StartReasoningButtonListener implements ActionListener {
             }
         }
 
-        instanceReasoningScrollPane.ruleSet = new ArrayList<>();
+        */
+
+
+        /*Iterator it = rdfTable.getModelToTableMapper_Object().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
+        }*/
+
+
+
+        instanceReasoningScrollPane.resetRuleField();
     }
 }

@@ -24,7 +24,7 @@ public class ReasonerPanel extends JPanel{
     public Model model = ModelFactory.createDefaultModel();
 
 
-    public VOWLViewComponent vowlViewComponent = new VOWLViewComponent();
+    public VOWLViewComponent vowlViewComponent = new VOWLViewComponent("");
     public VOWLSideBarComponent vowlSideBarComponent = new VOWLSideBarComponent();
     public VOWLControlViewComponent vowlControlViewComponent = new VOWLControlViewComponent();
 

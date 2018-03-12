@@ -52,22 +52,36 @@ public class PanelHandler extends TransferHandler {
             while(!parent.getClass().equals(InstanceReasoningScrollPane.class)){
                 parent = parent.getParent();
             }
+
             InstanceReasoningScrollPane instanceReasoningScrollPane = (InstanceReasoningScrollPane)parent;
             DraggableJPanel draggableJPanel = new DraggableJPanel((mxDragAndDropComponent)component, reasonerPanel,instanceReasoningScrollPane);
-            for(int i = 0; i < instanceReasoningScrollPane.rightsideJPanel.getComponentCount(); i++){
-                DraggableJPanel draggableJPanel1 = (DraggableJPanel) instanceReasoningScrollPane.rightsideJPanel.getComponent(i);
-                if(draggableJPanel.mxGraphComponent.equals(draggableJPanel1.mxGraphComponent)){
-                    instanceReasoningScrollPane.rightsideJPanel.remove(i);
-                    break;
-                }
-            }
+
             for(int i = 0; i < instanceReasoningScrollPane.leftsideJPanel.getComponentCount(); i++){
                 DraggableJPanel draggableJPanel1 = (DraggableJPanel) instanceReasoningScrollPane.leftsideJPanel.getComponent(i);
                 if(draggableJPanel.mxGraphComponent.equals(draggableJPanel1.mxGraphComponent)){
+                    instanceReasoningScrollPane.rightsideJPanel.add(draggableJPanel);
                     instanceReasoningScrollPane.leftsideJPanel.remove(i);
-                    break;
+
+                    instanceReasoningScrollPane.updateUI();
+                    return true;
                 }
             }
+
+
+            for(int i = 0; i < instanceReasoningScrollPane.rightsideJPanel.getComponentCount(); i++){
+                DraggableJPanel draggableJPanel1 = (DraggableJPanel) instanceReasoningScrollPane.rightsideJPanel.getComponent(i);
+                if(draggableJPanel.mxGraphComponent.equals(draggableJPanel1.mxGraphComponent)){
+                    instanceReasoningScrollPane.leftsideJPanel.add(draggableJPanel);
+                    instanceReasoningScrollPane.rightsideJPanel.remove(i);
+
+                    instanceReasoningScrollPane.updateUI();
+
+                    return true;
+                }
+            }
+
+
+
 
             return true;
             /*System.out.println(jPanel.getParent().getParent().getParent().getClass());

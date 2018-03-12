@@ -20,14 +20,19 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class FileChooserListener implements ActionListener {
 
     private AddDatasetJDialog parent;
     private BrokerPanel brokerPanel;
     public ArrayList<RdfFile> files = null;
+    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
 
 
     public FileChooserListener(AddDatasetJDialog parent, BrokerPanel brokerPanel){
@@ -49,6 +54,7 @@ public class FileChooserListener implements ActionListener {
             String provider = this.parent.providerField.getText();
             Date date = new Date();
             long time = date.getTime();
+            String reportDate = df.format(date);
 
 
             String type = parts[parts.length-1];
@@ -65,20 +71,25 @@ public class FileChooserListener implements ActionListener {
                 builder.addTextBody("fileName", fileName);
                 builder.addTextBody("tags", tags);
                 builder.addTextBody("rating", Double.toString(5.0));
-                builder.addTextBody("dateOfUpload", Long.toString(time));
-                builder.addTextBody("entries", Long.toString(200L));
+                builder.addTextBody("dateOfUpload", reportDate);
+
+                Random random = new Random();
+                long entries = random.nextInt(5000);
+                entries+=200;
+                builder.addTextBody("entries", Long.toString(entries));
                 builder.addTextBody("provider", String.valueOf(provider));
                 builder.addTextBody("type", type);
                 httppost.setEntity(builder.build());
                 HttpResponse response = client.execute(httppost);
                 HttpEntity entity = response.getEntity();
 
-                System.out.println("executing request " + httppost.getRequestLine());
                 HttpEntity resEntity = response.getEntity();
 
                 if (resEntity != null) {
+
+
                     String result = EntityUtils.toString(resEntity);
-                    RdfFile rdfFile = new RdfFile(fileName, tags,5.0,Long.toString(time), 200L, provider,false, type);
+                    RdfFile rdfFile = new RdfFile(fileName, tags,3.0, reportDate, entries, provider,false, type);
                     brokerPanel.addRdfFileRow(rdfFile);
 
                 }

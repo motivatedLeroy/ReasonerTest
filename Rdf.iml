@@ -41,5 +41,14 @@
     <orderEntry type="library" name="Maven: org.prefuse:prefuse:beta-20071021" level="project" />
     <orderEntry type="library" name="Maven: org.visualdataweb:vowl:0.1.4-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.XML2CSV:GenericConverter:1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: tablelayout:tablelayout:pre-1.1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/tablelayout-pre-1.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

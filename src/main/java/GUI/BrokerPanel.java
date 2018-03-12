@@ -3,7 +3,6 @@ package GUI;
 import Controller.AddDatasetListener;
 import Controller.AddLiveDataButtonListener;
 import Controller.DatasetToReasoningSessionListener;
-import Controller.ViewSchemaButtonListener;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.LiveData;
@@ -21,9 +20,12 @@ import org.apache.jena.base.Sys;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BrokerPanel extends JPanel {
@@ -42,10 +44,11 @@ public class BrokerPanel extends JPanel {
     private JSearchTextField searchTextField = new JSearchTextField();
     private JButton newDatasetButton = new JButton("Upload new Dataset");
     private JButton addLiveDataButton = new JButton("Add Live - Data");
-    private JButton viewSchemaButton = new JButton("View Dataset schema");
     private JButton addDatasetToSessionButton = new JButton("Add Dataset to Reasoning Session");
     private JButton purchaseButton = new JButton("Purchase Dataset");
     private ReasonerPanel reasonerPanel;
+    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
 
     public DefaultTableModel dtm = new DefaultTableModel(){
         @Override
@@ -130,7 +133,14 @@ public class BrokerPanel extends JPanel {
         dtm.addColumn(new String("Live - Support"));
         dtm.addColumn(new String("Type"));
         rdfInformationTable.setModel(dtm);
-        rdfInformationTable.setFont(new Font(rdfInformationTable.getFont().getName(), Font.BOLD, 14));
+        Font f = new Font("Arial", Font.BOLD, 25);
+        JTableHeader header = rdfInformationTable.getTableHeader();
+        header.setFont(f);
+
+        rdfInformationTable.setFont(new Font(rdfInformationTable.getFont().getName(), Font.BOLD, 20));
+
+
+
 
 
         brokerMidLine.setBorder(new EmptyBorder(20,20,0,20));
@@ -154,8 +164,6 @@ public class BrokerPanel extends JPanel {
         bottomRightPanel.add(addLiveDataButton);
 
 
-        viewSchemaButton.addActionListener(new ViewSchemaButtonListener(this));
-        bottomRightPanel.add(viewSchemaButton);
         addDatasetToSessionButton.addActionListener(new DatasetToReasoningSessionListener(this, reasonerPanel));
         bottomRightPanel.add(addDatasetToSessionButton);
         bottomRightPanel.add(purchaseButton);
@@ -183,22 +191,46 @@ public class BrokerPanel extends JPanel {
     }
 
     public void addRdfFileRow(RdfFile data) {
+
         String[] row = new String[]{data.fileName, data.tags, Double.toString(data.rating), data.dateOfUpload, Long.toString(data.numberOfEntries), data.provider, String.valueOf(false), data.type};
-        System.out.println(data);
-        System.out.println(data.fileName);
-        System.out.println(data.tags);
-        System.out.println(data.rating);
-        System.out.println(data.dateOfUpload);
-        System.out.println(data.numberOfEntries);
-        System.out.println(data.provider);
-        System.out.println(data.liveData);
-        System.out.println(data.type);
         dtm.addRow(row);
+
+        try {
+            for (int i=0; i<rdfInformationTable.getRowCount(); i++) {
+                int rowHeight = rdfInformationTable.getRowHeight();
+
+                for (int column=0; column<rdfInformationTable.getColumnCount(); column++) {
+                    Component comp = rdfInformationTable.prepareRenderer(rdfInformationTable.getCellRenderer(i, column), i, column);
+                    rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+                }
+
+                rdfInformationTable.setRowHeight(i, rowHeight);
+            }
+        } catch(ClassCastException e) {
+
+        }
     }
 
     public void addLiveDataRow(LiveData data) {
+
+
         String[] row = new String[]{data.sourceName, data.tags, Double.toString(data.rating), data.dateOfUpload, Long.toString(data.numberOfEntries), data.provider, String.valueOf(true), data.type};
         dtm.addRow(row);
+        try {
+            for (int i=0; i<rdfInformationTable.getRowCount(); i++) {
+                int rowHeight = rdfInformationTable.getRowHeight();
+
+                for (int column=0; column<rdfInformationTable.getColumnCount(); column++) {
+                    Component comp = rdfInformationTable.prepareRenderer(rdfInformationTable.getCellRenderer(i, column), i, column);
+                    rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+                }
+
+                rdfInformationTable.setRowHeight(i, rowHeight);
+            }
+        } catch(ClassCastException e) {
+
+        }
+
     }
 
     public RdfFile getSelectedRow(){

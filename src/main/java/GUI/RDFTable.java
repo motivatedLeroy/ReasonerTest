@@ -15,9 +15,9 @@ public class RDFTable extends JTable {
 
     private ReasonerPanel reasonerPanel;
     private DefaultTableModel defaultTableModel = new DefaultTableModel();
-    public HashMap<String, String> modelToTableMapper_Subject = new HashMap<>();
-    public HashMap<String, String> modelToTableMapper_Predicate = new HashMap<>();;
-    public HashMap<String, String> modelToTableMapper_Object = new HashMap<>();;
+    public static HashMap<String, String> modelToTableMapper_Subject = new HashMap<>();
+    public static HashMap<String, String> modelToTableMapper_Predicate = new HashMap<>();;
+    public static HashMap<String, String> modelToTableMapper_Object = new HashMap<>();;
     public Model model;
     public boolean liveData;
 
@@ -202,10 +202,6 @@ public class RDFTable extends JTable {
         }
 
     }
-
-
-
-
 
 
 
